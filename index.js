@@ -6,7 +6,6 @@ const Cookie_Parser = require('cookie-parser');
 const Joi = require('joi');
 const session = require('express-session');
 var {createConnection} = require('mysql');
-var {sign,verify} = require('jsonwebtoken');
 var MySQLStore = require('express-mysql-session')(session);
 
 
@@ -148,6 +147,7 @@ else{
 
 
 app.get('/student/admissions', function (req, res) {
+    console.log(req.headers.host)
     con.query('SELECT Full_Name,Department FROM admission_form', function (error, results, fields) {
         if (error) {
             console.log("Error")
@@ -156,14 +156,43 @@ app.get('/student/admissions', function (req, res) {
     });
 });
 
-app.get('/hod/admissions', function (req, res) {
-    con.query('SELECT * FROM admission_form', function (error, results, fields) {
+
+
+
+// Show all students
+app.get('/hod/students', function (req, res) {
+    con.query('SELECT * FROM students', function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
         return res.send({ error: false, data: results, message: 'Complete Data.' });
     });
 });
+
+
+
+// Delete single student
+app.delete('/hod/students/:id', function (req, res) {
+    con.query('DELETE FROM students WHERE id = ? ',[req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
+// Update Fee Status
+app.post('/hod/students/:id', function (req, res) {
+    con.query("UPDATE students SET Fee_Status = ? WHERE id = ?",[req.body.fee,req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
 
 app.post('/hod/meritlist', function (req, res) {
     con.query('SELECT * FROM admission_form WHERE Department = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department], function (error, results, fields) {
@@ -173,16 +202,6 @@ app.post('/hod/meritlist', function (req, res) {
         return res.send({ error: false, data: results, message: 'Complete Data.' });
     });
 });
-
-
-// app.post('/hod/meritlistdata', function (req, res) {
-//     con.query('SELECT * FROM merit_list WHERE Department = ?',[req.body.Department], function (error, results, fields) {
-//         if (error) {
-//             console.log("Error")
-//         };
-//         return res.send({ error: false,data: results, message: 'Complete Data.' });
-//     });
-// });
 
 
 app.post('/hod/meritlistcontroller', function (req, res) {
