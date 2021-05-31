@@ -233,6 +233,46 @@ app.post('/hod/meritlistcurrent', function (req, res) {
 });
 
 
+
+// Get Teachers
+app.post('/hod/instructors', function (req, res) {
+    con.query('SELECT * FROM instructors WHERE Department = ?',[req.body.Department], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
+// Generate Time Table
+app.post('/api/hod/timetablegenerate', function (req, res) {
+    con.query("INSERT INTO timetable(Department, Instructor, Instructor_Department , Course_Title, Course_Code , Semester , Time_Slot , Shift , Room_no) value(?,?,?,?,?,?,?,?,?) ", [req.body.Department,req.body.Instructor,req.body.Instructor_Department,req.body.Course_Title,req.body.Course_Code,req.body.Semester,req.body.Time_Slot,req.body.Shift,req.body.Room_no], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+    });
+});
+
+app.post('/api/hod/timetable', function (req, res) {
+    con.query('SELECT * FROM timetable WHERE Department = ?',[req.body.Department], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+// Delete Time Table
+app.delete('/api/hod/timetable/:id', function (req, res) {
+    con.query('DELETE FROM timetable WHERE id = ? ',[req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
 app.listen(3001, function () {
     console.log('Node app is running on port 3001');
 });
