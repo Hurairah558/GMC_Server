@@ -69,12 +69,12 @@ app.get("/", function(req, res,next){
 
 app.get("/loginstatus", function(req, res,next){
     if(req.session.hod){
-       return res.send({LoggedIn:true,HOD:true,session:req.session.hod})
+       return res.send({LoggedIn:true,session:req.session.hod})
     }
     return res.send({LoggedIn:false,data:req.session.hod})
 })
 
-
+//Login
 app.post("/login", function(req, res){
     Username = req.body.formData.Username
     Password = req.body.formData.Password
@@ -85,8 +85,8 @@ app.post("/login", function(req, res){
         }
         if(results[0].Password === Password){
 
-            req.session.hod = results[0]
-
+            req.session.hod = results[0].Department
+            
             return res.send({data: results, session : req.session.hod ,LoggedIn:true,HOD:true});
         }
         return res.send({ Message: "Incorrect Credentials",LoggedIn:false});
@@ -106,7 +106,9 @@ app.post("/logout", function(req, res){
     }
     
 });
-  
+
+
+// Addmission Form  
 app.post('/addmissonform', function (req, res) {
 
 const schema = Joi.object({
@@ -234,7 +236,7 @@ app.post('/hod/meritlistcurrent', function (req, res) {
 
 
 
-// Get Teachers
+// Get Specific Department Instructors
 app.post('/hod/instructors', function (req, res) {
     con.query('SELECT * FROM instructors WHERE Department = ?',[req.body.Department], function (error, results, fields) {
         if (error) {
@@ -272,6 +274,26 @@ app.delete('/api/hod/timetable/:id', function (req, res) {
     });
 });
 
+
+// Get Free Instructors
+app.post('/api/ssio/freeinstructors', function (req, res) {
+    con.query('SELECT * FROM timetable WHERE Time_Slot <> ?',[req.body.Time_Slot], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+//Get All Instructors
+app.post('/api/hod/instructors', function (req, res) {
+    con.query('SELECT Instructor FROM instructors', function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
 
 app.listen(3001, function () {
     console.log('Node app is running on port 3001');
