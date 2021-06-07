@@ -275,9 +275,9 @@ app.delete('/api/hod/timetable/:id', function (req, res) {
 });
 
 
-// Get Free Instructors
-app.post('/api/ssio/freeinstructors', function (req, res) {
-    con.query('SELECT * FROM timetable WHERE Time_Slot <> ?',[req.body.Time_Slot], function (error, results, fields) {
+// Get Busy Instructors
+app.post('/api/ssio/busyinstructors', function (req, res) {
+    con.query('SELECT * FROM timetable WHERE Time_Slot = ?',[req.body.Time_Slot], function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
