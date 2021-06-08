@@ -147,6 +147,50 @@ else{
 });
 
 
+// Add student
+app.post('/api/hod/addstudent', function (req, res) {
+
+    const schema = Joi.object({
+        Roll : Joi.string().required(),
+        Full_Name : Joi.string().required(),
+        Father_Name : Joi.string().required(),
+        Gender : Joi.string().required(),
+        CNIC : Joi.string().required(),
+        DOB : Joi.string().required(),
+        Email : Joi.string().required(),
+        Phone : Joi.string().required(),
+        Address : Joi.string().required(),
+        Department : Joi.string().required(),
+        Matric_Roll : Joi.number().required(),
+        Matric_Total_Marks : Joi.number().required(),
+        Matric_Obtained_Marks : Joi.number().required(),
+        Matric_Year : Joi.number().required(),
+        Matric_Board : Joi.string().required(),
+        Inter_Roll : Joi.number().required(),
+        Inter_Total_Marks : Joi.number().required(),
+        Inter_Obtained_Marks : Joi.number().required(),
+        Inter_Year : Joi.number().required(),
+        Inter_Board : Joi.string().required(),
+        Semester : Joi.string().required(),
+        Shift : Joi.string().required(),
+        Fee_Status : Joi.string().required(),
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+        con.query("INSERT INTO students(Roll,Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Semester , Shift , Fee_Status ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester ,req.body.Shift ,req.body.Fee_Status], function (error, results, fields) {
+            if (error) throw error;
+            return res.send({ error: false, data: results, message: 'Added Successfully' });
+        });
+    }
+    
+    });
+
+
 app.get('/student/admissions', function (req, res) {
     con.query('SELECT Full_Name,Department FROM admission_form', function (error, results, fields) {
         if (error) {
