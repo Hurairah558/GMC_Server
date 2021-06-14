@@ -108,7 +108,7 @@ app.post("/logout", function(req, res){
     
 });
   
-app.post('/addmissonform', function (req, res) {
+app.post('api/student/addmissonform', function (req, res) {
 
 const schema = Joi.object({
     Full_Name : Joi.string().required(),
@@ -120,6 +120,7 @@ const schema = Joi.object({
     Phone : Joi.string().required(),
     Address : Joi.string().required(),
     Department : Joi.string().required(),
+    Shift : Joi.string().required(),
     Matric_Roll : Joi.number().required(),
     Matric_Total_Marks : Joi.number().required(),
     Matric_Obtained_Marks : Joi.number().required(),
@@ -138,7 +139,7 @@ if (result.error){
     res.send(result.error.details[0].message)
 }
 else{
-    con.query("INSERT INTO admission_form(Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board  ], function (error, results, fields) {
+    con.query("INSERT INTO admission_form(Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board , new Date() , new Date().getFullYear()], function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
     });
@@ -188,7 +189,7 @@ app.post('/api/hod/addstudent', function (req, res) {
         });
     }
     
-    });
+});
 
 
 app.get('/student/admissions', function (req, res) {
@@ -200,8 +201,9 @@ app.get('/student/admissions', function (req, res) {
     });
 });
 
-app.get('/hod/admissions', function (req, res) {
-    con.query('SELECT * FROM admission_form', function (error, results, fields) {
+// Get Unique Years
+app.get('/api/hod/admissions/years', function (req, res) {
+    con.query('SELECT DISTINCT(Year) FROM admission_form;', function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -209,8 +211,21 @@ app.get('/hod/admissions', function (req, res) {
     });
 });
 
+
+// Year Wise Admissions
+app.post('/api/hod/admissions', function (req, res) {
+    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ?',[req.body.Department,req.body.Year], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
+// Student Merit List
 app.post('/hod/meritlist', function (req, res) {
-    con.query('SELECT * FROM admission_form WHERE Department = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department], function (error, results, fields) {
+    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department,req.body.Year], function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -246,6 +261,7 @@ app.post('/hod/meritlistcontroller', function (req, res) {
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
 });
+
 
 app.post('/api/hod/students', function (req, res) {
     con.query('SELECT * FROM students WHERE Department = ?',[req.body.Department], function (error, results, fields) {
