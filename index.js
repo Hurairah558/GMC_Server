@@ -223,9 +223,9 @@ app.post('/api/hod/admissions', function (req, res) {
 });
 
 
-// Student Merit List
+// HOD Merit List Morning
 app.post('/hod/meritlist', function (req, res) {
-    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department,req.body.Year], function (error, results, fields) {
+    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department,req.body.Year,"Morning"], function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -234,16 +234,7 @@ app.post('/hod/meritlist', function (req, res) {
 });
 
 
-// app.post('/hod/meritlistdata', function (req, res) {
-//     con.query('SELECT * FROM merit_list WHERE Department = ?',[req.body.Department], function (error, results, fields) {
-//         if (error) {
-//             console.log("Error")
-//         };
-//         return res.send({ error: false,data: results, message: 'Complete Data.' });
-//     });
-// });
-
-
+// HOD Merit List Controller Morning
 app.post('/hod/meritlistcontroller', function (req, res) {
     
     MeritList = req.body.formData.MeritList
@@ -257,6 +248,55 @@ app.post('/hod/meritlistcontroller', function (req, res) {
     con.query("UPDATE meritlist_controller SET 	MeritList = ? ,	NOS_Start = ? ,	NOS_End = ? , Display = ? WHERE Department = ?", [MeritList ,Start ,End ,Display ,Department ], function (error, results, fields) {
         if (error) {
             console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+// HOD Current Merit List Morning
+app.post('/hod/meritlistcurrent', function (req, res) {
+    con.query("SELECT * FROM meritlist_controller WHERE Department = ?", [req.body.Department], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+// HOD Merit List Evening
+app.post('/hod/meritlist2', function (req, res) {
+    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department,req.body.Year,"Evening"], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+// HOD Merit List Controller Evening
+app.post('/hod/meritlistcontroller2', function (req, res) {
+    
+    MeritList = req.body.formData.MeritList
+    Start = req.body.formData.Start
+    End = req.body.formData.End
+    Display = req.body.formData.Display
+    if(Display==="True"){
+        Display=1
+    }
+    Department = req.body.formData.Department
+    con.query("UPDATE meritlist_controller2 SET MeritList = ? ,	NOS_Start = ? ,	NOS_End = ? , Display = ? WHERE Department = ?", [MeritList ,Start ,End ,Display ,Department ], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+// HOD Current Merit List Morning
+app.post('/hod/meritlistcurrent2', function (req, res) {
+    con.query("SELECT * FROM meritlist_controller2 WHERE Department = ?", [req.body.Department], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
         };
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
@@ -294,15 +334,6 @@ app.delete('/api/hod/students/:id', function (req, res) {
 });
 
 
-
-app.post('/hod/meritlistcurrent', function (req, res) {
-    con.query("SELECT * FROM meritlist_controller WHERE Department = ?", [req.body.Department], function (error, results, fields) {
-        if (error) {
-            console.log("Error")
-        };
-        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
-    });
-});
 
 // To be Done yet
 app.post('/api/ssio/busyinstructors', function (req, res) {
