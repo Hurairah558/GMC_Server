@@ -467,9 +467,20 @@ app.post('/api/instructor/awardlist', function (req, res) {
 });
 
 
-
+// Unique Results from Awardlist
 app.post('/api/ssio/awardlists', function (req, res) {
     con.query('SELECT DISTINCT(Course_Title) FROM awardlist WHERE Fall_Spring = ?;',["21"], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
+// Get Awardlists
+app.post('/api/ssio/details', function (req, res) {
+    con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Course_Title = ?;',["21",req.body.Course_Title], function (error, results, fields) {
         if (error) {
             console.log(error)
         };
