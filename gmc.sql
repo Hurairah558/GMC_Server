@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2021 at 09:50 AM
+-- Generation Time: Jun 22, 2021 at 07:40 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -54,7 +54,8 @@ INSERT INTO `admins` (`id`, `Username`, `Password`, `Department`) VALUES
 (13, 'Urdu', 'Urdu12345', 'Urdu'),
 (14, 'Zoology', 'Zoology12345', 'Zoology'),
 (15, 'SSIO', 'SSIO12345', 'SSIO'),
-(16, 'RO', 'RO12345', 'RO');
+(16, 'RO', 'RO12345', 'RO'),
+(19, 'Hurairah', '5156558H', 'Teacher');
 
 -- --------------------------------------------------------
 
@@ -1512,6 +1513,38 @@ CREATE TABLE `announcements` (
   `Announcement` varchar(255) DEFAULT NULL,
   `Timing` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `awardlist`
+--
+
+CREATE TABLE `awardlist` (
+  `id` int(11) NOT NULL,
+  `Roll` varchar(255) DEFAULT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  `Mids` varchar(255) DEFAULT NULL,
+  `Sessional` varchar(255) DEFAULT NULL,
+  `Course_Title` varchar(255) DEFAULT NULL,
+  `Course_Code` varchar(255) DEFAULT NULL,
+  `Fall_Spring` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `awardlist`
+--
+
+INSERT INTO `awardlist` (`id`, `Roll`, `Name`, `Mids`, `Sessional`, `Course_Title`, `Course_Code`, `Fall_Spring`) VALUES
+(201, 'a', 'a', 'a', 'a', 'os', '23', '21'),
+(202, 'a', 'a', 'a', 'a', 'os', '23', '21'),
+(203, 'a', 'a', 'a', 'a', 'os', '23', '21'),
+(204, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '22'),
+(205, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '22'),
+(206, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '22'),
+(207, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '21'),
+(208, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '21'),
+(209, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '21');
 
 -- --------------------------------------------------------
 
@@ -3201,6 +3234,12 @@ ALTER TABLE `announcements`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `awardlist`
+--
+ALTER TABLE `awardlist`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `instructors`
 --
 ALTER TABLE `instructors`
@@ -3250,7 +3289,7 @@ ALTER TABLE `timetable`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `admission_form`
@@ -3263,6 +3302,12 @@ ALTER TABLE `admission_form`
 --
 ALTER TABLE `announcements`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `awardlist`
+--
+ALTER TABLE `awardlist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
 
 --
 -- AUTO_INCREMENT for table `instructors`

@@ -302,7 +302,16 @@ app.post('/hod/meritlistcurrent2', function (req, res) {
     });
 });
 
+// Add Instructor
+app.post('/api/hod/addinstructor', function (req, res) {
+    con.query("INSERT INTO admins(Username,Password,Department) value(?,?,?) " ,[req.body.Username,req.body.Password,"Teacher"], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'uccessfully Added' });
+    });
+});
 
+
+// All Students Department Wise
 app.post('/api/hod/students', function (req, res) {
     con.query('SELECT * FROM students WHERE Department = ?',[req.body.Department], function (error, results, fields) {
         if (error) {
@@ -385,7 +394,6 @@ app.delete('/api/hod/timetable/:id', function (req, res) {
 });
 
 // Generate Time Table
-
 app.post('/api/hod/timetablegenerate', function (req, res) {
     con.query("INSERT INTO timetable(Department,Instructor,Instructor_Department,Course_Title,Course_Code,Semester,Time_Slot,Shift,Room_no) value(?,?,?,?,?,?,?,?,?) " ,[req.body.Department,req.body.Instructor,req.body.Instructor_Department,req.body.Course_Title,req.body.Course_Code,req.body.Semester,req.body.Time_Slot,req.body.Shift,req.body.Room_no], function (error, results, fields) {
         if (error) throw error;
@@ -406,6 +414,7 @@ app.get('/api/all/students', function (req, res) {
 });
 
 
+
 // Create Announcement
 app.post('/api/ssio/announcement', function (req, res) {
     con.query("INSERT INTO announcements(Subject,Announcement,Timing) value(?,?,?) " ,[req.body.Subject,req.body.Announcement,req.body.Timing], function (error, results, fields) {
@@ -413,6 +422,9 @@ app.post('/api/ssio/announcement', function (req, res) {
         return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
     });
 });
+
+
+
 // Get Announcements
 app.get('/api/student/announcements', function (req, res) {
     con.query("SELECT * FROM announcements", function (error, results, fields) {
@@ -422,6 +434,9 @@ app.get('/api/student/announcements', function (req, res) {
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
 });
+
+
+
 // Delete Announcements
 app.delete('/api/ssio/announcements/:id', function (req, res) {
     con.query("DELETE FROM announcements WHERE id = ?",[req.params.id], function (error, results, fields) {
@@ -429,6 +444,39 @@ app.delete('/api/ssio/announcements/:id', function (req, res) {
         return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
     });
 });
+
+
+// Award List
+app.post('/api/instructor/awardlist', function (req, res) {
+    var sql = "INSERT INTO awardlist (Roll, Name, Mids, Sessional, Course_Title, Course_Code, Fall_Spring) VALUES ?";
+    var values = [
+    ];
+
+    for (i=0;i<100;i++){
+        if(req.body['Roll'+i]!="" && req.body['Name'+i]!="" && req.body['Mids'+i]!="" && req.body['Sessional'+i]!="") {
+            values.push(
+                [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Fall_Spring]
+            )
+        }
+    }
+
+    con.query(sql, [values], function (err, result) {
+        if (err) throw err;
+        console.log("Number of records inserted: " + result.affectedRows);
+    });
+});
+
+
+
+app.post('/api/ssio/awardlists', function (req, res) {
+    con.query('SELECT DISTINCT(Course_Title) FROM awardlist WHERE Fall_Spring = ?;',["21"], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
 
 app.listen(3001, function () {
     console.log('Node app is running on port 3001');
