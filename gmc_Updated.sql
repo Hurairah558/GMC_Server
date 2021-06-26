@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2021 at 07:40 AM
+-- Generation Time: Jun 26, 2021 at 05:56 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -1644,7 +1644,7 @@ CREATE TABLE `meritlist_controller` (
 --
 
 INSERT INTO `meritlist_controller` (`id`, `MeritList`, `NOS_Start`, `NOS_End`, `Display`, `Department`) VALUES
-(45, '1st Merit List', 1, 56, 1, 'BBA'),
+(45, '', 0, 0, 0, 'BBA'),
 (46, '', 0, 0, 0, 'Botany'),
 (47, '', 0, 0, 0, 'Chemistry'),
 (48, '', 0, 0, 0, 'Economics'),
@@ -1742,14 +1742,6 @@ CREATE TABLE `sessions` (
   `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `sessions`
---
-
-INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('MdPBtyKkANula5Vf7WogDysKTjtGFOLT', 1624281578, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-06-21T11:15:11.445Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":\"SSIO\"}'),
-('qfdF7OslMlvUZ4YjXbsls9HK9y3aGDpC', 1623972129, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-06-17T22:16:31.422Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":\"BBA\"}');
-
 -- --------------------------------------------------------
 
 --
@@ -1788,10 +1780,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
-(9, '17651556-018', 'Aamirah', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 700, 2021, 'Guj', 369865, 1100, 700, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(12, '17651556-018', 'Aarif', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 628, 2021, 'Guj', 369865, 1100, 628, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(13, '17651556-018', 'Aariz', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 622, 2021, 'Guj', 369865, 1100, 622, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(14, '17651556-018', 'Aashif', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 870, 2021, 'Guj', 369865, 1100, 870, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
+(14, '17651556-018', 'Aashif', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 870, 2021, 'Guj', 369865, 1100, 870, 2021, 'Guj', '1', 'Paid', 'Morning'),
 (15, '17651556-018', 'Aashir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 769, 2021, 'Guj', 369865, 1100, 769, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (16, '17651556-018', 'Aasif', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 992, 2021, 'Guj', 369865, 1100, 992, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (17, '17651556-018', 'Aasim', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 369565, 1100, 906, 2021, 'Guj', 369865, 1100, 906, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
@@ -2004,10 +1993,10 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (224, '17651556-018', 'Abdus-Salaam', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 617, 2021, 'Guj', 369865, 1100, 617, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (225, '17651556-018', 'Abdus-Samad', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 892, 2021, 'Guj', 369865, 1100, 892, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (226, '17651556-018', 'Abdus-Sameei', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 639, 2021, 'Guj', 369865, 1100, 639, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(227, '17651556-018', 'Abdus-Shaheed', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 765, 2021, 'Guj', 369865, 1100, 765, 2021, 'Guj', '1', 'Unpaid', 'Morning');
-INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
+(227, '17651556-018', 'Abdus-Shaheed', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 765, 2021, 'Guj', 369865, 1100, 765, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (228, '17651556-018', 'Abdus-Shakur', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 816, 2021, 'Guj', 369865, 1100, 816, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(229, '17651556-018', 'Abdush Shahid', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 860, 2021, 'Guj', 369865, 1100, 860, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
+(229, '17651556-018', 'Abdush Shahid', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 860, 2021, 'Guj', 369865, 1100, 860, 2021, 'Guj', '1', 'Unpaid', 'Morning');
+INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
 (230, '17651556-018', 'Abid', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 750, 2021, 'Guj', 369865, 1100, 750, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (231, '17651556-018', 'Abidin', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 775, 2021, 'Guj', 369865, 1100, 775, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (232, '17651556-018', 'Abisali', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Chemistry', 369565, 1100, 913, 2021, 'Guj', 369865, 1100, 913, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
@@ -2223,10 +2212,10 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (442, '17651556-018', 'Barr', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 929, 2021, 'Guj', 369865, 1100, 929, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (443, '17651556-018', 'Barraq', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 712, 2021, 'Guj', 369865, 1100, 712, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (444, '17651556-018', 'Basel', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 661, 2021, 'Guj', 369865, 1100, 661, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(445, '17651556-018', 'Basem', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 906, 2021, 'Guj', 369865, 1100, 906, 2021, 'Guj', '1', 'Unpaid', 'Morning');
-INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
+(445, '17651556-018', 'Basem', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 906, 2021, 'Guj', 369865, 1100, 906, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (446, '17651556-018', 'Bashaar', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 620, 2021, 'Guj', 369865, 1100, 620, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(447, '17651556-018', 'Bashar', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 850, 2021, 'Guj', 369865, 1100, 850, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
+(447, '17651556-018', 'Bashar', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 850, 2021, 'Guj', 369865, 1100, 850, 2021, 'Guj', '1', 'Unpaid', 'Morning');
+INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
 (448, '17651556-018', 'Basharat', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 621, 2021, 'Guj', 369865, 1100, 621, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (449, '17651556-018', 'Bashir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 942, 2021, 'Guj', 369865, 1100, 942, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (450, '17651556-018', 'Bashshar', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'English', 369565, 1100, 750, 2021, 'Guj', 369865, 1100, 750, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
@@ -2440,10 +2429,10 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (658, '17651556-018', 'Hammam', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 778, 2021, 'Guj', 369865, 1100, 778, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (659, '17651556-018', 'Hamood', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 854, 2021, 'Guj', 369865, 1100, 854, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (660, '17651556-018', 'Hamza', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 825, 2021, 'Guj', 369865, 1100, 825, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(661, '17651556-018', 'Hamzah', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 661, 2021, 'Guj', 369865, 1100, 661, 2021, 'Guj', '1', 'Unpaid', 'Morning');
-INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
+(661, '17651556-018', 'Hamzah', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 661, 2021, 'Guj', 369865, 1100, 661, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (662, '17651556-018', 'Hana', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 691, 2021, 'Guj', 369865, 1100, 691, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(663, '17651556-018', 'Hanai', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 750, 2021, 'Guj', 369865, 1100, 750, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
+(663, '17651556-018', 'Hanai', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 750, 2021, 'Guj', 369865, 1100, 750, 2021, 'Guj', '1', 'Unpaid', 'Morning');
+INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
 (664, '17651556-018', 'Hanash', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 633, 2021, 'Guj', 369865, 1100, 633, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (665, '17651556-018', 'Hanbal', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 724, 2021, 'Guj', 369865, 1100, 724, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (666, '17651556-018', 'Haneef', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Political Science', 369565, 1100, 980, 2021, 'Guj', 369865, 1100, 980, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
@@ -2655,10 +2644,10 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (872, '17651556-018', 'Karim, Kareem', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 808, 2021, 'Guj', 369865, 1100, 808, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (873, '17651556-018', 'Kasam', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 981, 2021, 'Guj', 369865, 1100, 981, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (874, '17651556-018', 'Kaseem, Kasim', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 724, 2021, 'Guj', 369865, 1100, 724, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(875, '17651556-018', 'Kashif', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 954, 2021, 'Guj', 369865, 1100, 954, 2021, 'Guj', '1', 'Unpaid', 'Morning');
-INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
+(875, '17651556-018', 'Kashif', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 954, 2021, 'Guj', 369865, 1100, 954, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (876, '17651556-018', 'Kasib, Kaseeb', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 813, 2021, 'Guj', 369865, 1100, 813, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(877, '17651556-018', 'Kasim', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 916, 2021, 'Guj', 369865, 1100, 916, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
+(877, '17651556-018', 'Kasim', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 916, 2021, 'Guj', 369865, 1100, 916, 2021, 'Guj', '1', 'Unpaid', 'Morning');
+INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
 (878, '17651556-018', 'Kateb, Katib', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 759, 2021, 'Guj', 369865, 1100, 759, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (879, '17651556-018', 'Kaysan', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 954, 2021, 'Guj', 369865, 1100, 954, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (880, '17651556-018', 'Kazi', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Mathematics', 369565, 1100, 979, 2021, 'Guj', 369865, 1100, 979, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
@@ -2866,10 +2855,10 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (1082, '17651556-018', 'Mufti', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 1000, 2021, 'Guj', 369865, 1100, 1000, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1083, '17651556-018', 'Mughith', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 812, 2021, 'Guj', 369865, 1100, 812, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1084, '17651556-018', 'Muhab', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 696, 2021, 'Guj', 369865, 1100, 696, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(1085, '17651556-018', 'Muhafiz', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 879, 2021, 'Guj', 369865, 1100, 879, 2021, 'Guj', '1', 'Unpaid', 'Morning');
-INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
+(1085, '17651556-018', 'Muhafiz', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 879, 2021, 'Guj', 369865, 1100, 879, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1086, '17651556-018', 'Muhair, Muhayr', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 851, 2021, 'Guj', 369865, 1100, 851, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(1087, '17651556-018', 'Muhajir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 810, 2021, 'Guj', 369865, 1100, 810, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
+(1087, '17651556-018', 'Muhajir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 810, 2021, 'Guj', 369865, 1100, 810, 2021, 'Guj', '1', 'Unpaid', 'Morning');
+INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
 (1088, '17651556-018', 'Muhammad', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 683, 2021, 'Guj', 369865, 1100, 683, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1089, '17651556-018', 'Muhammad, Mohammed', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 799, 2021, 'Guj', 369865, 1100, 799, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1090, '17651556-018', 'Muhanna', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Information Technology', 369565, 1100, 961, 2021, 'Guj', 369865, 1100, 961, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
@@ -3084,10 +3073,10 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (1300, '17651556-018', 'Nusayr', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Urdu', 369565, 1100, 809, 2021, 'Guj', 369865, 1100, 809, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1303, '17651556-018', 'Obaid', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 636, 2021, 'Guj', 369865, 1100, 636, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1304, '17651556-018', 'Omar', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 998, 2021, 'Guj', 369865, 1100, 998, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(1305, '17651556-018', 'Osama', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 963, 2021, 'Guj', 369865, 1100, 963, 2021, 'Guj', '1', 'Unpaid', 'Morning');
-INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
+(1305, '17651556-018', 'Osama', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 963, 2021, 'Guj', 369865, 1100, 963, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1306, '17651556-018', 'Owais', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 681, 2021, 'Guj', 369865, 1100, 681, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
-(1307, '17651556-018', 'P', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 764, 2021, 'Guj', 369865, 1100, 764, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
+(1307, '17651556-018', 'P', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 764, 2021, 'Guj', 369865, 1100, 764, 2021, 'Guj', '1', 'Unpaid', 'Morning');
+INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Shift`) VALUES
 (1308, '17651556-018', 'Parvez', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 647, 2021, 'Guj', 369865, 1100, 647, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1309, '17651556-018', 'Pervaiz', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 817, 2021, 'Guj', 369865, 1100, 817, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
 (1310, '17651556-018', 'Q', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Zoology', 369565, 1100, 869, 2021, 'Guj', 369865, 1100, 869, 2021, 'Guj', '1', 'Unpaid', 'Morning'),
@@ -3208,7 +3197,6 @@ CREATE TABLE `timetable` (
 
 INSERT INTO `timetable` (`id`, `Department`, `Instructor`, `Instructor_Department`, `Course_Title`, `Course_Code`, `Semester`, `Time_Slot`, `Shift`, `Room_no`) VALUES
 (183, 'BBA', 'Sir Ehtesham', 'Information Technology', 'Data Structures', 'IT-209', '1', '8:30 AM to 9:20 AM', 'Morning', '1'),
-(184, 'BBA', 'Sir Touseef', 'Information Technology', 'Data Structures', 'IT-209', '1', '9:20 AM to 10:10 AM', 'Morning', '1'),
 (186, 'Zoology', 'Aadil', 'BBA', 'Data Structures', 'IT-209', '1', '8:30 AM to 9:20 AM', 'Morning', '1');
 
 --
