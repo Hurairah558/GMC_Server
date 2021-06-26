@@ -488,6 +488,47 @@ app.post('/api/ssio/details', function (req, res) {
     });
 });
 
+// DateSheet Generate Morning
+app.post('/api/hod/generatedatesheet', function (req, res) {
+    con.query("INSERT INTO datesheet(Course_Title,Course_Code,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department,"Morning",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+    });
+});
+// Get DateSheet Morning
+app.post('/api/hod/datesheet', function (req, res) {
+    con.query('SELECT * FROM datesheet WHERE Fall_Spring = ? and Shift = ? and Department = ?;',["Fall-2021","Morning",req.body.Department], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+// DateSheet Generate Evening
+app.post('/api/hod/generatedatesheet2', function (req, res) {
+    con.query("INSERT INTO datesheet(Course_Title,Course_Code,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department,"Evening",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+    });
+});
+// Get DateSheet Evening
+app.post('/api/hod/datesheet2', function (req, res) {
+    con.query('SELECT * FROM datesheet WHERE Fall_Spring = ? and Shift = ? and Department = ?;',["Fall-2021","Evening",req.body.Department], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+//Delete
+app.delete('/api/hod/datesheet/:id', function (req, res) {
+    con.query("DELETE FROM datesheet WHERE id = ?", [req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
 
 app.listen(3001, function () {
     console.log('Node app is running on port 3001');

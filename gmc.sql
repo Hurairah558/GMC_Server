@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2021 at 05:56 PM
+-- Generation Time: Jun 26, 2021 at 07:58 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -1545,6 +1545,30 @@ INSERT INTO `awardlist` (`id`, `Roll`, `Name`, `Mids`, `Sessional`, `Course_Titl
 (207, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '21'),
 (208, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '21'),
 (209, 'd', 'd', 'd', 'd', 'MGT', 'MGT205', '21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `datesheet`
+--
+
+CREATE TABLE `datesheet` (
+  `id` int(11) NOT NULL,
+  `Course_Title` varchar(255) DEFAULT NULL,
+  `Course_Code` varchar(255) DEFAULT NULL,
+  `Department` varchar(255) DEFAULT NULL,
+  `Shift` varchar(255) DEFAULT NULL,
+  `Time_Slot` varchar(255) DEFAULT NULL,
+  `Fall_Spring` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `datesheet`
+--
+
+INSERT INTO `datesheet` (`id`, `Course_Title`, `Course_Code`, `Department`, `Shift`, `Time_Slot`, `Fall_Spring`) VALUES
+(4, 'Data Structures', 'IT-209', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021'),
+(5, 'Data Structures', 'IT-209', 'BBA', 'Evening', '8:30 AM to 9:20 AM', 'Fall-2021');
 
 -- --------------------------------------------------------
 
@@ -3228,6 +3252,12 @@ ALTER TABLE `awardlist`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `datesheet`
+--
+ALTER TABLE `datesheet`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `instructors`
 --
 ALTER TABLE `instructors`
@@ -3296,6 +3326,12 @@ ALTER TABLE `announcements`
 --
 ALTER TABLE `awardlist`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
+
+--
+-- AUTO_INCREMENT for table `datesheet`
+--
+ALTER TABLE `datesheet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `instructors`
