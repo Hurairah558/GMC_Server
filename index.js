@@ -8,8 +8,15 @@ const session = require('express-session');
 var {createConnection} = require('mysql');
 var {sign,verify} = require('jsonwebtoken');
 var MySQLStore = require('express-mysql-session')(session);
+var nodemailer = require('nodemailer');
 
-
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'hurairah564@gmail.com',
+      pass: '5156558gg'
+    }
+  });
 
 const corsOptions ={
     origin:'http://localhost:3000', 
@@ -25,6 +32,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+
 
 app.use(cors(corsOptions));
 
@@ -108,9 +117,34 @@ app.post("/logout", function(req, res){
     
 });
   
-app.post('api/student/addmissonform', function (req, res) {
+app.post('/api/student/addmissonform', function (req, res) {
+
+    var mail = `
+        ${req.body.Full_Name}\n
+        ${req.body.Father_Name}\n
+        ${req.body.Gender}\n
+        ${req.body.CNIC}\n
+        ${req.body.DOB}\n
+        ${req.body.Email}\n
+        ${req.body.Phone}\n
+        ${req.body.Address}\n
+        ${req.body.Department}\n
+        ${req.body.Shift}\n
+        ${req.body.Matric_Roll}\n
+        ${req.body.Matric_Total_Marks}\n
+        ${req.body.Matric_Obtained_Marks}\n
+        ${req.body.Matric_Year}\n
+        ${req.body.Matric_Board}\n
+        ${req.body.Inter_Roll}\n
+        ${req.body.Inter_Total_Marks}\n
+        ${req.body.Inter_Obtained_Marks}\n
+        ${req.body.Inter_Year}\n
+        ${req.body.Inter_Board}\n
+        `
 
 const schema = Joi.object({
+    Department : Joi.string().required(),
+    Shift : Joi.string().required(),
     Full_Name : Joi.string().required(),
     Father_Name : Joi.string().required(),
     Gender : Joi.string().required(),
@@ -119,8 +153,6 @@ const schema = Joi.object({
     Email : Joi.string().required(),
     Phone : Joi.string().required(),
     Address : Joi.string().required(),
-    Department : Joi.string().required(),
-    Shift : Joi.string().required(),
     Matric_Roll : Joi.number().required(),
     Matric_Total_Marks : Joi.number().required(),
     Matric_Obtained_Marks : Joi.number().required(),
@@ -130,7 +162,7 @@ const schema = Joi.object({
     Inter_Total_Marks : Joi.number().required(),
     Inter_Obtained_Marks : Joi.number().required(),
     Inter_Year : Joi.number().required(),
-    Inter_Board : Joi.string().required(),
+    Inter_Board : Joi.string().required()
 });
 
 result = schema.validate(req.body);
@@ -139,14 +171,65 @@ if (result.error){
     res.send(result.error.details[0].message)
 }
 else{
-    con.query("INSERT INTO admission_form(Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board , new Date() , new Date().getFullYear()], function (error, results, fields) {
-        if (error) throw error;
-        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+
+    con.query('SELECT * FROM merit_list_formula', function (error, resultss, fields) {
+        if (error) {
+            console.log("Error")
+        };
+
+        matric_percentage = resultss[0]['Matric']
+        inter_percentage = resultss[0]['Inter']
+
+        
+        merit = ((parseInt(req.body.Matric_Obtained_Marks)/parseInt(req.body.Matric_Total_Marks))*parseInt(matric_percentage))+((parseInt(req.body.Inter_Obtained_Marks)/parseInt(req.body.Inter_Total_Marks))*parseInt(inter_percentage))
+
+        con.query("INSERT INTO admission_form(Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , merit , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board , merit , new Date() , new Date().getFullYear()], function (error, results, fields) {
+            if (error) throw error;
+
+            var mailOptions = {
+                from: 'hurairah564@gmail.com',
+                to: req.body.Email,
+                subject: `Successfully Applied in ${req.body.Department}`,
+                text: `Your Provided Information is :\n\n\n${mail}`
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                console.log(error);
+                } else {
+                console.log('Email sent: ' + info.response);
+                }
+            });
+
+            return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+        });
     });
 }
 
 });
 
+
+// Check Admission Access
+app.get('/api/ro/admission_control', function (req, res) {
+    con.query('SELECT * FROM admission_control', function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
+
+// Change Admission Access
+app.put('/api/ro/admission_control', function (req, res) {
+    con.query("UPDATE admission_control SET Open = ?", [req.body.Admission_Controller], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
 
 // Add student
 app.post('/api/hod/addstudent', function (req, res) {
@@ -183,7 +266,7 @@ app.post('/api/hod/addstudent', function (req, res) {
         res.send(result.error.details[0].message)
     }
     else{
-        con.query("INSERT INTO students(Roll,Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Semester , Shift , Fee_Status ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester ,req.body.Shift ,req.body.Fee_Status], function (error, results, fields) {
+        con.query("INSERT INTO students(Roll,Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Semester , Shift , Fee_Status , Admission_Time , Year  ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester ,req.body.Shift ,req.body.Fee_Status,new Date(),new Date().getFullYear()], function (error, results, fields) {
             if (error) throw error;
             return res.send({ error: false, data: results, message: 'Added Successfully' });
         });
@@ -225,7 +308,7 @@ app.post('/api/hod/admissions', function (req, res) {
 
 // HOD Merit List Morning
 app.post('/hod/meritlist', function (req, res) {
-    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department,req.body.Year,"Morning"], function (error, results, fields) {
+    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY merit DESC',[req.body.Department,req.body.Year,"Morning"], function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -265,7 +348,7 @@ app.post('/hod/meritlistcurrent', function (req, res) {
 
 // HOD Merit List Evening
 app.post('/hod/meritlist2', function (req, res) {
-    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY Inter_Obtained_Marks DESC',[req.body.Department,req.body.Year,"Evening"], function (error, results, fields) {
+    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY merit DESC',[req.body.Department,req.body.Year,"Evening"], function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -302,6 +385,94 @@ app.post('/hod/meritlistcurrent2', function (req, res) {
     });
 });
 
+
+// Set Merit List Formula
+app.put('/api/ro/meritlist/formula', function (req, res) {
+
+    const schema = Joi.object({
+        Matric_Percentage : Joi.number().required(),
+        Inter_Percentage : Joi.number().required()
+    });
+
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+
+    con.query("UPDATE merit_list_formula SET Matric = ? , Inter = ?", [req.body.Matric_Percentage,req.body.Inter_Percentage], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false,data: results, message: 'Formula Applied SuccesFully' });
+    });
+}
+});
+
+
+// app.put('/api/ro/meritlist/formula', function (req, res) {
+
+//     console.log(req.body)
+
+//     const schema = Joi.object({
+//         Matric_Percentage : Joi.number().required(),
+//         Inter_Percentage : Joi.number().required()
+//     });
+
+
+
+
+//     // var sql = "UPDATE admission_form SET merit WHERE id = ? VALUES ?";
+//     // var values = [
+//     // ];
+
+//     // for (i=0;i<100;i++){
+//     //     if(req.body['Roll'+i]!="" && req.body['Name'+i]!="" && req.body['Mids'+i]!="" && req.body['Sessional'+i]!="") {
+//     //         values.push(
+//     //             [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Fall_Spring,req.body.Shift]
+//     //         )
+//     //     }
+//     // }
+
+
+//     //new Date().getFullYear()
+    
+//     result = schema.validate(req.body);
+    
+//     if (result.error){
+//         res.send(result.error.details[0].message)
+//     }
+//     else{
+
+//         con.query("SELECT * FROM admission_form WHERE Year = ?", [new Date().getFullYear()],function (error, results, fields) {
+//             if (error) {
+//                 console.log("Error")
+//             };
+
+//             results.map((student,index)=>{
+//                 merit = ((parseInt(student.Inter_Obtained_Marks)/parseInt(student.Inter_Total_Marks)) * parseInt(req.body.Inter_Percentage)) + ((parseInt(student.Matric_Obtained_Marks)/parseInt(student.Matric_Total_Marks)) * parseInt(req.body.Matric_Percentage))
+//                 console.log(merit)
+//                 con.query("UPDATE admission_form SET merit = ? WHERE id = ?", [String(merit),student.id], function (error, resultss, fields) {
+//                 if (error) {
+//                     console.log("Error")
+//                 };
+//                     return res.send({ error: false,data: resultss, message: 'Formula Applied SuccesFully' });
+//                 });
+//             })
+//             // return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+//         });
+
+//         // con.query("UPDATE admission_form SET Fee_Status = ? WHERE id = ?", [req.body.fee,req.params.id], function (error, results, fields) {
+//         //     if (error) {
+//         //         console.log("Error")
+//         //     };
+//         //     return res.send({ error: false,data: results, message: 'Formula Applied SuccesFully' });
+//         // });
+//     }
+// });
+
+
 // Add Instructor
 app.post('/api/hod/addinstructor', function (req, res) {
     con.query("INSERT INTO admins(Username,Password,Department) value(?,?,?) " ,[req.body.Username,req.body.Password,"Teacher"], function (error, results, fields) {
@@ -324,11 +495,26 @@ app.post('/api/hod/students', function (req, res) {
 
 //Fee Status
 app.put('/api/hod/students/:id', function (req, res) {
-    con.query("UPDATE students SET Fee_Status = ? WHERE id = ?", [req.body.fee,req.params.id], function (error, results, fields) {
+
+    con.query('SELECT * FROM students WHERE id = ?',[req.params.id], function (error, resultss, fields) {
         if (error) {
             console.log("Error")
         };
-        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+
+        if (req.body.fee === "Paid"){
+            var Semester = parseInt(resultss[0]["Semester"]) + 1
+        }
+        if (req.body.fee === "Unpaid"){
+            var Semester = parseInt(resultss[0]["Semester"]) - 1
+        }
+
+        con.query("UPDATE students SET Fee_Status = ?, Semester = ? WHERE id = ?", [req.body.fee,Semester,req.params.id], function (error, results, fields) {
+            if (error) {
+                console.log("Error")
+            };
+            return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+        });
+
     });
 });
 
@@ -373,14 +559,25 @@ app.post('/hod/instructors', function (req, res) {
     });
 });
 
-
 // Get Time Table
 app.post('/api/hod/timetable', function (req, res) {
-    con.query("SELECT * FROM timetable WHERE Department = ?",[req.body.Department], function (error, results, fields) {
+    con.query('SELECT DISTINCT(Fall_Spring) FROM timetable WHERE Department = ? ORDER BY Fall_Spring;',[req.body.Department], function (error, resultss, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
-        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+        if(resultss.length>0){
+            Fall_Spring = resultss[resultss.length-1].Fall_Spring
+        }
+        if(req.body.Fall_Spring){
+            Fall_Spring = req.body.Fall_Spring
+        }
+                
+        con.query('SELECT * FROM timetable WHERE Fall_Spring = ? and Department = ?;',[Fall_Spring,req.body.Department], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false, data: results, message: 'Complete Data.' });
+        });
     });
 });
 
@@ -395,7 +592,7 @@ app.delete('/api/hod/timetable/:id', function (req, res) {
 
 // Generate Time Table
 app.post('/api/hod/timetablegenerate', function (req, res) {
-    con.query("INSERT INTO timetable(Department,Instructor,Instructor_Department,Course_Title,Course_Code,Semester,Time_Slot,Shift,Room_no) value(?,?,?,?,?,?,?,?,?) " ,[req.body.Department,req.body.Instructor,req.body.Instructor_Department,req.body.Course_Title,req.body.Course_Code,req.body.Semester,req.body.Time_Slot,req.body.Shift,req.body.Room_no], function (error, results, fields) {
+    con.query("INSERT INTO timetable(Department,Instructor,Instructor_Department,Course_Title,Course_Code,Semester,Time_Slot,Shift,Fall_Spring,Room_no) value(?,?,?,?,?,?,?,?,?,?) " ,[req.body.Department,req.body.Instructor,req.body.Instructor_Department,req.body.Course_Title,req.body.Course_Code,req.body.Semester,req.body.Time_Slot,req.body.Shift,req.body.Fall_Spring,req.body.Room_no], function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
     });
@@ -403,9 +600,19 @@ app.post('/api/hod/timetablegenerate', function (req, res) {
 
 
 
-/// Get All Students
+/// Get All Students Morning
 app.get('/api/all/students', function (req, res) {
-    con.query("SELECT * FROM students", function (error, results, fields) {
+    con.query("SELECT * FROM students WHERE Shift = ?",["Morning"], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+/// Get All Students Evening
+app.get('/api/all/students2', function (req, res) {
+    con.query("SELECT * FROM students WHERE Shift = ?",["Evening"], function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -445,17 +652,16 @@ app.delete('/api/ssio/announcements/:id', function (req, res) {
     });
 });
 
-
-// Award List
+//Generate Award List
 app.post('/api/instructor/awardlist', function (req, res) {
-    var sql = "INSERT INTO awardlist (Roll, Name, Mids, Sessional, Course_Title, Course_Code, Fall_Spring) VALUES ?";
+    var sql = "INSERT INTO awardlist (Roll, Name, Mids, Sessional, Course_Title, Course_Code, Fall_Spring,Shift) VALUES ?";
     var values = [
     ];
 
     for (i=0;i<100;i++){
         if(req.body['Roll'+i]!="" && req.body['Name'+i]!="" && req.body['Mids'+i]!="" && req.body['Sessional'+i]!="") {
             values.push(
-                [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Fall_Spring]
+                [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Fall_Spring,req.body.Shift]
             )
         }
     }
@@ -469,18 +675,40 @@ app.post('/api/instructor/awardlist', function (req, res) {
 
 // Unique Results from Awardlist
 app.post('/api/ssio/awardlists', function (req, res) {
-    con.query('SELECT DISTINCT(Course_Title) FROM awardlist WHERE Fall_Spring = ?;',["21"], function (error, results, fields) {
+
+        con.query('SELECT DISTINCT(Fall_Spring) FROM awardlist ORDER BY Fall_Spring;', function (error, resultss, fields) {
+            if (error) {
+                console.log(error)
+            };
+            if(resultss.length>0){
+                Fall_Spring = resultss[resultss.length-1].Fall_Spring
+            }
+            if(req.body.Fall_Spring){
+                Fall_Spring = req.body.Fall_Spring
+            }
+            
+            con.query('SELECT * FROM awardlist WHERE Fall_Spring = ?;',[Fall_Spring], function (error, results, fields) {
+                if (error) {
+                    console.log(error)
+                };
+                return res.send({ error: false, data: results, message: 'Complete Data.' });
+            });
+        });
+});
+
+//Delete Awardlist
+app.delete('/api/ssio/awardlist/:id', function (req, res) {
+    con.query("DELETE FROM awardlist WHERE id = ?", [req.params.id], function (error, results, fields) {
         if (error) {
-            console.log(error)
+            console.log("Error")
         };
-        return res.send({ error: false, data: results, message: 'Complete Data.' });
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
 });
 
-
-// Get Awardlists
+// Get All Awardlists Session Wise
 app.post('/api/ssio/details', function (req, res) {
-    con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Course_Title = ?;',["21",req.body.Course_Title], function (error, results, fields) {
+    con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Course_Title = ? and Shift = ?;',[req.body.Fall_Spring,req.body.Course_Title,req.body.Shift], function (error, results, fields) {
         if (error) {
             console.log(error)
         };
@@ -495,15 +723,34 @@ app.post('/api/hod/generatedatesheet', function (req, res) {
         return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
     });
 });
+
+
 // Get DateSheet Morning
 app.post('/api/hod/datesheet', function (req, res) {
-    con.query('SELECT * FROM datesheet WHERE Fall_Spring = ? and Shift = ? and Department = ?;',["Fall-2021","Morning",req.body.Department], function (error, results, fields) {
+
+
+    con.query('SELECT DISTINCT(Fall_Spring) FROM datesheet WHERE Department = ? and Shift = ? ORDER BY Fall_Spring;',[req.body.Department,"Morning"], function (error, resultss, fields) {
         if (error) {
             console.log(error)
         };
-        return res.send({ error: false, data: results, message: 'Complete Data.' });
+
+        if(resultss.length>0){
+            Fall_Spring = resultss[resultss.length-1].Fall_Spring
+        }
+        if(req.body.Fall_Spring){
+            Fall_Spring = req.body.Fall_Spring
+        }
+        
+        con.query('SELECT * FROM datesheet WHERE Fall_Spring = ? and Shift = ? and Department = ?;',[Fall_Spring,"Morning",req.body.Department], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false, data: results, message: 'Complete Data.' });
+        });
     });
 });
+
+
 // DateSheet Generate Evening
 app.post('/api/hod/generatedatesheet2', function (req, res) {
     con.query("INSERT INTO datesheet(Course_Title,Course_Code,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department,"Evening",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
@@ -511,16 +758,31 @@ app.post('/api/hod/generatedatesheet2', function (req, res) {
         return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
     });
 });
+
+
 // Get DateSheet Evening
 app.post('/api/hod/datesheet2', function (req, res) {
-    con.query('SELECT * FROM datesheet WHERE Fall_Spring = ? and Shift = ? and Department = ?;',["Fall-2021","Evening",req.body.Department], function (error, results, fields) {
+    con.query('SELECT DISTINCT(Fall_Spring) FROM datesheet WHERE Department = ? and Shift = ? ORDER BY Fall_Spring;',[req.body.Department,"Evening"], function (error, resultss, fields) {
         if (error) {
             console.log(error)
         };
-        return res.send({ error: false, data: results, message: 'Complete Data.' });
+        if(resultss.length>0){
+            Fall_Spring = resultss[resultss.length-1].Fall_Spring
+        }
+        if(req.body.Fall_Spring){
+            Fall_Spring = req.body.Fall_Spring
+        }
+        
+        con.query('SELECT * FROM datesheet WHERE Fall_Spring = ? and Shift = ? and Department = ?;',[Fall_Spring,"Evening",req.body.Department], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false, data: results, message: 'Complete Data.' });
+        });
     });
 });
-//Delete
+
+//Delete DateSheet
 app.delete('/api/hod/datesheet/:id', function (req, res) {
     con.query("DELETE FROM datesheet WHERE id = ?", [req.params.id], function (error, results, fields) {
         if (error) {
