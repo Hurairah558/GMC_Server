@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2021 at 12:39 PM
+-- Generation Time: Jul 09, 2021 at 03:13 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -1544,9 +1544,19 @@ INSERT INTO `admission_form` (`id`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`
 CREATE TABLE `announcements` (
   `id` int(11) NOT NULL,
   `Subject` varchar(255) DEFAULT NULL,
-  `Announcement` varchar(255) DEFAULT NULL,
+  `Announcement` longtext DEFAULT NULL,
   `Timing` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `announcements`
+--
+
+INSERT INTO `announcements` (`id`, `Subject`, `Announcement`, `Timing`) VALUES
+(14, 'Admissions', 'Admissions will open in August', '2021-07-09T00:03:31.336Z'),
+(15, 'Dummy', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one ', '2021-07-09T00:04:09.924Z'),
+(16, 'Dummy', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', '2021-07-09T00:13:25.103Z'),
+(17, 'Admissions', 'Admissions will open in August', '2021-07-09T00:14:39.408Z');
 
 -- --------------------------------------------------------
 
@@ -1572,7 +1582,11 @@ CREATE TABLE `awardlist` (
 
 INSERT INTO `awardlist` (`id`, `Roll`, `Name`, `Mids`, `Sessional`, `Course_Title`, `Course_Code`, `Fall_Spring`, `Shift`) VALUES
 (212, '1', 'a', '1', '1', 'DS', 'IT-209', 'Fall-2021', 'Morning'),
-(214, '2', 'b', '2', '2', 'DSS', 'IT-2099', 'Fall-2021', 'Evening');
+(214, '2', 'b', '2', '2', 'DSS', 'IT-2099', 'Fall-2021', 'Evening'),
+(217, '1', 'a', '2', '2', 'DS', 'IT-239', 'Fall-2021', 'Morning'),
+(218, '1', 'a', '2', '2', 'DS', 'IT-239', 'Fall-2021', 'Morning'),
+(219, '1', 'a', '2', '2', 'DS', 'IT-239', 'Fall-2021', 'Morning'),
+(220, '1', '1', '1', '1', 'h', 'h', 'Fall-2021', 'Morning');
 
 -- --------------------------------------------------------
 
@@ -1597,7 +1611,8 @@ CREATE TABLE `datesheet` (
 INSERT INTO `datesheet` (`id`, `Course_Title`, `Course_Code`, `Department`, `Shift`, `Time_Slot`, `Fall_Spring`) VALUES
 (4, 'Data Structures', 'IT-209', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021'),
 (5, 'Data Structures', 'IT-209', 'BBA', 'Evening', '8:30 AM to 9:20 AM', 'Fall-2021'),
-(12, 'Data Structures', 'IT-209', 'BBA', 'Evening', '10:10 AM to 11:00 AM', 'Fall-2021');
+(12, 'Data Structures', 'IT-209', 'BBA', 'Evening', '10:10 AM to 11:00 AM', 'Fall-2021'),
+(15, 'Data Structures', 'IT-209', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021');
 
 -- --------------------------------------------------------
 
@@ -1697,7 +1712,7 @@ CREATE TABLE `meritlist_controller` (
 --
 
 INSERT INTO `meritlist_controller` (`id`, `MeritList`, `NOS_Start`, `NOS_End`, `Display`, `Department`) VALUES
-(45, '1st Merit List', 1, 55, 1, 'BBA'),
+(45, '1st Merit List', 1, 55, 0, 'BBA'),
 (46, '', 0, 0, 0, 'Botany'),
 (47, '', 0, 0, 0, 'Chemistry'),
 (48, '', 0, 0, 0, 'Economics'),
@@ -1732,7 +1747,7 @@ CREATE TABLE `meritlist_controller2` (
 --
 
 INSERT INTO `meritlist_controller2` (`id`, `MeritList`, `NOS_Start`, `NOS_End`, `Display`, `Department`) VALUES
-(1, '1st Merit List', 1, 55, 1, 'BBA'),
+(1, '1st Merit List', 1, 55, 0, 'BBA'),
 (2, '', 0, 0, 0, 'Botany'),
 (3, '', 0, 0, 0, 'Chemistry'),
 (4, '', 0, 0, 0, 'Economics'),
@@ -1812,6 +1827,13 @@ CREATE TABLE `sessions` (
   `expires` int(11) UNSIGNED NOT NULL,
   `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('IwFNnpDFYExvowXARVynPv70zTsJ0dz2', 1627107163, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-07-24T05:32:29.469Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":{\"id\":19,\"Username\":\"Hurairah\",\"Password\":\"5156558H\",\"Department\":\"Teacher\"}}');
 
 -- --------------------------------------------------------
 
@@ -3288,7 +3310,8 @@ CREATE TABLE `timetable` (
 INSERT INTO `timetable` (`id`, `Department`, `Instructor`, `Instructor_Department`, `Course_Title`, `Course_Code`, `Semester`, `Time_Slot`, `Shift`, `Fall_Spring`, `Room_no`) VALUES
 (186, 'Zoology', 'Aadil', 'BBA', 'Data Structures', 'IT-209', '1', '8:30 AM to 9:20 AM', 'Morning', NULL, '1'),
 (188, 'BBA', 'Aadil', 'BBA', 'Data Structures', 'IT-209', '1', '8:30 AM to 9:20 AM', 'Morning', 'Fall-2021', '1'),
-(190, 'BBA', 'Aalim', 'Botany', 'Psychology', 'IT-210', '1', '10:10 AM to 11:00 AM', 'Evening', 'Fall-2021', '1');
+(190, 'BBA', 'Aalim', 'Botany', 'Psychology', 'IT-210', '1', '10:10 AM to 11:00 AM', 'Evening', 'Fall-2021', '1'),
+(194, 'BBA', 'Aafiya', 'BBA', 'Psychology', 'IT-209', '1', '8:30 AM to 9:20 AM', 'Morning', 'Fall-2021', '1');
 
 --
 -- Indexes for dumped tables
@@ -3374,7 +3397,7 @@ ALTER TABLE `timetable`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `admission_form`
@@ -3386,19 +3409,19 @@ ALTER TABLE `admission_form`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `awardlist`
 --
 ALTER TABLE `awardlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `datesheet`
 --
 ALTER TABLE `datesheet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `instructors`
@@ -3434,7 +3457,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

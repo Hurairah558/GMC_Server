@@ -120,26 +120,26 @@ app.post("/logout", function(req, res){
 app.post('/api/student/addmissonform', function (req, res) {
 
     var mail = `
-        ${req.body.Full_Name}\n
-        ${req.body.Father_Name}\n
-        ${req.body.Gender}\n
-        ${req.body.CNIC}\n
-        ${req.body.DOB}\n
-        ${req.body.Email}\n
-        ${req.body.Phone}\n
-        ${req.body.Address}\n
-        ${req.body.Department}\n
-        ${req.body.Shift}\n
-        ${req.body.Matric_Roll}\n
-        ${req.body.Matric_Total_Marks}\n
-        ${req.body.Matric_Obtained_Marks}\n
-        ${req.body.Matric_Year}\n
-        ${req.body.Matric_Board}\n
-        ${req.body.Inter_Roll}\n
-        ${req.body.Inter_Total_Marks}\n
-        ${req.body.Inter_Obtained_Marks}\n
-        ${req.body.Inter_Year}\n
-        ${req.body.Inter_Board}\n
+        Full Name : ${req.body.Full_Name}\n
+        Father Name : ${req.body.Father_Name}\n
+        Gender : ${req.body.Gender}\n
+        CNIC : ${req.body.CNIC}\n
+        DOB : ${req.body.DOB}\n
+        Email : ${req.body.Email}\n
+        Phone : ${req.body.Phone}\n
+        Address : ${req.body.Address}\n
+        Department : ${req.body.Department}\n
+        Shift : ${req.body.Shift}\n
+        Matric Roll : ${req.body.Matric_Roll}\n
+        Matric Total Marks : ${req.body.Matric_Total_Marks}\n
+        Matric Obtained Marks : ${req.body.Matric_Obtained_Marks}\n
+        Matric Year : ${req.body.Matric_Year}\n
+        Matric Board : ${req.body.Matric_Board}\n
+        Inter Roll : ${req.body.Inter_Roll}\n
+        Inter Total Marks : ${req.body.Inter_Total_Marks}\n
+        Inter Obtained Marks : ${req.body.Inter_Obtained_Marks}\n
+        Inter Year : ${req.body.Inter_Year}\n
+        Inter Board : ${req.body.Inter_Board}\n
         `
 
 const schema = Joi.object({
@@ -274,7 +274,7 @@ app.post('/api/hod/addstudent', function (req, res) {
     
 });
 
-
+// To be Removed
 app.get('/student/admissions', function (req, res) {
     con.query('SELECT Full_Name,Department FROM admission_form', function (error, results, fields) {
         if (error) {
@@ -319,7 +319,25 @@ app.post('/hod/meritlist', function (req, res) {
 
 // HOD Merit List Controller Morning
 app.post('/hod/meritlistcontroller', function (req, res) {
+
+
+
+    const schema = Joi.object({
+        MeritList : Joi.string().required(),
+        Start : Joi.number().required(),
+        End : Joi.number().required(),
+        Display : Joi.string().required(),
+        Department : Joi.string().required()
+    });
     
+    result = schema.validate(req.body.formData);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
     MeritList = req.body.formData.MeritList
     Start = req.body.formData.Start
     End = req.body.formData.End
@@ -332,8 +350,9 @@ app.post('/hod/meritlistcontroller', function (req, res) {
         if (error) {
             console.log(error)
         };
-        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+        return res.send({ error: false,data: results, message: 'Merit List Generated SuccesFully' });
     });
+}
 });
 
 // HOD Current Merit List Morning
@@ -358,6 +377,22 @@ app.post('/hod/meritlist2', function (req, res) {
 
 // HOD Merit List Controller Evening
 app.post('/hod/meritlistcontroller2', function (req, res) {
+
+    const schema = Joi.object({
+        MeritList : Joi.string().required(),
+        Start : Joi.number().required(),
+        End : Joi.number().required(),
+        Display : Joi.string().required(),
+        Department : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body.formData);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
     
     MeritList = req.body.formData.MeritList
     Start = req.body.formData.Start
@@ -371,8 +406,9 @@ app.post('/hod/meritlistcontroller2', function (req, res) {
         if (error) {
             console.log(error)
         };
-        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+        return res.send({ error: false,data: results, message: 'Merit List Generated SuccesFully' });
     });
+}
 });
 
 // HOD Current Merit List Morning
@@ -411,74 +447,51 @@ app.put('/api/ro/meritlist/formula', function (req, res) {
 });
 
 
-// app.put('/api/ro/meritlist/formula', function (req, res) {
-
-//     console.log(req.body)
-
-//     const schema = Joi.object({
-//         Matric_Percentage : Joi.number().required(),
-//         Inter_Percentage : Joi.number().required()
-//     });
-
-
-
-
-//     // var sql = "UPDATE admission_form SET merit WHERE id = ? VALUES ?";
-//     // var values = [
-//     // ];
-
-//     // for (i=0;i<100;i++){
-//     //     if(req.body['Roll'+i]!="" && req.body['Name'+i]!="" && req.body['Mids'+i]!="" && req.body['Sessional'+i]!="") {
-//     //         values.push(
-//     //             [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Fall_Spring,req.body.Shift]
-//     //         )
-//     //     }
-//     // }
-
-
-//     //new Date().getFullYear()
-    
-//     result = schema.validate(req.body);
-    
-//     if (result.error){
-//         res.send(result.error.details[0].message)
-//     }
-//     else{
-
-//         con.query("SELECT * FROM admission_form WHERE Year = ?", [new Date().getFullYear()],function (error, results, fields) {
-//             if (error) {
-//                 console.log("Error")
-//             };
-
-//             results.map((student,index)=>{
-//                 merit = ((parseInt(student.Inter_Obtained_Marks)/parseInt(student.Inter_Total_Marks)) * parseInt(req.body.Inter_Percentage)) + ((parseInt(student.Matric_Obtained_Marks)/parseInt(student.Matric_Total_Marks)) * parseInt(req.body.Matric_Percentage))
-//                 console.log(merit)
-//                 con.query("UPDATE admission_form SET merit = ? WHERE id = ?", [String(merit),student.id], function (error, resultss, fields) {
-//                 if (error) {
-//                     console.log("Error")
-//                 };
-//                     return res.send({ error: false,data: resultss, message: 'Formula Applied SuccesFully' });
-//                 });
-//             })
-//             // return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
-//         });
-
-//         // con.query("UPDATE admission_form SET Fee_Status = ? WHERE id = ?", [req.body.fee,req.params.id], function (error, results, fields) {
-//         //     if (error) {
-//         //         console.log("Error")
-//         //     };
-//         //     return res.send({ error: false,data: results, message: 'Formula Applied SuccesFully' });
-//         // });
-//     }
-// });
-
-
 // Add Instructor
 app.post('/api/hod/addinstructor', function (req, res) {
+
+
+    const schema = Joi.object({
+        Full_Name : Joi.string().required(),
+        Email : Joi.string().required(),
+        Username : Joi.string().required(),
+        Password : Joi.string().min(6).required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
     con.query("INSERT INTO admins(Username,Password,Department) value(?,?,?) " ,[req.body.Username,req.body.Password,"Teacher"], function (error, results, fields) {
         if (error) throw error;
-        return res.send({ error: false, data: results, message: 'uccessfully Added' });
+
+        var mail = `
+        Your Name : ${req.body.Full_Name}\n
+        Your Email : ${req.body.Email}\n
+        Username : ${req.body.Username}\n
+        Password : ${req.body.Password}\n
+        `
+
+        var mailOptions = {
+            from: 'hurairah564@gmail.com',
+            to: req.body.Email,
+            subject: `You are Added as an Instructor in GMC Online Management System`,
+            text: `Your Credentials are :\n\n\n${mail}`
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            console.log('Email sent: ' + info.response);
+            }
+        });
+
+        return res.send({ error: false, data: results, message: 'Instructor Added Successfully' });
     });
+}
 });
 
 
@@ -592,10 +605,32 @@ app.delete('/api/hod/timetable/:id', function (req, res) {
 
 // Generate Time Table
 app.post('/api/hod/timetablegenerate', function (req, res) {
+
+
+    const schema = Joi.object({
+        Department : Joi.string().required(),
+        Fall_Spring : Joi.string().required(),
+        Instructor_Department : Joi.string().required(),
+        Instructor : Joi.string().required(),
+        Semester : Joi.string().required(),
+        Course_Code : Joi.string().required(),
+        Course_Title : Joi.string().required(),
+        Time_Slot : Joi.string().required(),
+        Shift : Joi.string().required(),
+        Room_no : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
     con.query("INSERT INTO timetable(Department,Instructor,Instructor_Department,Course_Title,Course_Code,Semester,Time_Slot,Shift,Fall_Spring,Room_no) value(?,?,?,?,?,?,?,?,?,?) " ,[req.body.Department,req.body.Instructor,req.body.Instructor_Department,req.body.Course_Title,req.body.Course_Code,req.body.Semester,req.body.Time_Slot,req.body.Shift,req.body.Fall_Spring,req.body.Room_no], function (error, results, fields) {
         if (error) throw error;
-        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+        return res.send({ error: false, data: results, message: 'Time Table Generated Successfully' });
     });
+}
 });
 
 
@@ -624,10 +659,26 @@ app.get('/api/all/students2', function (req, res) {
 
 // Create Announcement
 app.post('/api/ssio/announcement', function (req, res) {
+
+    const schema = Joi.object({
+        Subject : Joi.string().required(),
+        Announcement : Joi.string().required(),
+        Timing : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else
+    {
+
     con.query("INSERT INTO announcements(Subject,Announcement,Timing) value(?,?,?) " ,[req.body.Subject,req.body.Announcement,req.body.Timing], function (error, results, fields) {
         if (error) throw error;
-        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+        return res.send({ error: false, data: results, message: 'Announcement Submitted Successfully' });
     });
+}
 });
 
 
@@ -718,10 +769,31 @@ app.post('/api/ssio/details', function (req, res) {
 
 // DateSheet Generate Morning
 app.post('/api/hod/generatedatesheet', function (req, res) {
+
+
+    const schema = Joi.object({
+        Department : Joi.string().required(),
+        Course_Title : Joi.string().required(),
+        Course_Code : Joi.string().required(),
+        Time_Slot : Joi.string().required(),
+        Shift : Joi.string().required(),
+        Fall_Spring : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
     con.query("INSERT INTO datesheet(Course_Title,Course_Code,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department,"Morning",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
         if (error) throw error;
-        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+        return res.send({ error: false, data: results, message: 'Datesheet Generated Successfully' });
     });
+
+}
 });
 
 
@@ -753,10 +825,30 @@ app.post('/api/hod/datesheet', function (req, res) {
 
 // DateSheet Generate Evening
 app.post('/api/hod/generatedatesheet2', function (req, res) {
+
+
+    const schema = Joi.object({
+        Department : Joi.string().required(),
+        Course_Title : Joi.string().required(),
+        Course_Code : Joi.string().required(),
+        Time_Slot : Joi.string().required(),
+        Shift : Joi.string().required(),
+        Fall_Spring : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
     con.query("INSERT INTO datesheet(Course_Title,Course_Code,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department,"Evening",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
         if (error) throw error;
-        return res.send({ error: false, data: results, message: 'Form Submitted Successfully' });
+        return res.send({ error: false, data: results, message: 'Datesheet Generated Successfully' });
     });
+}
 });
 
 
