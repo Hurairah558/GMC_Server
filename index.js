@@ -66,6 +66,7 @@ var con = createConnection({
     user: "root",
     password: "",
     database: "gmc",
+    multipleStatements:true
   });
 
 
@@ -101,6 +102,108 @@ app.post("/login", function(req, res){
         }
         return res.send({ Message: "Incorrect Credentials",LoggedIn:false});
     });
+
+});
+
+// Forget Password
+app.post("/api/forgetpassword", function(req, res){
+
+    const schema = Joi.object({
+        Email : Joi.string().required()
+    });
+
+    result = schema.validate(req.body.formData);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
+    Email = req.body.formData.Email
+
+    con.query("SELECT * FROM admins WHERE Email=?",[Email], function (error, results, fields) {
+        if (results.length < 1) {
+            return res.send({ message: "User Does Not Exist",LoggedIn:false});
+        }
+        if(results[0].Email === Email){
+
+            mail = `
+            Username : ${results[0].Username}
+            Password : ${results[0].Password}
+            `
+
+            var mailOptions = {
+                from: 'hurairah564@gmail.com',
+                to: Email,
+                subject: `Your Credentials`,
+                text: `Your Credentials are :\n\n${mail}`
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                console.log(error);
+                } else {
+                console.log('Email sent: ' + info.response);
+                }
+            });
+
+            return res.send({ message: "Check Your Email",LoggedIn:false});
+        }
+        return res.send({ message: "User Does Not Exist",LoggedIn:false});
+    });
+}
+
+});
+
+// Change Password
+app.put("/api/change/login", function(req, res){
+
+
+    const schema = Joi.object({
+        id : Joi.string().required(),
+        OldUsername : Joi.string().required(),
+        OldPassword : Joi.string().required(),
+        Username : Joi.string().required(),
+        Password : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body.formData);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
+
+    id = req.body.formData.id
+    OldUsername = req.body.formData.OldUsername
+    OldPassword = req.body.formData.OldPassword
+    Username = req.body.formData.Username
+    Password = req.body.formData.Password
+
+    con.query("SELECT Username,Password FROM admins WHERE id = ?",[id], function (error, results, fields) {
+        if (results.length < 1) {
+            return res.send({ message: "Incorrect Credentials",LoggedIn:false});
+        }
+
+        console.log(results)
+
+        if(results[0].Username=== OldUsername && results[0].Password=== OldPassword){
+
+            con.query("UPDATE admins SET Username = ? , Password = ? WHERE id = ?", [Username,Password,id], function (error, results, fields) {
+                if (error) {
+                    console.log("Error")
+                };
+                return res.send({ error: false,data: results, message: 'Succesfully Changed' });
+            });
+        }
+        else {
+            return res.send({ message: "Incorrect Credentials",LoggedIn:false});
+        }
+    });
+}
 
 });
 
@@ -266,7 +369,7 @@ app.post('/api/hod/addstudent', function (req, res) {
         res.send(result.error.details[0].message)
     }
     else{
-        con.query("INSERT INTO students(Roll,Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Semester , Shift , Fee_Status , Admission_Time , Year  ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester ,req.body.Shift ,req.body.Fee_Status,new Date(),new Date().getFullYear()], function (error, results, fields) {
+        con.query("INSERT INTO students(Roll,Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Semester , Shift , Fee_Status , Status , Admission_Time , Year  ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester ,req.body.Shift ,req.body.Fee_Status,"Active",new Date(),new Date().getFullYear()], function (error, results, fields) {
             if (error) throw error;
             return res.send({ error: false, data: results, message: 'Added Successfully' });
         });
@@ -452,10 +555,11 @@ app.post('/api/hod/addinstructor', function (req, res) {
 
 
     const schema = Joi.object({
-        Full_Name : Joi.string().required(),
+        Name : Joi.string().required(),
         Email : Joi.string().required(),
         Username : Joi.string().required(),
-        Password : Joi.string().min(6).required()
+        Password : Joi.string().min(6).required(),
+        Department : Joi.string().required()
     });
     
     result = schema.validate(req.body);
@@ -464,11 +568,11 @@ app.post('/api/hod/addinstructor', function (req, res) {
         res.send(result.error.details[0].message)
     }
     else{
-    con.query("INSERT INTO admins(Username,Password,Department) value(?,?,?) " ,[req.body.Username,req.body.Password,"Teacher"], function (error, results, fields) {
+    con.query("INSERT INTO admins(Name,Email,Username,Password,Designation,Department) value(?,?,?,?,?,?) " ,[req.body.Name,req.body.Email,req.body.Username,req.body.Password,"Teacher",req.body.Department], function (error, results, fields) {
         if (error) throw error;
 
         var mail = `
-        Your Name : ${req.body.Full_Name}\n
+        Your Name : ${req.body.Name}\n
         Your Email : ${req.body.Email}\n
         Username : ${req.body.Username}\n
         Password : ${req.body.Password}\n
@@ -494,10 +598,111 @@ app.post('/api/hod/addinstructor', function (req, res) {
 }
 });
 
+// Add Courses
+app.post('/api/hod/addcourses', function (req, res) {
+
+    const schema = Joi.object({
+        Department : Joi.string().required(),
+        Course_Title : Joi.string().required(),
+        Course_Code : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+    con.query("INSERT INTO courses(Course_Title,Course_Code,Department) value(?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department], function (error, results, fields) {
+        if (error) throw error;
+
+        return res.send({ error: false, data: results, message: 'Course Added Successfully' });
+    });
+}
+});
+
+// Get Courses
+app.post('/api/hod/courses', function (req, res) {
+    con.query('SELECT * FROM courses WHERE Department = ?',[req.body.Department], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+// Delete Courses
+app.delete('/api/hod/courses/:id', function (req, res) {
+    con.query('DELETE FROM courses WHERE id = ?',[req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
+// Semester Upgrade
+app.post('/api/hod/semesterupgrade', function (req, res) {
+    con.query('SELECT * FROM students WHERE Department = ? and Status = ?',[req.body.Department,"Active"], function (error, resultss, fields) {
+
+        update = ""
+
+        if(resultss.length>=0){
+            resultss.map((student)=>{
+                update = update + `UPDATE students SET Semester = ${parseInt(student.Semester) + 1} WHERE id = ${student.id};`
+            })
+        }
+
+            con.query(update, function (error, results, fields) {
+                if (error) {
+                    console.log("Update Error",error)
+                };
+                return res.send({ error: false, data: results, message: 'Complete Data.' });
+            });
+
+        if (error) {
+            console.log("Error")
+        };
+        // return res.send({ errorr: false, data: resultss, messages: 'Complete Data.' });
+    });
+});
+
+
 
 // All Students Department Wise
 app.post('/api/hod/students', function (req, res) {
-    con.query('SELECT * FROM students WHERE Department = ?',[req.body.Department], function (error, results, fields) {
+
+    var Status = ""
+    var Fee_Status = ""
+    var Shift = ""
+    var Semester = ""
+    var Names = ""
+    var Roll = ""
+
+    if(req.body.Names==="" && req.body.Roll===""){
+        if(req.body.Status!=""){
+            Status = ` and Status = '${req.body.Status}'`
+        }
+        if(req.body.Fee_Status!=""){
+            Fee_Status = ` and Fee_Status = '${req.body.Fee_Status}'`
+        }
+        if(req.body.Shift!=""){
+            Shift = ` and Shift = '${req.body.Shift}'`
+        }
+        if(req.body.Semester!=""){
+            Semester = ` and Semester = '${req.body.Semester}'`
+        }
+    }
+    if(req.body.Names!=""){
+        Names = ` and Full_Name = '${req.body.Names}'`
+    }
+    if(req.body.Roll!=""){
+        Roll = ` and Roll = '${req.body.Roll}'`
+    }
+
+    update = `SELECT * FROM students WHERE Department = '${req.body.Department}'${Status}${Fee_Status}${Shift}${Semester}${Names}${Roll}`
+    con.query(update, function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -509,27 +714,24 @@ app.post('/api/hod/students', function (req, res) {
 //Fee Status
 app.put('/api/hod/students/:id', function (req, res) {
 
-    con.query('SELECT * FROM students WHERE id = ?',[req.params.id], function (error, resultss, fields) {
-        if (error) {
-            console.log("Error")
-        };
-
-        if (req.body.fee === "Paid"){
-            var Semester = parseInt(resultss[0]["Semester"]) + 1
-        }
-        if (req.body.fee === "Unpaid"){
-            var Semester = parseInt(resultss[0]["Semester"]) - 1
-        }
-
-        con.query("UPDATE students SET Fee_Status = ?, Semester = ? WHERE id = ?", [req.body.fee,Semester,req.params.id], function (error, results, fields) {
+        con.query("UPDATE students SET Fee_Status = ? WHERE id = ?", [req.body.fee,req.params.id], function (error, results, fields) {
             if (error) {
                 console.log("Error")
             };
             return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
         });
-
-    });
 });
+
+// Status Update
+app.put('/api/hod/students/status/:id', function (req, res) {
+        con.query("UPDATE students SET Status = ? WHERE id = ?;", [req.body.Statuss,req.params.id], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+        });
+});
+
 
 //Delete
 app.delete('/api/hod/students/:id', function (req, res) {
@@ -634,27 +836,189 @@ app.post('/api/hod/timetablegenerate', function (req, res) {
 });
 
 
+// Get Search List Morning
+app.get('/api/alll/students', function (req, res) {
 
-/// Get All Students Morning
+    con.query(`SELECT * FROM students`, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// Get Search List Morning
 app.get('/api/all/students', function (req, res) {
-    con.query("SELECT * FROM students WHERE Shift = ?",["Morning"], function (error, results, fields) {
+
+    con.query(`SELECT * FROM students WHERE Shift = ?;`,["Morning"], function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
 });
 
-/// Get All Students Evening
+// Get Search List Evening
 app.get('/api/all/students2', function (req, res) {
-    con.query("SELECT * FROM students WHERE Shift = ?",["Evening"], function (error, results, fields) {
+
+    con.query(`SELECT * FROM students WHERE Shift = ?;`,["Evening"], function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
 });
 
+
+
+// Get All Students RO Morning
+app.post('/api/ro/students', function (req, res) {
+
+    var Status = ""
+    var Fee_Status = ""
+    var Department = ""
+    var Semester = ""
+    var Names = ""
+    var Roll = ""
+
+    if(req.body.Names==="" && req.body.Roll===""){
+        if(req.body.Status!=""){
+            Status = ` and Status = '${req.body.Status}'`
+        }
+        if(req.body.Fee_Status!=""){
+            Fee_Status = ` and Fee_Status = '${req.body.Fee_Status}'`
+        }
+        if(req.body.Department!=""){
+            Department = ` and Department = '${req.body.Department}'`
+        }
+        if(req.body.Semester!=""){
+            Semester = ` and Semester = '${req.body.Semester}'`
+        }
+    }
+    if(req.body.Names!=""){
+        Names = ` and Full_Name = '${req.body.Names}'`
+    }
+    if(req.body.Roll!=""){
+        Roll = ` and Roll = '${req.body.Roll}'`
+    }
+
+    con.query(`SELECT * FROM students WHERE Shift = ?${Status}${Fee_Status}${Department}${Semester}${Names}${Roll};`,["Morning"], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+// Get All Students RO Evening
+app.post('/api/ro/students2', function (req, res) {
+    var Status = ""
+    var Fee_Status = ""
+    var Department = ""
+    var Semester = ""
+    var Names = ""
+    var Roll = ""
+
+    if(req.body.Names==="" && req.body.Roll===""){
+        if(req.body.Status!=""){
+            Status = ` and Status = '${req.body.Status}'`
+        }
+        if(req.body.Fee_Status!=""){
+            Fee_Status = ` and Fee_Status = '${req.body.Fee_Status}'`
+        }
+        if(req.body.Department!=""){
+            Department = ` and Department = '${req.body.Department}'`
+        }
+        if(req.body.Semester!=""){
+            Semester = ` and Semester = '${req.body.Semester}'`
+        }
+    }
+    if(req.body.Names!=""){
+        Names = ` and Full_Name = '${req.body.Names}'`
+    }
+    if(req.body.Roll!=""){
+        Roll = ` and Roll = '${req.body.Roll}'`
+    }
+
+    con.query(`SELECT * FROM students WHERE Shift = ?${Status}${Fee_Status}${Department}${Semester}${Names}${Roll};`,["Evening"], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// Get All Students AO Morning
+app.post('/api/ao/students', function (req, res) {
+
+    var Fee_Status = ""
+    var Department = ""
+    var Semester = ""
+    var Names = ""
+    var Roll = ""
+
+    if(req.body.Names==="" && req.body.Roll===""){
+        if(req.body.Fee_Status!=""){
+            Fee_Status = ` and Fee_Status = '${req.body.Fee_Status}'`
+        }
+        if(req.body.Department!=""){
+            Department = ` and Department = '${req.body.Department}'`
+        }
+        if(req.body.Semester!=""){
+            Semester = ` and Semester = '${req.body.Semester}'`
+        }
+    }
+    if(req.body.Names!=""){
+        Names = ` and Full_Name = '${req.body.Names}'`
+    }
+    if(req.body.Roll!=""){
+        Roll = ` and Roll = '${req.body.Roll}'`
+    }
+
+    con.query(`SELECT * FROM students WHERE Shift = ? and Status='Active'${Fee_Status}${Department}${Semester}${Names}${Roll}`,["Morning"], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+// Get All Students AO Evening
+app.post('/api/ao/students2', function (req, res) {
+
+    var Fee_Status = ""
+    var Department = ""
+    var Semester = ""
+    var Names = ""
+    var Roll = ""
+
+    if(req.body.Names==="" && req.body.Roll===""){
+        if(req.body.Fee_Status!=""){
+            Fee_Status = ` and Fee_Status = '${req.body.Fee_Status}'`
+        }
+        if(req.body.Department!=""){
+            Department = ` and Department = '${req.body.Department}'`
+        }
+        if(req.body.Semester!=""){
+            Semester = ` and Semester = '${req.body.Semester}'`
+        }
+    }
+    if(req.body.Names!=""){
+        Names = ` and Full_Name = '${req.body.Names}'`
+    }
+    if(req.body.Roll!=""){
+        Roll = ` and Roll = '${req.body.Roll}'`
+    }
+
+    con.query(`SELECT * FROM students WHERE Shift = ? and Status='Active'${Fee_Status}${Department}${Semester}${Names}${Roll}`,["Evening"], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
 
 
 // Create Announcement
@@ -703,16 +1067,17 @@ app.delete('/api/ssio/announcements/:id', function (req, res) {
     });
 });
 
+
 //Generate Award List
 app.post('/api/instructor/awardlist', function (req, res) {
-    var sql = "INSERT INTO awardlist (Roll, Name, Mids, Sessional, Course_Title, Course_Code, Fall_Spring,Shift) VALUES ?";
+    var sql = "INSERT INTO awardlist (Roll, Name, Mids, Sessional, Course_Title, Course_Code, Instructor, Department, Semester , Fall_Spring, Shift) VALUES ?";
     var values = [
     ];
 
     for (i=0;i<100;i++){
         if(req.body['Roll'+i]!="" && req.body['Name'+i]!="" && req.body['Mids'+i]!="" && req.body['Sessional'+i]!="") {
             values.push(
-                [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Fall_Spring,req.body.Shift]
+                [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Instructor,req.body.Department,req.body.Semester,req.body.Fall_Spring,req.body.Shift]
             )
         }
     }
@@ -724,7 +1089,7 @@ app.post('/api/instructor/awardlist', function (req, res) {
 });
 
 
-// Unique Results from Awardlist
+// Unique Results from Awardlist SSIO
 app.post('/api/ssio/awardlists', function (req, res) {
 
         con.query('SELECT DISTINCT(Fall_Spring) FROM awardlist ORDER BY Fall_Spring;', function (error, resultss, fields) {
@@ -745,6 +1110,30 @@ app.post('/api/ssio/awardlists', function (req, res) {
                 return res.send({ error: false, data: results, message: 'Complete Data.' });
             });
         });
+});
+
+
+// Unique Results from Awardlist HOD
+app.post('/api/hod/awardlists', function (req, res) {
+
+    con.query('SELECT DISTINCT(Fall_Spring) FROM awardlist ORDER BY Fall_Spring;', function (error, resultss, fields) {
+        if (error) {
+            console.log(error)
+        };
+        if(resultss.length>0){
+            Fall_Spring = resultss[resultss.length-1].Fall_Spring
+        }
+        if(req.body.Fall_Spring){
+            Fall_Spring = req.body.Fall_Spring
+        }
+        
+        con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Department = ?;',[Fall_Spring,req.body.Department], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false, data: results, message: 'Complete Data.' });
+        });
+    });
 });
 
 //Delete Awardlist
@@ -775,6 +1164,8 @@ app.post('/api/hod/generatedatesheet', function (req, res) {
         Department : Joi.string().required(),
         Course_Title : Joi.string().required(),
         Course_Code : Joi.string().required(),
+        Instructor : Joi.string().required(),
+        Semester : Joi.string().required(),
         Time_Slot : Joi.string().required(),
         Shift : Joi.string().required(),
         Fall_Spring : Joi.string().required()
@@ -788,7 +1179,7 @@ app.post('/api/hod/generatedatesheet', function (req, res) {
 
     else{
 
-    con.query("INSERT INTO datesheet(Course_Title,Course_Code,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department,"Morning",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
+    con.query("INSERT INTO datesheet(Course_Title,Course_Code,Instructor,Semester,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Instructor,req.body.Semester,req.body.Department,"Morning",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'Datesheet Generated Successfully' });
     });
@@ -831,6 +1222,8 @@ app.post('/api/hod/generatedatesheet2', function (req, res) {
         Department : Joi.string().required(),
         Course_Title : Joi.string().required(),
         Course_Code : Joi.string().required(),
+        Instructor : Joi.string().required(),
+        Semester : Joi.string().required(),
         Time_Slot : Joi.string().required(),
         Shift : Joi.string().required(),
         Fall_Spring : Joi.string().required()
@@ -844,7 +1237,7 @@ app.post('/api/hod/generatedatesheet2', function (req, res) {
 
     else{
 
-    con.query("INSERT INTO datesheet(Course_Title,Course_Code,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Department,"Evening",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
+    con.query("INSERT INTO datesheet(Course_Title,Course_Code,Instructor,Semester,Department,Shift,Time_Slot,Fall_Spring) value(?,?,?,?,?,?,?,?) " ,[req.body.Course_Title,req.body.Course_Code,req.body.Instructor,req.body.Semester,req.body.Department,"Evening",req.body.Time_Slot,req.body.Fall_Spring], function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'Datesheet Generated Successfully' });
     });
