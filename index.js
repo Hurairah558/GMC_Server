@@ -312,6 +312,18 @@ else{
 });
 
 
+
+// Get All admission_form IDs
+app.get('/api/hod/admission_form', function (req, res) {
+    con.query('SELECT id FROM admission_form', function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
 // Check Admission Access
 app.get('/api/ro/admission_control', function (req, res) {
     con.query('SELECT * FROM admission_control', function (error, results, fields) {
@@ -338,6 +350,7 @@ app.put('/api/ro/admission_control', function (req, res) {
 app.post('/api/hod/addstudent', function (req, res) {
 
     const schema = Joi.object({
+        id : Joi.number().required(),
         Roll : Joi.string().required(),
         Full_Name : Joi.string().required(),
         Father_Name : Joi.string().required(),
@@ -348,19 +361,23 @@ app.post('/api/hod/addstudent', function (req, res) {
         Phone : Joi.string().required(),
         Address : Joi.string().required(),
         Department : Joi.string().required(),
-        Matric_Roll : Joi.number().required(),
-        Matric_Total_Marks : Joi.number().required(),
-        Matric_Obtained_Marks : Joi.number().required(),
-        Matric_Year : Joi.number().required(),
+        Matric_Roll : Joi.string().required(),
+        Matric_Total_Marks : Joi.string().required(),
+        Matric_Obtained_Marks : Joi.string().required(),
+        Matric_Year : Joi.string().required(),
         Matric_Board : Joi.string().required(),
-        Inter_Roll : Joi.number().required(),
-        Inter_Total_Marks : Joi.number().required(),
-        Inter_Obtained_Marks : Joi.number().required(),
-        Inter_Year : Joi.number().required(),
+        Inter_Roll : Joi.string().required(),
+        Inter_Total_Marks : Joi.string().required(),
+        Inter_Obtained_Marks : Joi.string().required(),
+        Inter_Year : Joi.string().required(),
         Inter_Board : Joi.string().required(),
         Semester : Joi.string().required(),
         Shift : Joi.string().required(),
         Fee_Status : Joi.string().required(),
+        merit : Joi.string().required(),
+        Status : Joi.string().required(),
+        Admission_Time : Joi.string().required(),
+        Year : Joi.string().required(),
     });
     
     result = schema.validate(req.body);
@@ -369,13 +386,58 @@ app.post('/api/hod/addstudent', function (req, res) {
         res.send(result.error.details[0].message)
     }
     else{
-        con.query("INSERT INTO students(Roll,Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Semester , Shift , Fee_Status , Status , Admission_Time , Year  ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester ,req.body.Shift ,req.body.Fee_Status,"Active",new Date(),new Date().getFullYear()], function (error, results, fields) {
+        con.query("INSERT INTO students(Roll,Full_Name, Father_Name, Gender, CNIC , DOB , Email , Phone , Address , Department , Matric_Roll  , Matric_Total  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board , Semester , Degree_Status , Shift , Fee_Status , Status , Admission_Time , Year  ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester , "Continue" ,req.body.Shift ,req.body.Fee_Status,"Active",new Date(),new Date().getFullYear()], function (error, results, fields) {
             if (error) throw error;
             return res.send({ error: false, data: results, message: 'Added Successfully' });
         });
     }
     
 });
+
+
+// Update student
+app.put('/api/hod/editstudent', function (req, res) {
+
+    const schema = Joi.object({
+        id : Joi.number().required(),
+        Roll : Joi.string().required(),
+        Full_Name : Joi.string().required(),
+        Father_Name : Joi.string().required(),
+        Gender : Joi.string().required(),
+        CNIC : Joi.string().required(),
+        DOB : Joi.string().required(),
+        Email : Joi.string().required(),
+        Phone : Joi.string().required(),
+        Address : Joi.string().required(),
+        Department : Joi.string().required(),
+        Matric_Roll : Joi.string().required(),
+        Matric_Total : Joi.string().required(),
+        Matric_Obtained_Marks : Joi.string().required(),
+        Matric_Year : Joi.string().required(),
+        Matric_Board : Joi.string().required(),
+        Inter_Roll : Joi.string().required(),
+        Inter_Total : Joi.string().required(),
+        Inter_Obtained_Marks : Joi.string().required(),
+        Inter_Year : Joi.string().required(),
+        Inter_Board : Joi.string().required(),
+        Semester : Joi.string().required(),
+        Shift : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+        con.query("UPDATE students SET Roll=?,Full_Name=?, Father_Name=?, Gender=?, CNIC=? , DOB =?, Email =?, Phone=? , Address=? , Department=? , Matric_Roll=?  , Matric_Total =? , Matric_Obtained_Marks =? , Matric_Year=?  , Matric_Board =? , Inter_Roll =? , Inter_Total  =?, Inter_Obtained_Marks  =?, Inter_Year =? , Inter_Board =?, Semester =?, Shift =? WHERE id=?", [req.body.Roll , req.body.Full_Name ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone  ,req.body.Address  ,req.body.Department  ,req.body.Matric_Roll  ,req.body.Matric_Total  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year ,req.body.Inter_Board ,req.body.Semester ,req.body.Shift,req.body.id], function (error, results, fields) {
+            if (error) throw error;
+            return res.send({ error: false, data: results, message: 'Updated Successfully' });
+        });
+    }
+    
+});
+
 
 // To be Removed
 app.get('/student/admissions', function (req, res) {
@@ -400,20 +462,61 @@ app.get('/api/hod/admissions/years', function (req, res) {
 
 // Year Wise Admissions
 app.post('/api/hod/admissions', function (req, res) {
-    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ?',[req.body.Department,req.body.Year], function (error, results, fields) {
+
+
+
+    id=""
+    if(req.body.Roll){
+        id = ` and id='${req.body.Roll}'`
+    }
+
+    query = `SELECT * FROM admission_form WHERE Department = '${req.body.Department}' and Year = '${req.body.Year}'${id};`
+
+    con.query(query, function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
         return res.send({ error: false, data: results, message: 'Complete Data.' });
     });
 });
 
 
+// Status Update
+app.put('/api/students/status/:id', function (req, res) {
+    con.query("UPDATE admission_form SET Status = ? WHERE id = ?;", [req.body.Statuss,req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
 // HOD Merit List Morning
 app.post('/hod/meritlist', function (req, res) {
-    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY merit DESC',[req.body.Department,req.body.Year,"Morning"], function (error, results, fields) {
+
+    var Status = ""
+    var Years = ""
+
+    if(req.body.Status!=""){
+        Status = ` and Status = '${req.body.Status}'`
+    }
+    else{
+        Status = ` and Status = 'WhiteList'`
+    }
+    if(req.body.Years!=""){
+        Years = ` and Year = '${req.body.Years}'`
+    }
+    else{
+        Years = ` and Year = '${new Date().getFullYear()}'`
+    }
+
+    update = `SELECT * FROM admission_form WHERE Shift=? and Department = '${req.body.Department}'${Status}${Years} ORDER BY merit DESC`
+
+
+    con.query(update,["Morning","WhiteList"], function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
         return res.send({ error: false, data: results, message: 'Complete Data.' });
     });
@@ -470,9 +573,29 @@ app.post('/hod/meritlistcurrent', function (req, res) {
 
 // HOD Merit List Evening
 app.post('/hod/meritlist2', function (req, res) {
-    con.query('SELECT * FROM admission_form WHERE Department = ? and Year = ? and Shift = ? ORDER BY merit DESC',[req.body.Department,req.body.Year,"Evening"], function (error, results, fields) {
+
+    var Status = ""
+    var Years = ""
+
+    if(req.body.Status!=""){
+        Status = ` and Status = '${req.body.Status}'`
+    }
+    else{
+        Status = ` and Status = 'WhiteList'`
+    }
+    if(req.body.Years!=""){
+        Years = ` and Year = '${req.body.Years}'`
+    }
+    else{
+        Years = ` and Year = '${new Date().getFullYear()}'`
+    }
+
+    update = `SELECT * FROM admission_form WHERE Shift=? and Department = '${req.body.Department}'${Status}${Years} ORDER BY merit DESC`
+
+
+    con.query(update,["Evening","WhiteList"], function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
         return res.send({ error: false, data: results, message: 'Complete Data.' });
     });
@@ -621,8 +744,69 @@ app.post('/api/hod/addcourses', function (req, res) {
 }
 });
 
-// Get Courses
+
+// Assign Single Courses
+app.put('/api/hod/assigncourse', function (req, res) {
+
+    const schema = Joi.object({
+        id : Joi.number().required(),
+        Courses : Joi.string().required(),
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+    con.query("UPDATE students SET Courses = ? WHERE id = ?" ,[req.body.Courses,req.body.id], function (error, results, fields) {
+        if (error) throw error;
+
+        return res.send({ error: false, data: results, message: 'Courses Assigned Successfully' });
+    });
+}
+});
+
+
+// Assign Courses
+app.put('/api/hod/assigncourses', function (req, res) {
+
+    const schema = Joi.object({
+        Department : Joi.string().required(),
+        Semester : Joi.string().required(),
+        Courses : Joi.string().required(),
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+    con.query("UPDATE students SET Courses = ? WHERE Semester = ? and Department = ?" ,[req.body.Courses,req.body.Semester,req.body.Department], function (error, results, fields) {
+        if (error) throw error;
+
+        return res.send({ error: false, data: results, message: 'Courses Assigned Successfully' });
+    });
+}
+});
+
+
+// Get All Courses
+app.post('/api/all/courses', function (req, res) {
+
+    con.query('SELECT * FROM courses', function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
+
+// Get Courses Department Wise
 app.post('/api/hod/courses', function (req, res) {
+
     con.query('SELECT * FROM courses WHERE Department = ?',[req.body.Department], function (error, results, fields) {
         if (error) {
             console.log("Error")
@@ -644,7 +828,7 @@ app.delete('/api/hod/courses/:id', function (req, res) {
 
 // Semester Upgrade
 app.post('/api/hod/semesterupgrade', function (req, res) {
-    con.query('SELECT * FROM students WHERE Department = ? and Status = ?',[req.body.Department,"Active"], function (error, resultss, fields) {
+    con.query('SELECT * FROM students WHERE Department = ? and Status = ? and Degree_Status=?',[req.body.Department,"Active","Continue"], function (error, resultss, fields) {
 
         update = ""
 
@@ -677,6 +861,8 @@ app.post('/api/hod/students', function (req, res) {
     var Fee_Status = ""
     var Shift = ""
     var Semester = ""
+    var Degree_Status = ""
+    var Gender = ""
     var Names = ""
     var Roll = ""
 
@@ -686,6 +872,15 @@ app.post('/api/hod/students', function (req, res) {
         }
         if(req.body.Fee_Status!=""){
             Fee_Status = ` and Fee_Status = '${req.body.Fee_Status}'`
+        }
+        if(req.body.Degree_Status!=""){
+            Degree_Status = ` and Degree_Status = '${req.body.Degree_Status}'`
+        }
+        else{
+            Degree_Status = ` and Degree_Status = 'Continue'`
+        }
+        if(req.body.Gender!=""){
+            Gender = ` and Gender = '${req.body.Gender}'`
         }
         if(req.body.Shift!=""){
             Shift = ` and Shift = '${req.body.Shift}'`
@@ -701,7 +896,7 @@ app.post('/api/hod/students', function (req, res) {
         Roll = ` and Roll = '${req.body.Roll}'`
     }
 
-    update = `SELECT * FROM students WHERE Department = '${req.body.Department}'${Status}${Fee_Status}${Shift}${Semester}${Names}${Roll}`
+    update = `SELECT * FROM students WHERE Department = '${req.body.Department}'${Status}${Fee_Status}${Shift}${Semester}${Degree_Status}${Gender}${Names}${Roll}`
     con.query(update, function (error, results, fields) {
         if (error) {
             console.log("Error")
@@ -730,6 +925,17 @@ app.put('/api/hod/students/status/:id', function (req, res) {
             };
             return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
         });
+});
+
+
+// Degree Status Update
+app.put('/api/hod/students/degreestatus/:id', function (req, res) {
+    con.query("UPDATE students SET Degree_Status = ? WHERE id = ?;", [req.body.Statuss,req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
 });
 
 
@@ -977,7 +1183,7 @@ app.post('/api/ao/students', function (req, res) {
         Roll = ` and Roll = '${req.body.Roll}'`
     }
 
-    con.query(`SELECT * FROM students WHERE Shift = ? and Status='Active'${Fee_Status}${Department}${Semester}${Names}${Roll}`,["Morning"], function (error, results, fields) {
+    con.query(`SELECT * FROM students WHERE Shift = ? and Degree_Status='Continue' and Status='Active'${Fee_Status}${Department}${Semester}${Names}${Roll}`,["Morning"], function (error, results, fields) {
         if (error) {
             console.log(error)
         };
@@ -1012,12 +1218,67 @@ app.post('/api/ao/students2', function (req, res) {
         Roll = ` and Roll = '${req.body.Roll}'`
     }
 
-    con.query(`SELECT * FROM students WHERE Shift = ? and Status='Active'${Fee_Status}${Department}${Semester}${Names}${Roll}`,["Evening"], function (error, results, fields) {
+    con.query(`SELECT * FROM students WHERE Shift = ? and Degree_Status='Continue' and Status='Active'${Fee_Status}${Department}${Semester}${Names}${Roll}`,["Evening"], function (error, results, fields) {
         if (error) {
             console.log(error)
         };
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
+});
+
+
+// Create AO Record
+app.post('/api/ao/students/record', function (req, res) {
+
+
+    const schema = Joi.object({
+        Semester : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+    con.query(`SELECT * FROM students WHERE Degree_Status='Continue' and Status='Active'`, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        
+        var sql = "INSERT INTO fee_record (Roll, Full_Name, Father_Name, Department, Semester, Shift, Fee_Status, Phone, Original_id , Fall_Spring, Time) VALUES ?";
+        var values = [
+        ];
+
+        results.map((student,index)=>{
+            
+            values.push(
+                [student.Roll, student.Full_Name, student.Father_Name, student.Department, student.Semester,student.Shift,student.Fee_Status,student.Phone,student.id,req.body.Semester,new Date()]
+            )
+            
+        }) 
+        
+
+        con.query(sql, [values], function (err, result) {
+            if (err) throw err;
+            return res.send({ error: false,data: results, message: 'Record Created' });
+        });
+
+    });
+}
+
+});
+
+// Get AO Fee Record
+app.post('/api/ao/old/students/record', function (req, res) {
+
+    con.query(`SELECT * FROM fee_record WHERE Fall_Spring=?`,[req.body.Fall_Spring], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'Record Created' });
+    });
+
 });
 
 
@@ -1068,31 +1329,123 @@ app.delete('/api/ssio/announcements/:id', function (req, res) {
 });
 
 
+//Get Students for Award List
+app.post('/api/instructor/get/awardlist', function (req, res) {
+
+    con.query(`SELECT * FROM students WHERE Courses LIKE '%${req.body.Course}%'`, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
 //Generate Award List
 app.post('/api/instructor/awardlist', function (req, res) {
+
+
+    const schema = Joi.object({
+        Course_Code : Joi.string().required(),
+        Course_Title : Joi.string().required(),
+        Shift : Joi.string().required(),
+        Fall_Spring : Joi.string().required(),
+        Semester : Joi.string().required()
+    });
+
+    result = schema.validate({
+        Course_Code:req.body.Course_Code,
+        Course_Title:req.body.Course_Title,
+        Shift:req.body.Shift,
+        Fall_Spring:req.body.Fall_Spring,
+        Semester:req.body.Semester,
+    });
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
     var sql = "INSERT INTO awardlist (Roll, Name, Mids, Sessional, Course_Title, Course_Code, Instructor, Department, Semester , Fall_Spring, Shift) VALUES ?";
     var values = [
     ];
-
-    for (i=0;i<100;i++){
-        if(req.body['Roll'+i]!="" && req.body['Name'+i]!="" && req.body['Mids'+i]!="" && req.body['Sessional'+i]!="") {
+    for (i=0;i<parseInt(req.body.len);i++){
             values.push(
                 [req.body['Roll'+i], req.body['Name'+i], req.body['Mids'+i], req.body['Sessional'+i], req.body.Course_Title,req.body.Course_Code,req.body.Instructor,req.body.Department,req.body.Semester,req.body.Fall_Spring,req.body.Shift]
             )
-        }
     }
 
     con.query(sql, [values], function (err, result) {
         if (err) throw err;
-        console.log("Number of records inserted: " + result.affectedRows);
+
+        con.query(`INSERT INTO awardlist_unique (Course_Title, Course_Code, Instructor, Department, Semester , Fall_Spring, Shift) VALUES(?,?,?,?,?,?,?)`,[req.body.Course_Title,req.body.Course_Code,req.body.Instructor,req.body.Department,req.body.Semester,req.body.Fall_Spring,req.body.Shift], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false,data: results, message: 'Uploaded SuccesFully' });
+        });
+
     });
+}
+});
+
+
+//Generate Attendance
+app.post('/api/instructor/attendance', function (req, res) {
+
+
+    const schema = Joi.object({
+        Course_Code : Joi.string().required(),
+        Course_Title : Joi.string().required(),
+        Shift : Joi.string().required(),
+        Fall_Spring : Joi.string().required(),
+        Semester : Joi.string().required()
+    });
+
+    result = schema.validate({
+        Course_Code:req.body.Course_Code,
+        Course_Title:req.body.Course_Title,
+        Shift:req.body.Shift,
+        Fall_Spring:req.body.Fall_Spring,
+        Semester:req.body.Semester,
+    });
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
+    var sql = "INSERT INTO attendance (Roll, Name, Attendance , Course_Title, Course_Code, Instructor, Department, Semester , Fall_Spring, Shift) VALUES ?";
+    var values = [
+    ];
+    for (i=0;i<parseInt(req.body.len);i++){
+            values.push(
+                [req.body['Roll'+i], req.body['Name'+i], req.body['Attendance'+i],  req.body.Course_Title,req.body.Course_Code,req.body.Instructor,req.body.Department,req.body.Semester,req.body.Fall_Spring,req.body.Shift]
+            )
+    }
+
+    con.query(sql, [values], function (err, result) {
+        if (err) throw err;
+
+        con.query(`INSERT INTO attendance_unique (Course_Title, Course_Code, Instructor, Department, Semester , Fall_Spring, Shift) VALUES(?,?,?,?,?,?,?)`,[req.body.Course_Title,req.body.Course_Code,req.body.Instructor,req.body.Department,req.body.Semester,req.body.Fall_Spring,req.body.Shift], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false,data: results, message: 'Uploaded SuccesFully' });
+        });
+
+    });
+}
 });
 
 
 // Unique Results from Awardlist SSIO
 app.post('/api/ssio/awardlists', function (req, res) {
 
-        con.query('SELECT DISTINCT(Fall_Spring) FROM awardlist ORDER BY Fall_Spring;', function (error, resultss, fields) {
+        con.query('SELECT DISTINCT * FROM awardlist ORDER BY Fall_Spring;', function (error, resultss, fields) {
+
             if (error) {
                 console.log(error)
             };
@@ -1103,13 +1456,38 @@ app.post('/api/ssio/awardlists', function (req, res) {
                 Fall_Spring = req.body.Fall_Spring
             }
             
-            con.query('SELECT * FROM awardlist WHERE Fall_Spring = ?;',[Fall_Spring], function (error, results, fields) {
+            con.query('SELECT * FROM awardlist_unique WHERE Fall_Spring = ?;',[Fall_Spring], function (error, results, fields) {
                 if (error) {
                     console.log(error)
                 };
                 return res.send({ error: false, data: results, message: 'Complete Data.' });
             });
         });
+});
+
+
+// Unique Results from Attendance SSIO
+app.post('/api/ssio/attendance', function (req, res) {
+
+    con.query('SELECT DISTINCT * FROM attendance ORDER BY Fall_Spring;', function (error, resultss, fields) {
+
+        if (error) {
+            console.log(error)
+        };
+        if(resultss.length>0){
+            Fall_Spring = resultss[resultss.length-1].Fall_Spring
+        }
+        if(req.body.Fall_Spring){
+            Fall_Spring = req.body.Fall_Spring
+        }
+        
+        con.query('SELECT * FROM attendance_unique WHERE Fall_Spring = ?;',[Fall_Spring], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false, data: results, message: 'Complete Data.' });
+        });
+    });
 });
 
 
@@ -1127,7 +1505,7 @@ app.post('/api/hod/awardlists', function (req, res) {
             Fall_Spring = req.body.Fall_Spring
         }
         
-        con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Department = ?;',[Fall_Spring,req.body.Department], function (error, results, fields) {
+        con.query('SELECT * FROM awardlist_unique WHERE Fall_Spring = ? and Department = ?;',[Fall_Spring,req.body.Department], function (error, results, fields) {
             if (error) {
                 console.log(error)
             };
@@ -1136,9 +1514,34 @@ app.post('/api/hod/awardlists', function (req, res) {
     });
 });
 
-//Delete Awardlist
-app.delete('/api/ssio/awardlist/:id', function (req, res) {
-    con.query("DELETE FROM awardlist WHERE id = ?", [req.params.id], function (error, results, fields) {
+// Unique Results from Attendance HOD
+app.post('/api/hod/attendance', function (req, res) {
+
+    con.query('SELECT DISTINCT(Fall_Spring) FROM attendance ORDER BY Fall_Spring;', function (error, resultss, fields) {
+        if (error) {
+            console.log(error)
+        };
+        if(resultss.length>0){
+            Fall_Spring = resultss[resultss.length-1].Fall_Spring
+        }
+        if(req.body.Fall_Spring){
+            Fall_Spring = req.body.Fall_Spring
+        }
+        
+        con.query('SELECT * FROM attendance_unique WHERE Fall_Spring = ? and Department = ?;',[Fall_Spring,req.body.Department], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+            return res.send({ error: false, data: results, message: 'Complete Data.' });
+        });
+    });
+});
+
+
+//Delete Attendance
+app.delete('/api/ssio/attendance/:id', function (req, res) {
+
+    con.query("DELETE FROM attendance_unique WHERE id = ?", [req.params.id], function (error, results, fields) {
         if (error) {
             console.log("Error")
         };
@@ -1146,9 +1549,32 @@ app.delete('/api/ssio/awardlist/:id', function (req, res) {
     });
 });
 
+
+//Delete Awardlist
+app.delete('/api/ssio/awardlist/:id', function (req, res) {
+    con.query("DELETE FROM awardlist_unique WHERE id = ?", [req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// Get All AttendanceLists Session Wise
+app.post('/api/ssio/attendancedetails', function (req, res) {
+
+    con.query('SELECT * FROM attendance WHERE Fall_Spring = ? and Semester = ? and Department = ? and Course_Code = ? and Shift = ?;',[req.body.Fall_Spring,req.body.Semester,req.body.Department,req.body.Course_Code,req.body.Shift], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
+
 // Get All Awardlists Session Wise
 app.post('/api/ssio/details', function (req, res) {
-    con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Course_Title = ? and Shift = ?;',[req.body.Fall_Spring,req.body.Course_Title,req.body.Shift], function (error, results, fields) {
+    con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Semester = ? and Department = ? and Course_Code = ? and Shift = ?;',[req.body.Fall_Spring,req.body.Semester,req.body.Department,req.body.Course_Code,req.body.Shift], function (error, results, fields) {
         if (error) {
             console.log(error)
         };
