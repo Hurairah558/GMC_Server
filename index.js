@@ -85,7 +85,38 @@ app.get("/loginstatus", function(req, res,next){
     return res.send({LoggedIn:false,data:req.session.hod})
 })
 
+// Student Login
+app.post("/api/student/login", function(req, res){
 
+    Username = req.body.formData.Username
+    Password = req.body.formData.Password
+
+    con.query("SELECT * FROM students WHERE Full_Name=? and Password=?",[Username,Password], function (error, results, fields) {
+        if (results.length < 1) {
+            return res.send({ Message: "Incorrect Credentials",LoggedIn:false});
+        }
+        if(results[0].Password === Password){
+
+            req.session.hod = results[0]
+
+            return res.send({data: results, session : req.session.hod ,LoggedIn:true,HOD:true});
+        }
+        return res.send({ Message: "Incorrect Credentials",LoggedIn:false});
+    });
+});
+
+// Student Profile
+app.post("/api/student/profile", function(req, res){
+
+    con.query("SELECT * FROM students WHERE id=?",[req.body.id], function (error, results, fields) {
+        if (results.length < 1) {
+            return res.send({ Message: "Incorrect Credentials",LoggedIn:false});
+        }
+        return res.send({data: results[0], LoggedIn:true,HOD:true});
+    });
+});
+
+// Admin Login
 app.post("/login", function(req, res){
     Username = req.body.formData.Username
     Password = req.body.formData.Password
@@ -680,6 +711,7 @@ app.post('/api/hod/addinstructor', function (req, res) {
     const schema = Joi.object({
         Name : Joi.string().required(),
         Email : Joi.string().required(),
+        Designation : Joi.string().required(),
         Username : Joi.string().required(),
         Password : Joi.string().min(6).required(),
         Department : Joi.string().required()
@@ -691,7 +723,7 @@ app.post('/api/hod/addinstructor', function (req, res) {
         res.send(result.error.details[0].message)
     }
     else{
-    con.query("INSERT INTO admins(Name,Email,Username,Password,Designation,Department) value(?,?,?,?,?,?) " ,[req.body.Name,req.body.Email,req.body.Username,req.body.Password,"Teacher",req.body.Department], function (error, results, fields) {
+    con.query("INSERT INTO admins(Name,Email,Username,Password,Designation,Department,Role) value(?,?,?,?,?,?,?) " ,[req.body.Name,req.body.Email,req.body.Username,req.body.Password,"Teacher",req.body.Department,req.body.Designation], function (error, results, fields) {
         if (error) throw error;
 
         var mail = `
@@ -770,6 +802,8 @@ app.put('/api/hod/assigncourse', function (req, res) {
 
 // Assign Courses
 app.put('/api/hod/assigncourses', function (req, res) {
+
+    console.log(req.body)
 
     const schema = Joi.object({
         Department : Joi.string().required(),
@@ -955,7 +989,31 @@ app.delete('/api/hod/students/:id', function (req, res) {
 app.post('/api/ssio/busyinstructors', function (req, res) {
     con.query("SELECT * FROM timetable WHERE Time_Slot = ?", [req.body.Time_Slot], function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// Delete Instructor
+app.delete('/api/hod/instructors/:id', function (req, res) {
+
+    con.query(`DELETE FROM admins WHERE id = ?`,[req.params.id], function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// Get All Instructors
+app.post('/api/hod/instructors', function (req, res) {
+
+    con.query(`SELECT id,Name,Department,Role FROM admins WHERE Department = ? and Designation = ?`,[req.body.Department,"Teacher"], function (error, results, fields) {
+        if (error) {
+            console.log(error)
         };
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
@@ -963,9 +1021,15 @@ app.post('/api/ssio/busyinstructors', function (req, res) {
 
 // Get All Instructors
 app.post('/api/ssio/instructors', function (req, res) {
-    con.query("SELECT * FROM instructors", [req.body.Time_Slot], function (error, results, fields) {
+
+    Department = ""
+    if(req.body.Department){
+        Department = `WHERE Department = '${req.body.Department}'`
+    }
+
+    con.query(`SELECT Name,Department,Role FROM admins ${Department}`, function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
     });
@@ -1014,12 +1078,14 @@ app.delete('/api/hod/timetable/:id', function (req, res) {
 // Generate Time Table
 app.post('/api/hod/timetablegenerate', function (req, res) {
 
+    console.log(req.body)
 
     const schema = Joi.object({
         Department : Joi.string().required(),
         Fall_Spring : Joi.string().required(),
         Instructor_Department : Joi.string().required(),
         Instructor : Joi.string().required(),
+        Instructor_Designation : Joi.string().required(),
         Semester : Joi.string().required(),
         Course_Code : Joi.string().required(),
         Course_Title : Joi.string().required(),
@@ -1034,7 +1100,7 @@ app.post('/api/hod/timetablegenerate', function (req, res) {
         res.send(result.error.details[0].message)
     }
     else{
-    con.query("INSERT INTO timetable(Department,Instructor,Instructor_Department,Course_Title,Course_Code,Semester,Time_Slot,Shift,Fall_Spring,Room_no) value(?,?,?,?,?,?,?,?,?,?) " ,[req.body.Department,req.body.Instructor,req.body.Instructor_Department,req.body.Course_Title,req.body.Course_Code,req.body.Semester,req.body.Time_Slot,req.body.Shift,req.body.Fall_Spring,req.body.Room_no], function (error, results, fields) {
+    con.query("INSERT INTO timetable(Department,Instructor,Instructor_Department,Instructor_Designation,Course_Title,Course_Code,Semester,Time_Slot,Shift,Fall_Spring,Room_no) value(?,?,?,?,?,?,?,?,?,?,?) " ,[req.body.Department,req.body.Instructor,req.body.Instructor_Department,req.body.Instructor_Designation,req.body.Course_Title,req.body.Course_Code,req.body.Semester,req.body.Time_Slot,req.body.Shift,req.body.Fall_Spring,req.body.Room_no], function (error, results, fields) {
         if (error) throw error;
         return res.send({ error: false, data: results, message: 'Time Table Generated Successfully' });
     });
@@ -1541,22 +1607,48 @@ app.post('/api/hod/attendance', function (req, res) {
 //Delete Attendance
 app.delete('/api/ssio/attendance/:id', function (req, res) {
 
-    con.query("DELETE FROM attendance_unique WHERE id = ?", [req.params.id], function (error, results, fields) {
+    con.query('SELECT * FROM attendance_unique WHERE id = ?;',[req.params.id], function (error, resultsss, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
-        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+
+        con.query("DELETE FROM attendance_unique WHERE id = ?", [req.params.id], function (error, resultss, fields) {
+            if (error) {
+                console.log(error)
+            };
+
+            con.query("DELETE FROM attendance WHERE Department=? and Semester=? and Instructor = ? and Course_Code = ? and Shift = ? and Fall_Spring=?", [resultsss[0].Department,resultsss[0].Semester,resultsss[0].Instructor,resultsss[0].Course_Code,resultsss[0].Shift,resultsss[0].Fall_Spring], function (error, results, fields) {
+                if (error) {
+                    console.log(error)
+                };
+                return res.send({ error: false,data: results, message: 'SuccesFully Deleted' });
+            });
+        });
+
     });
 });
 
 
 //Delete Awardlist
 app.delete('/api/ssio/awardlist/:id', function (req, res) {
-    con.query("DELETE FROM awardlist_unique WHERE id = ?", [req.params.id], function (error, results, fields) {
+    con.query('SELECT * FROM awardlist_unique WHERE id = ?;',[req.params.id], function (error, resultsss, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
-        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+
+        con.query("DELETE FROM awardlist_unique WHERE id = ?", [req.params.id], function (error, resultss, fields) {
+            if (error) {
+                console.log(error)
+            };
+
+            con.query("DELETE FROM awardlist WHERE Department=? and Semester=? and Instructor = ? and Course_Code = ? and Shift = ? and Fall_Spring=?", [resultsss[0].Department,resultsss[0].Semester,resultsss[0].Instructor,resultsss[0].Course_Code,resultsss[0].Shift,resultsss[0].Fall_Spring], function (error, results, fields) {
+                if (error) {
+                    console.log(error)
+                };
+                return res.send({ error: false,data: results, message: 'SuccesFully Deleted' });
+            });
+        });
+
     });
 });
 
@@ -1574,7 +1666,7 @@ app.post('/api/ssio/attendancedetails', function (req, res) {
 
 // Get All Awardlists Session Wise
 app.post('/api/ssio/details', function (req, res) {
-    con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Semester = ? and Department = ? and Course_Code = ? and Shift = ?;',[req.body.Fall_Spring,req.body.Semester,req.body.Department,req.body.Course_Code,req.body.Shift], function (error, results, fields) {
+    con.query('SELECT * FROM awardlist WHERE Fall_Spring = ? and Semester = ? and Department = ? and Course_Code = ? and Shift = ? and Instructor=?;',[req.body.Fall_Spring,req.body.Semester,req.body.Department,req.body.Course_Code,req.body.Shift,req.body.Instructor], function (error, results, fields) {
         if (error) {
             console.log(error)
         };
