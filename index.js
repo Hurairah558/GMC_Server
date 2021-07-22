@@ -187,6 +187,57 @@ app.post("/api/forgetpassword", function(req, res){
 
 });
 
+
+// Change Student Password
+app.put("/api/student/change/login", function(req, res){
+
+
+    const schema = Joi.object({
+        id : Joi.string().required(),
+        OldUsername : Joi.string().required(),
+        OldPassword : Joi.string().required(),
+        Password : Joi.string().required()
+    });
+    
+    result = schema.validate(req.body.formData);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+
+    else{
+
+
+    id = req.body.formData.id
+    OldUsername = req.body.formData.OldUsername
+    OldPassword = req.body.formData.OldPassword
+    Password = req.body.formData.Password
+
+    con.query("SELECT Full_Name,Password FROM students WHERE id = ?",[id], function (error, results, fields) {
+        if (results.length < 1) {
+            return res.send({ message: "Incorrect Credentials",LoggedIn:false});
+        }
+
+        console.log(results)
+
+        if(results[0].Full_Name=== OldUsername && results[0].Password=== OldPassword){
+
+            con.query("UPDATE students SET Password = ? WHERE id = ?", [Password,id], function (error, results, fields) {
+                if (error) {
+                    console.log("Error")
+                };
+                return res.send({ error: false,data: results, message: 'Succesfully Changed' });
+            });
+        }
+        else {
+            return res.send({ message: "Incorrect Credentials",LoggedIn:false});
+        }
+    });
+}
+
+});
+
+
 // Change Password
 app.put("/api/change/login", function(req, res){
 
@@ -218,8 +269,6 @@ app.put("/api/change/login", function(req, res){
         if (results.length < 1) {
             return res.send({ message: "Incorrect Credentials",LoggedIn:false});
         }
-
-        console.log(results)
 
         if(results[0].Username=== OldUsername && results[0].Password=== OldPassword){
 
