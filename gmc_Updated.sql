@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2021 at 06:52 PM
+-- Generation Time: Jul 28, 2021 at 09:06 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -59,7 +59,7 @@ INSERT INTO `admins` (`id`, `Name`, `Email`, `Username`, `Password`, `Designatio
 (14, 'Zoology', 'Hurairahmalik5156558@gmail.com', 'Zoology', 'Zoology12345', 'HOD', 'Zoology', 'Professor'),
 (15, 'Ahsan Ilyas', 'Hurairahmalik5156558@gmail.com', 'SSIO', 'SSIO12345', 'SSIO', 'All', 'Associate Professor'),
 (16, 'Sardar', 'Hurairahmalik5156558@gmail.com', 'RO', 'RO12345', 'RO', 'All', 'Assistant Professor'),
-(19, 'Hurairah', 'Hurairahmalik5156558@gmail.com', 'Hurairah', '5156558H', 'Teacher', 'Information Technology', 'Lecturer'),
+(19, 'Hurairah', 'Hurairahmalik5156558@gmail.com', 'Hurairah', 'Hurairah', 'Teacher', 'Information Technology', 'Lecturer'),
 (20, 'Ramzan', 'Hurairahmalik5156558@gmail.com', 'AO', 'AO12345', 'AO', 'All', 'CTI'),
 (26, 'Cheema', 'hurairahmalik5156558@gmail.com', 'Cheema', 'Cheema', 'Teacher', 'BBA', 'Lecturer');
 
@@ -78,7 +78,7 @@ CREATE TABLE `admission_control` (
 --
 
 INSERT INTO `admission_control` (`Open`) VALUES
-('Open');
+('Closed');
 
 -- --------------------------------------------------------
 
@@ -172,7 +172,7 @@ INSERT INTO `admission_form` (`id`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`
 (9597, 'Abdul Halim', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '824', '2021', 'Guj', '369865', '1100', '737', '2021', 'Guj', '69.37272727272727', 'WhiteList', '2021-07-21 09:44:42.842158', '2022'),
 (9598, 'Abdul Hameed', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '716', '2021', 'Guj', '369865', '1100', '603', '2021', 'Guj', '57.900000000000006', 'WhiteList', '2021-07-21 09:44:42.846160', '2022'),
 (9599, 'Abdul Hamid', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Morning', '369565', '1100', '988', '2021', 'Guj', '369865', '1100', '761', '2021', 'Guj', '75.37272727272727', 'BlackList', '2021-07-21 09:44:42.850158', '2021'),
-(9600, 'Abdul Hannan', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '946', '2021', 'Guj', '369865', '1100', '974', '2021', 'Guj', '87.78181818181818', 'WhiteList', '2021-07-21 09:44:42.853158', '2021'),
+(9600, 'Abdul Hannan', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '946', '2021', 'Guj', '369865', '1100', '974', '2021', 'Guj', '87.78181818181818', 'BlackList', '2021-07-21 09:44:42.853158', '2021'),
 (9601, 'Abdul Haq', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Morning', '369565', '1100', '622', '2021', 'Guj', '369865', '1100', '627', '2021', 'Guj', '56.86363636363636', 'WhiteList', '2021-07-21 09:44:42.857158', '2021'),
 (9602, 'Abdul Haseeb', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '709', '2021', 'Guj', '369865', '1100', '871', '2021', 'Guj', '74.76363636363637', 'WhiteList', '2021-07-21 09:44:42.862160', '2022'),
 (9603, 'Abdul Hasib', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '608', '2021', 'Guj', '369865', '1100', '675', '2021', 'Guj', '59.53636363636363', 'WhiteList', '2021-07-21 09:44:42.865158', '2022'),
@@ -212,7 +212,7 @@ INSERT INTO `admission_form` (`id`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`
 (9637, 'Abdul Noor', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Morning', '369565', '1100', '989', '2021', 'Guj', '369865', '1100', '603', '2021', 'Guj', '65.34545454545454', 'WhiteList', '2021-07-21 09:44:43.108157', '2022'),
 (9638, 'Abdul Qaadir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '881', '2021', 'Guj', '369865', '1100', '749', '2021', 'Guj', '71.69090909090909', 'WhiteList', '2021-07-21 09:44:43.113159', '2022'),
 (9639, 'Abdul Qadeer', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Morning', '369565', '1100', '659', '2021', 'Guj', '369865', '1100', '997', '2021', 'Guj', '81.41818181818182', 'WhiteList', '2021-07-21 09:44:43.118159', '2022'),
-(9640, 'Abdul Qadir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '946', '2021', 'Guj', '369865', '1100', '954', '2021', 'Guj', '86.50909090909092', 'WhiteList', '2021-07-21 09:44:43.123166', '2022'),
+(9640, 'Abdul Qadir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '946', '2021', 'Guj', '369865', '1100', '954', '2021', 'Guj', '86.50909090909092', 'BlackList', '2021-07-21 09:44:43.123166', '2022'),
 (9641, 'Abdul Qahaar', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Morning', '369565', '1100', '773', '2021', 'Guj', '369865', '1100', '678', '2021', 'Guj', '64.22727272727272', 'WhiteList', '2021-07-21 09:44:43.128160', '2021'),
 (9642, 'Abdul Qayyum', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '690', '2021', 'Guj', '369865', '1100', '767', '2021', 'Guj', '67.62727272727273', 'WhiteList', '2021-07-21 09:44:43.131159', '2021'),
 (9643, 'Abdul Qudoos', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', 'Evening', '369565', '1100', '642', '2021', 'Guj', '369865', '1100', '928', '2021', 'Guj', '76.56363636363636', 'WhiteList', '2021-07-21 09:44:43.134158', '2022'),
@@ -1548,7 +1548,6 @@ CREATE TABLE `announcements` (
 INSERT INTO `announcements` (`id`, `Subject`, `Announcement`, `Timing`) VALUES
 (14, 'Admissions', 'Admissions will open in August', '2021-07-09T00:03:31.336Z'),
 (15, 'Dummy', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one ', '2021-07-09T00:04:09.924Z'),
-(16, 'Dummy', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', '2021-07-09T00:13:25.103Z'),
 (17, 'Admissions', 'Admissions will open in August', '2021-07-09T00:14:39.408Z');
 
 -- --------------------------------------------------------
@@ -1571,6 +1570,25 @@ CREATE TABLE `attendance` (
   `Shift` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `attendance`
+--
+
+INSERT INTO `attendance` (`id`, `Roll`, `Name`, `Attendance`, `Course_Title`, `Course_Code`, `Instructor`, `Department`, `Semester`, `Fall_Spring`, `Shift`) VALUES
+(46, '17651556-016', 'Aaqil', '50', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(47, '17651556-043', 'Aarif', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(48, '17651556-015', 'Abbas', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(49, '17651556-045', 'Abdul Aalee', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(50, '17651556-054', 'Abdul Azim', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(51, '17651556-038', 'Abdul Baari', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(52, '17651556-048', 'Abdul Ghafoor', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(53, '17651556-038', 'Abdul Hakeem', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(54, '17651556-053', 'Abdul Haq', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(55, '17651556-026', 'Abdul Muiz', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(56, '17651556-019', 'Abdul Muti', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(57, '17651556-051', 'Abdul Qadir', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(58, '17651556-028', 'Abdul Qayyum', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning');
+
 -- --------------------------------------------------------
 
 --
@@ -1587,6 +1605,13 @@ CREATE TABLE `attendance_unique` (
   `Semester` varchar(255) DEFAULT NULL,
   `Fall_Spring` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `attendance_unique`
+--
+
+INSERT INTO `attendance_unique` (`id`, `Instructor`, `Course_Title`, `Course_Code`, `Department`, `Shift`, `Semester`, `Fall_Spring`) VALUES
+(6, 'BBA', 'Data Structure', 'IT-209', 'BBA', 'Morning', '1', 'Fall-2021');
 
 -- --------------------------------------------------------
 
@@ -1609,6 +1634,25 @@ CREATE TABLE `awardlist` (
   `Shift` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `awardlist`
+--
+
+INSERT INTO `awardlist` (`id`, `Roll`, `Name`, `Mids`, `Sessional`, `Course_Title`, `Course_Code`, `Instructor`, `Department`, `Semester`, `Fall_Spring`, `Shift`) VALUES
+(1104, '17651556-016', 'Aaqil', 'df', 'df', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1105, '17651556-043', 'Aarif', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1106, '17651556-015', 'Abbas', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1107, '17651556-045', 'Abdul Aalee', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1108, '17651556-054', 'Abdul Azim', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1109, '17651556-038', 'Abdul Baari', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1110, '17651556-048', 'Abdul Ghafoor', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1111, '17651556-038', 'Abdul Hakeem', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1112, '17651556-053', 'Abdul Haq', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1113, '17651556-026', 'Abdul Muiz', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1114, '17651556-019', 'Abdul Muti', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1115, '17651556-051', 'Abdul Qadir', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning'),
+(1116, '17651556-028', 'Abdul Qayyum', '', '', 'Data Structure', 'IT-209', 'BBA', 'BBA', '1', 'Fall-2021', 'Morning');
+
 -- --------------------------------------------------------
 
 --
@@ -1625,6 +1669,13 @@ CREATE TABLE `awardlist_unique` (
   `Semester` varchar(255) DEFAULT NULL,
   `Fall_Spring` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `awardlist_unique`
+--
+
+INSERT INTO `awardlist_unique` (`id`, `Instructor`, `Course_Title`, `Course_Code`, `Department`, `Shift`, `Semester`, `Fall_Spring`) VALUES
+(21, 'BBA', 'Data Structure', 'IT-209', 'BBA', 'Morning', '1', 'Fall-2021');
 
 -- --------------------------------------------------------
 
@@ -1645,7 +1696,8 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`id`, `Course_Title`, `Course_Code`, `Department`) VALUES
 (6, 'Data Structure', 'IT-209', 'BBA'),
-(7, 'DCN', 'IT-213', 'BBA');
+(7, 'DCN', 'IT-213', 'BBA'),
+(8, 'PKS', 'MCM-101', 'BBA');
 
 -- --------------------------------------------------------
 
@@ -1670,11 +1722,11 @@ CREATE TABLE `datesheet` (
 --
 
 INSERT INTO `datesheet` (`id`, `Course_Title`, `Course_Code`, `Instructor`, `Semester`, `Department`, `Shift`, `Time_Slot`, `Fall_Spring`) VALUES
-(17, 'Data Structures', 'IT-209', 'Aadil', '1', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021'),
 (18, 'Data Structures', 'IT-209', 'Aadil', '3', 'BBA', 'Evening', '8:30 AM to 9:20 AM', 'Fall-2021'),
-(19, 'Data Structure', 'IT-209', 'Aadil', '1', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021'),
-(21, 'DCN', 'IT-213', 'Aadil', '1', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021'),
-(22, 'DCN', 'IT-213', 'Aadil', '1', 'BBA', 'Evening', '9:20 AM to 10:10 AM', 'Fall-2021');
+(22, 'DCN', 'IT-213', 'Aadil', '1', 'BBA', 'Evening', '9:20 AM to 10:10 AM', 'Fall-2021'),
+(23, 'Data Structure', 'IT-209', 'Aadil', '1', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021'),
+(24, 'Data Structure', 'IT-209', 'Aadil', '1', 'BBA', 'Morning', '8:30 AM to 9:20 AM', 'Fall-2021'),
+(27, 'Data Structure', 'IT-209', 'Aadil', '1', 'BBA', 'Evening', '8:30 AM to 9:20 AM', 'Fall-2021');
 
 -- --------------------------------------------------------
 
@@ -2487,8 +2539,8 @@ INSERT INTO `instructors` (`id`, `Instructor`, `Department`) VALUES
 CREATE TABLE `meritlist_controller` (
   `id` int(11) NOT NULL,
   `MeritList` longtext DEFAULT NULL,
-  `NOS_Start` int(11) DEFAULT NULL,
-  `NOS_End` int(11) DEFAULT NULL,
+  `NOS_Start` varchar(255) DEFAULT NULL,
+  `NOS_End` varchar(255) DEFAULT NULL,
   `Display` tinyint(1) DEFAULT NULL,
   `Department` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -2498,20 +2550,20 @@ CREATE TABLE `meritlist_controller` (
 --
 
 INSERT INTO `meritlist_controller` (`id`, `MeritList`, `NOS_Start`, `NOS_End`, `Display`, `Department`) VALUES
-(45, '1st Merit List', 1, 55, 1, 'BBA'),
-(46, '', 0, 0, 0, 'Botany'),
-(47, '', 0, 0, 0, 'Chemistry'),
-(48, '', 0, 0, 0, 'Economics'),
-(49, '', 0, 0, 0, 'English'),
-(50, '', 0, 0, 0, 'Physics'),
-(51, '', 0, 0, 0, 'Political Science'),
-(52, '', 0, 0, 0, 'Psychology'),
-(53, '', 0, 0, 0, 'Mathematics'),
-(54, '', 0, 0, 0, 'Statistics'),
-(55, '1st Merit List', 1, 55, 1, 'Information Technology'),
-(56, '', 0, 0, 0, 'Islamiyat'),
-(57, '', 0, 0, 0, 'Urdu'),
-(58, '', 0, 0, 0, 'Zoology');
+(45, '1st Merit List', '1', '55', 1, 'BBA'),
+(46, '', '0', '0', 0, 'Botany'),
+(47, '', '0', '0', 0, 'Chemistry'),
+(48, '', '0', '0', 0, 'Economics'),
+(49, '', '0', '0', 0, 'English'),
+(50, '', '0', '0', 0, 'Physics'),
+(51, '', '0', '0', 0, 'Political Science'),
+(52, '', '0', '0', 0, 'Psychology'),
+(53, '', '0', '0', 0, 'Mathematics'),
+(54, '', '0', '0', 0, 'Statistics'),
+(55, '1st Merit List', '1', '55', 1, 'Information Technology'),
+(56, '', '0', '0', 0, 'Islamiyat'),
+(57, '', '0', '0', 0, 'Urdu'),
+(58, '', '0', '0', 0, 'Zoology');
 
 -- --------------------------------------------------------
 
@@ -2522,8 +2574,8 @@ INSERT INTO `meritlist_controller` (`id`, `MeritList`, `NOS_Start`, `NOS_End`, `
 CREATE TABLE `meritlist_controller2` (
   `id` int(11) NOT NULL,
   `MeritList` varchar(255) DEFAULT NULL,
-  `NOS_Start` int(11) DEFAULT NULL,
-  `NOS_End` int(11) DEFAULT NULL,
+  `NOS_Start` varchar(255) DEFAULT NULL,
+  `NOS_End` varchar(255) DEFAULT NULL,
   `Display` tinyint(50) DEFAULT NULL,
   `Department` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -2533,20 +2585,20 @@ CREATE TABLE `meritlist_controller2` (
 --
 
 INSERT INTO `meritlist_controller2` (`id`, `MeritList`, `NOS_Start`, `NOS_End`, `Display`, `Department`) VALUES
-(1, '1st Merit List', 1, 55, 0, 'BBA'),
-(2, '', 0, 0, 0, 'Botany'),
-(3, '', 0, 0, 0, 'Chemistry'),
-(4, '', 0, 0, 0, 'Economics'),
-(5, '', 0, 0, 0, 'English'),
-(6, '', 0, 0, 0, 'Physics'),
-(7, '', 0, 0, 0, 'Political Science'),
-(8, '', 0, 0, 0, 'Psychology'),
-(9, '', 0, 0, 0, 'Mathematics'),
-(10, '', 0, 0, 0, 'Statistics'),
-(11, '1st Merit List', 1, 55, 1, 'Information Technology'),
-(12, '', 0, 0, 0, 'Islamiyat'),
-(13, '', 0, 0, 0, 'Urdu'),
-(14, '', 0, 0, 0, 'Zoology');
+(1, '1st Merit List', '1', '55', 1, 'BBA'),
+(2, '', '0', '0', 0, 'Botany'),
+(3, '', '0', '0', 0, 'Chemistry'),
+(4, '', '0', '0', 0, 'Economics'),
+(5, '', '0', '0', 0, 'English'),
+(6, '', '0', '0', 0, 'Physics'),
+(7, '', '0', '0', 0, 'Political Science'),
+(8, '', '0', '0', 0, 'Psychology'),
+(9, '', '0', '0', 0, 'Mathematics'),
+(10, '', '0', '0', 0, 'Statistics'),
+(11, '1st Merit List', '1', '55', 1, 'Information Technology'),
+(12, '', '0', '0', 0, 'Islamiyat'),
+(13, '', '0', '0', 0, 'Urdu'),
+(14, '', '0', '0', 0, 'Zoology');
 
 -- --------------------------------------------------------
 
@@ -2624,7 +2676,8 @@ INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 ('K7EhXMT0Ob1rqQ3pARdcPlZuz260g41V', 1628283287, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-08-06T20:54:46.873Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":{\"id\":12800,\"Roll\":\"17651556-011\",\"Full_Name\":\"Adel\",\"Father_Name\":\"Father_Name\",\"Gender\":\"Female\",\"CNIC\":\"3460163598769\",\"DOB\":\"05-29-2022\",\"Email\":\"hurairah@558\",\"Phone\":\"03015696326\",\"Address\":\"Daska\",\"Department\":\"Botany\",\"Matric_Roll\":\"369565\",\"Matric_Total\":\"1100\",\"Matric_Obtained_Marks\":\"627\",\"Matric_Year\":\"2021\",\"Matric_Board\":\"Guj\",\"Inter_Roll\":\"369865\",\"Inter_Total\":\"1100\",\"Inter_Obtained_Marks\":\"627\",\"Inter_Year\":\"2021\",\"Inter_Board\":\"Guj\",\"Semester\":\"8\",\"Fee_Status\":\"Unpaid\",\"Status\":\"Active\",\"Degree_Status\":\"Continue\",\"Courses\":\"\",\"Shift\":\"Morning\",\"Admission_Time\":\"2021-07-22 20:20:49.814431\",\"Year\":\"2022\",\"Password\":\"Hurairah\",\"Designation\":\"Student\"}}'),
 ('WCs57Dg-Vu1w64YVI9F9p-po3d5T22PZ', 1628282602, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-08-06T20:43:21.579Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":{\"id\":12800,\"Roll\":\"17651556-011\",\"Full_Name\":\"Adel\",\"Father_Name\":\"Father_Name\",\"Gender\":\"Female\",\"CNIC\":\"3460163598769\",\"DOB\":\"05-29-2022\",\"Email\":\"hurairah@558\",\"Phone\":\"03015696326\",\"Address\":\"Daska\",\"Department\":\"Botany\",\"Matric_Roll\":\"369565\",\"Matric_Total\":\"1100\",\"Matric_Obtained_Marks\":\"627\",\"Matric_Year\":\"2021\",\"Matric_Board\":\"Guj\",\"Inter_Roll\":\"369865\",\"Inter_Total\":\"1100\",\"Inter_Obtained_Marks\":\"627\",\"Inter_Year\":\"2021\",\"Inter_Board\":\"Guj\",\"Semester\":\"8\",\"Fee_Status\":\"Unpaid\",\"Status\":\"Active\",\"Degree_Status\":\"Continue\",\"Courses\":\"\",\"Shift\":\"Morning\",\"Admission_Time\":\"2021-07-22 20:20:49.814431\",\"Year\":\"2022\",\"Password\":\"Hurairah\",\"Designation\":\"Student\"}}'),
 ('Y5-Ek_HuHKQvNmr1LoOUWrzVfVlaxHHu', 1628253118, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-08-06T11:40:34.924Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":{\"id\":15,\"Name\":\"Ahsan Ilyas\",\"Email\":\"Hurairahmalik5156558@gmail.com\",\"Username\":\"SSIO\",\"Password\":\"SSIO12345\",\"Designation\":\"SSIO\",\"Department\":\"All\"}}'),
-('bV41LY7GyH_5s5k6mkGhZMQKob3yt3Fq', 1628282333, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-08-06T20:32:21.545Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":{\"id\":12800,\"Roll\":\"17651556-011\",\"Full_Name\":\"Adel\",\"Father_Name\":\"Father_Name\",\"Gender\":\"Female\",\"CNIC\":\"3460163598769\",\"DOB\":\"05-29-2022\",\"Email\":\"hurairah@558\",\"Phone\":\"03015696326\",\"Address\":\"Daska\",\"Department\":\"Botany\",\"Matric_Roll\":\"369565\",\"Matric_Total\":\"1100\",\"Matric_Obtained_Marks\":\"627\",\"Matric_Year\":\"2021\",\"Matric_Board\":\"Guj\",\"Inter_Roll\":\"369865\",\"Inter_Total\":\"1100\",\"Inter_Obtained_Marks\":\"627\",\"Inter_Year\":\"2021\",\"Inter_Board\":\"Guj\",\"Semester\":\"8\",\"Fee_Status\":\"Unpaid\",\"Status\":\"Active\",\"Degree_Status\":\"Continue\",\"Courses\":\"\",\"Shift\":\"Morning\",\"Admission_Time\":\"2021-07-22 20:20:49.814431\",\"Year\":\"2022\",\"Password\":\"Hurairah\",\"Designation\":\"Student\"}}');
+('bV41LY7GyH_5s5k6mkGhZMQKob3yt3Fq', 1628282333, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-08-06T20:32:21.545Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":{\"id\":12800,\"Roll\":\"17651556-011\",\"Full_Name\":\"Adel\",\"Father_Name\":\"Father_Name\",\"Gender\":\"Female\",\"CNIC\":\"3460163598769\",\"DOB\":\"05-29-2022\",\"Email\":\"hurairah@558\",\"Phone\":\"03015696326\",\"Address\":\"Daska\",\"Department\":\"Botany\",\"Matric_Roll\":\"369565\",\"Matric_Total\":\"1100\",\"Matric_Obtained_Marks\":\"627\",\"Matric_Year\":\"2021\",\"Matric_Board\":\"Guj\",\"Inter_Roll\":\"369865\",\"Inter_Total\":\"1100\",\"Inter_Obtained_Marks\":\"627\",\"Inter_Year\":\"2021\",\"Inter_Board\":\"Guj\",\"Semester\":\"8\",\"Fee_Status\":\"Unpaid\",\"Status\":\"Active\",\"Degree_Status\":\"Continue\",\"Courses\":\"\",\"Shift\":\"Morning\",\"Admission_Time\":\"2021-07-22 20:20:49.814431\",\"Year\":\"2022\",\"Password\":\"Hurairah\",\"Designation\":\"Student\"}}'),
+('yapsyyWV9g-BOiWhaQYLk95LdMSvgH5L', 1628452770, '{\"cookie\":{\"originalMaxAge\":1314000000,\"expires\":\"2021-08-08T07:56:15.402Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"hod\":{\"id\":20,\"Name\":\"Ramzan\",\"Email\":\"Hurairahmalik5156558@gmail.com\",\"Username\":\"AO\",\"Password\":\"AO12345\",\"Designation\":\"AO\",\"Department\":\"All\",\"Role\":\"CTI\"}}');
 
 -- --------------------------------------------------------
 
@@ -2671,13 +2724,13 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Address`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `Semester`, `Fee_Status`, `Status`, `Degree_Status`, `Courses`, `Shift`, `Admission_Time`, `Year`, `Password`, `Designation`) VALUES
-(12606, '17651556-022', 'Aadil', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '882', '2021', 'Guj', '369865', '1100', '882', '2021', 'Guj', '3', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.865599', '2022', 'Hurairah', 'Student'),
+(12606, '17651556-022', 'Aadil', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '882', '2021', 'Guj', '369865', '1100', '882', '2021', 'Guj', '12', 'Paid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.865599', '2022', 'Hurairah', 'Student'),
 (12607, '17651556-028', 'Aafiya', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '857', '2021', 'Guj', '369865', '1100', '857', '2021', 'Guj', '4', 'Unpaid', 'Inactive', 'Continue', '', 'Evening', '2021-07-22 20:20:48.869965', '2021', 'Hurairah', 'Student'),
 (12608, '17651556-015', 'Aahil', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '892', '2021', 'Guj', '369865', '1100', '892', '2021', 'Guj', '5', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.872375', '2022', 'Hurairah', 'Student'),
 (12609, '17651556-037', 'Aalam', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '764', '2021', 'Guj', '369865', '1100', '764', '2021', 'Guj', '6', 'Unpaid', 'Inactive', 'Continue', '', 'Evening', '2021-07-22 20:20:48.874698', '2022', 'Hurairah', 'Student'),
 (12610, '17651556-012', 'Aalee', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '799', '2021', 'Guj', '369865', '1100', '799', '2021', 'Guj', '6', 'Unpaid', 'Active', 'Continue', '', 'Evening', '2021-07-22 20:20:48.877013', '2022', 'Hurairah', 'Student'),
 (12611, '17651556-041', 'Aalim', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '677', '2021', 'Guj', '369865', '1100', '677', '2021', 'Guj', '2', 'Unpaid', 'Active', 'Continue', '', 'Evening', '2021-07-22 20:20:48.879283', '2022', 'Hurairah', 'Student'),
-(12612, '17651556-051', 'Aamil', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '841', '2021', 'Guj', '369865', '1100', '841', '2021', 'Guj', '4', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.881649', '2021', 'Hurairah', 'Student'),
+(12612, '17651556-051', 'Aamil', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '841', '2021', 'Guj', '369865', '1100', '841', '2021', 'Guj', '5', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.881649', '2021', 'Hurairah', 'Student'),
 (12613, '17651556-047', 'Aamir', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '687', '2021', 'Guj', '369865', '1100', '687', '2021', 'Guj', '3', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.886280', '2022', 'Hurairah', 'Student'),
 (12614, '17651556-027', 'Aamirah', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '785', '2021', 'Guj', '369865', '1100', '785', '2021', 'Guj', '5', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.890687', '2021', 'Hurairah', 'Student'),
 (12615, '17651556-047', 'Aaqib', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '648', '2021', 'Guj', '369865', '1100', '648', '2021', 'Guj', '3', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:48.895710', '2022', 'Hurairah', 'Student'),
@@ -2710,7 +2763,7 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (12642, '17651556-042', 'Abdul Baith', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '606', '2021', 'Guj', '369865', '1100', '606', '2021', 'Guj', '6', 'Unpaid', 'Active', 'Continue', '', 'Evening', '2021-07-22 20:20:49.043935', '2021', 'Hurairah', 'Student'),
 (12643, '17651556-053', 'Abdul Baqi', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '893', '2021', 'Guj', '369865', '1100', '893', '2021', 'Guj', '4', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:49.055933', '2021', 'Hurairah', 'Student'),
 (12644, '17651556-036', 'Abdul Bari', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '745', '2021', 'Guj', '369865', '1100', '745', '2021', 'Guj', '4', 'Unpaid', 'Active', 'Continue', '', 'Evening', '2021-07-22 20:20:49.059338', '2022', 'Hurairah', 'Student'),
-(12645, '17651556-029', 'Abdul Baseer', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '801', '2021', 'Guj', '369865', '1100', '801', '2021', 'Guj', '6', 'Unpaid', 'Inactive', 'Continue', '', 'Morning', '2021-07-22 20:20:49.063036', '2022', 'Hurairah', 'Student'),
+(12645, '17651556-029', 'Abdul Baseer', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '801', '2021', 'Guj', '369865', '1100', '801', '2021', 'Guj', '6', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:49.063036', '2022', 'Hurairah', 'Student'),
 (12646, '17651556-051', 'Abdul Batin', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '925', '2021', 'Guj', '369865', '1100', '925', '2021', 'Guj', '3', 'Unpaid', 'Active', 'Continue', '', 'Evening', '2021-07-22 20:20:49.066650', '2022', 'Hurairah', 'Student'),
 (12647, '17651556-040', 'Abdul Fattah', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '801', '2021', 'Guj', '369865', '1100', '801', '2021', 'Guj', '4', 'Unpaid', 'Inactive', 'Continue', '', 'Morning', '2021-07-22 20:20:49.072650', '2021', 'Hurairah', 'Student'),
 (12648, '17651556-027', 'Abdul Ghafaar', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'BBA', '369565', '1100', '781', '2021', 'Guj', '369865', '1100', '781', '2021', 'Guj', '6', 'Unpaid', 'Inactive', 'Continue', '', 'Morning', '2021-07-22 20:20:49.076195', '2022', 'Hurairah', 'Student'),
@@ -2866,7 +2919,7 @@ INSERT INTO `students` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Gender`, `CNI
 (12797, '17651556-013', 'Adeeb', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '614', '2021', 'Guj', '369865', '1100', '614', '2021', 'Guj', '4', 'Unpaid', 'Inactive', 'Continue', '', 'Morning', '2021-07-22 20:20:49.804590', '2022', 'Hurairah', 'Student'),
 (12798, '17651556-050', 'Adeel', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '880', '2021', 'Guj', '369865', '1100', '880', '2021', 'Guj', '6', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:49.807705', '2021', 'Hurairah', 'Student'),
 (12799, '17651556-026', 'Adeem', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '682', '2021', 'Guj', '369865', '1100', '682', '2021', 'Guj', '7', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:49.811121', '2021', 'Hurairah', 'Student'),
-(12800, '17651556-011', 'Adel', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '627', '2021', 'Guj', '369865', '1100', '627', '2021', 'Guj', '8', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:49.814431', '2022', 'Hurairah', 'Student'),
+(12800, '17651556-011', 'Adel', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '627', '2021', 'Guj', '369865', '1100', '627', '2021', 'Guj', '8', 'Unpaid', 'Active', 'Continue', 'IT-209:DS,PK-101:PKS,', 'Morning', '2021-07-22 20:20:49.814431', '2022', 'Hurairah', 'Student'),
 (12801, '17651556-016', 'Adham', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '619', '2021', 'Guj', '369865', '1100', '619', '2021', 'Guj', '5', 'Unpaid', 'Active', 'Continue', '', 'Morning', '2021-07-22 20:20:49.820431', '2021', 'Hurairah', 'Student'),
 (12802, '17651556-021', 'Adib', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '613', '2021', 'Guj', '369865', '1100', '613', '2021', 'Guj', '2', 'Unpaid', 'Inactive', 'Continue', '', 'Evening', '2021-07-22 20:20:49.823914', '2022', 'Hurairah', 'Student'),
 (12803, '17651556-013', 'Adil', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', 'Daska', 'Botany', '369565', '1100', '848', '2021', 'Guj', '369865', '1100', '848', '2021', 'Guj', '4', 'Unpaid', 'Inactive', 'Continue', '', 'Evening', '2021-07-22 20:20:49.827302', '2022', 'Hurairah', 'Student'),
@@ -4223,7 +4276,7 @@ ALTER TABLE `timetable`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `admission_form`
@@ -4235,43 +4288,43 @@ ALTER TABLE `admission_form`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `attendance_unique`
 --
 ALTER TABLE `attendance_unique`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `awardlist`
 --
 ALTER TABLE `awardlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1091;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1117;
 
 --
 -- AUTO_INCREMENT for table `awardlist_unique`
 --
 ALTER TABLE `awardlist_unique`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `datesheet`
 --
 ALTER TABLE `datesheet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `fee_record`
@@ -4313,7 +4366,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

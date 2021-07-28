@@ -118,6 +118,7 @@ app.post("/api/student/profile", function(req, res){
 
 // Admin Login
 app.post("/login", function(req, res){
+
     Username = req.body.formData.Username
     Password = req.body.formData.Password
 
@@ -578,13 +579,21 @@ app.post('/hod/meritlist', function (req, res) {
     var Status = ""
     var Years = ""
 
-    if(req.body.Status!=""){
+    if(!req.body.Status){
+        
+
+        Status = ` and Status = 'WhiteList'`
+    }
+    else if(req.body.Status!=""){
         Status = ` and Status = '${req.body.Status}'`
     }
     else{
         Status = ` and Status = 'WhiteList'`
     }
-    if(req.body.Years!=""){
+    if(!req.body.Years){
+        Years = ` and Year = '${new Date().getFullYear()}'`
+    }
+    else if(req.body.Years!=""){
         Years = ` and Year = '${req.body.Years}'`
     }
     else{
@@ -592,8 +601,7 @@ app.post('/hod/meritlist', function (req, res) {
     }
 
     update = `SELECT * FROM admission_form WHERE Shift=? and Department = '${req.body.Department}'${Status}${Years} ORDER BY merit DESC`
-
-
+    
     con.query(update,["Morning","WhiteList"], function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -610,8 +618,8 @@ app.post('/hod/meritlistcontroller', function (req, res) {
 
     const schema = Joi.object({
         MeritList : Joi.string().required(),
-        Start : Joi.number().required(),
-        End : Joi.number().required(),
+        Start : Joi.string().required(),
+        End : Joi.string().required(),
         Display : Joi.string().required(),
         Department : Joi.string().required()
     });
@@ -657,13 +665,21 @@ app.post('/hod/meritlist2', function (req, res) {
     var Status = ""
     var Years = ""
 
-    if(req.body.Status!=""){
+    if(!req.body.Status){
+        
+
+        Status = ` and Status = 'WhiteList'`
+    }
+    else if(req.body.Status!=""){
         Status = ` and Status = '${req.body.Status}'`
     }
     else{
         Status = ` and Status = 'WhiteList'`
     }
-    if(req.body.Years!=""){
+    if(!req.body.Years){
+        Years = ` and Year = '${new Date().getFullYear()}'`
+    }
+    else if(req.body.Years!=""){
         Years = ` and Year = '${req.body.Years}'`
     }
     else{
@@ -686,8 +702,8 @@ app.post('/hod/meritlistcontroller2', function (req, res) {
 
     const schema = Joi.object({
         MeritList : Joi.string().required(),
-        Start : Joi.number().required(),
-        End : Joi.number().required(),
+        Start : Joi.string().required(),
+        End : Joi.string().required(),
         Display : Joi.string().required(),
         Department : Joi.string().required()
     });
@@ -888,7 +904,7 @@ app.post('/api/all/courses', function (req, res) {
 
 
 // Get Courses Department Wise
-app.post('/api/hod/courses', function (req, res) {
+app.post('/api/hod/course', function (req, res) {
 
     con.query('SELECT * FROM courses WHERE Department = ?',[req.body.Department], function (error, results, fields) {
         if (error) {
@@ -911,7 +927,9 @@ app.delete('/api/hod/courses/:id', function (req, res) {
 
 // Semester Upgrade
 app.post('/api/hod/semesterupgrade', function (req, res) {
-    con.query('SELECT * FROM students WHERE Department = ? and Status = ? and Degree_Status=?',[req.body.Department,"Active","Continue"], function (error, resultss, fields) {
+
+
+    con.query('SELECT * FROM students WHERE Department = ? and Status = ? and Degree_Status=? and Fee_Status = ?',[req.body.Department,"Active","Continue","Paid"], function (error, resultss, fields) {
 
         update = ""
 
@@ -923,20 +941,35 @@ app.post('/api/hod/semesterupgrade', function (req, res) {
 
             con.query(update, function (error, results, fields) {
                 if (error) {
-                    console.log("Update Error",error)
+                    return res.send({ error: false, data: results, message: 'Unsuccessfull! Something Went Wrong' });
                 };
-                return res.send({ error: false, data: results, message: 'Complete Data.' });
+
+
+                con.query('UPDATE students SET Fee_Status = ? WHERE Department=?',["Unpaid",req.body.Department], function (error, results, fields) {
+                    if (error) {
+                        console.log("Error")
+                    };
+                });
+
+                return res.send({ error: false, data: results, message: 'Semester Upgraded Successfully' });
             });
 
         if (error) {
             console.log("Error")
         };
-        // return res.send({ errorr: false, data: resultss, messages: 'Complete Data.' });
     });
 });
 
-
-
+// All Students Department Wise Dashboard
+app.post('/api/hod/students/dashboard', function (req, res) {
+    update = `SELECT * FROM students WHERE Department = '${req.body.Department}'`
+    con.query(update, function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+        return res.send({ error: false, data: results, message: 'Complete Data.' });
+    });
+});
 // All Students Department Wise
 app.post('/api/hod/students', function (req, res) {
 
@@ -1127,8 +1160,6 @@ app.delete('/api/hod/timetable/:id', function (req, res) {
 // Generate Time Table
 app.post('/api/hod/timetablegenerate', function (req, res) {
 
-    console.log(req.body)
-
     const schema = Joi.object({
         Department : Joi.string().required(),
         Fall_Spring : Joi.string().required(),
@@ -1161,6 +1192,42 @@ app.post('/api/hod/timetablegenerate', function (req, res) {
 app.get('/api/alll/students', function (req, res) {
 
     con.query(`SELECT * FROM students`, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// Get Merit List Formula
+app.get('/api/ro/formula', function (req, res) {
+
+    con.query(`SELECT * FROM merit_list_formula`, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// AO Dashboard
+app.get('/api/ao/dashboard', function (req, res) {
+
+    con.query(`SELECT * FROM students WHERE Status = 'Active' and Degree_Status='Continue';`, function (error, results, fields) {
+        if (error) {
+            console.log(error)
+        };
+        return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+
+// SSIO and RO Dashboard
+app.get('/api/all/dashboard', function (req, res) {
+
+    con.query(`SELECT * FROM students WHERE Status = 'Active';`, function (error, results, fields) {
         if (error) {
             console.log(error)
         };
