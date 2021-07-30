@@ -106,7 +106,7 @@ app.post("/api/student/login", function(req, res){
 
     con.query("SELECT * FROM students WHERE Email=? and Password=?",[Email,Password], function (error, results, fields) {
         if (results.length < 1) {
-            return res.send({ Message: "Incorrect Credentials",LoggedIn:false});
+            return res.send({ message: "Incorrect Credentials",LoggedIn:false});
         }
         if(results[0].Password === Password){
 
@@ -114,7 +114,7 @@ app.post("/api/student/login", function(req, res){
 
             return res.send({data: results, session : req.session.hod ,LoggedIn:true,HOD:true});
         }
-        return res.send({ Message: "Incorrect Credentials",LoggedIn:false});
+        return res.send({ message: "Incorrect Credentials",LoggedIn:false});
     });
 }
 });
@@ -1254,6 +1254,39 @@ app.post('/api/hod/timetablegenerate', function (req, res) {
         return res.send({ error: false, data: results, message: 'Time Table Generated Successfully' });
     });
 }
+});
+
+
+// Update Time Table
+app.put('/api/hod/edit/time', function (req, res) {
+
+    const schema = Joi.object({
+        id : Joi.number().required(),
+        Department : Joi.string().required(),
+        Fall_Spring : Joi.string().required(),
+        Instructor_Department : Joi.string().required(),
+        Instructor : Joi.string().required(),
+        Instructor_Designation : Joi.string().required(),
+        Semester : Joi.string().required(),
+        Course_Code : Joi.string().required(),
+        Course_Title : Joi.string().required(),
+        Time_Slot : Joi.string().required(),
+        Shift : Joi.string().required(),
+        Room_no : Joi.string().required()
+    });
+
+    result = schema.validate(req.body);
+    
+    if (result.error){
+        res.send(result.error.details[0].message)
+    }
+    else{
+        console.log(req.body)
+        con.query("UPDATE timetable SET Fall_Spring=?,Instructor_Department=?, Instructor=?, Instructor_Designation=?, Semester=? , Course_Code =?, Course_Title =?, Time_Slot=? , Shift=? , Room_no=? WHERE id=?", [req.body.Fall_Spring , req.body.Instructor_Department ,req.body.Instructor ,req.body.Instructor_Designation ,req.body.Semester  ,req.body.Course_Code  ,req.body.Course_Title ,req.body.Time_Slot  ,req.body.Shift  ,req.body.Room_no,req.body.id], function (error, results, fields) {
+            if (error) throw error;
+            return res.send({ error: false, data: results, message: 'Updated Successfully' });
+        });
+    }
 });
 
 
