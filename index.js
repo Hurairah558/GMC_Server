@@ -12,6 +12,7 @@ var nodemailer = require('nodemailer');
 var fileUpload = require('express-fileupload');
 var path = require('path');
 const multer = require('multer');
+require('dotenv').config()
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -24,7 +25,6 @@ const storage = multer.diskStorage({
 
 
 
-
   const upload = multer({
     storage: storage
   });
@@ -32,13 +32,13 @@ const storage = multer.diskStorage({
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'hurairah564@gmail.com',
-      pass: '5156558gg'
+      user: process.env.EMAIL,
+      pass: process.env.EMAILPASS
     }
   });
 
 const corsOptions ={
-    origin:'http://localhost:3000', 
+    origin:process.env.ORIGIN, 
     credentials:true,
     optionSuccessStatus:200
 }
@@ -66,7 +66,7 @@ var options = {
     clearExpired: true,
     checkExpirationInterval: 1000*60*60*365,
 	expiration: 1000*60*60*365,
-	database: 'gmc'
+	database: process.env.DB
 };
 
 
@@ -86,7 +86,7 @@ var con = createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "gmc",
+    database: process.env.DB,
     multipleStatements:true
   });
 
@@ -368,12 +368,25 @@ app.post("/api/student/image", (req, res) => {
 
 app.post('/api/student/addmissonform', function (req, res) {
 
+    if(String(req.body.Fresh_ADP)==="" || String(req.body.Department)==="" || String(req.body.Shift)==="" || String(req.body.Gender)==="" || String(req.body.Domicile)===""){
+        return res.send({ message: 'Please Fill All Red Marked Fields'})
+    }
+
+
+    DOBstr = String(req.body.DOB).split("-")
+    DOB = DOBstr[2] + "-" + DOBstr[1] + "-" + DOBstr[0]
+
+    CNIC = String(req.body.CNIC).slice(0,5) + "-" + String(req.body.CNIC).slice(5,12) + "-" + String(req.body.CNIC).slice(12,13)
+
+
+    Full_Name = String(req.body.Full_Name).toUpperCase()
+
     var mail = `
-        Full Name : ${req.body.Full_Name}\n
+        Full Name : ${Full_Name}\n
         Father Name : ${req.body.Father_Name}\n
         Gender : ${req.body.Gender}\n
-        CNIC : ${req.body.CNIC}\n
-        DOB : ${req.body.DOB}\n
+        CNIC : ${CNIC}\n
+        DOB : ${DOB}\n
         Email : ${req.body.Email}\n
         Phone : ${req.body.Phone}\n
         Address : ${req.body.Address}\n
@@ -436,23 +449,23 @@ app.post('/api/student/addmissonform', function (req, res) {
         
         merit = ((parseInt(req.body.Matric_Obtained_Marks)/parseInt(req.body.Matric_Total_Marks))*parseInt(matric_percentage))+((parseInt(req.body.Inter_Obtained_Marks)/parseInt(req.body.Inter_Total_Marks))*parseInt(inter_percentage))
 
-        con.query("INSERT INTO admission_form(Fresh_ADP,Full_Name, image ,Father_Name, Gender, CNIC , DOB , Email , Phone, Guardian_Phone , Address , Domicile , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board  , ADP_Roll  , ADP_Total_Marks  , ADP_Obtained_Marks  , ADP_Year  , ADP_Board, merit, Status , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Fresh_ADP ,req.body.Full_Name ,req.body.image ,req.body.Father_Name ,req.body.Gender ,req.body.CNIC  ,req.body.DOB  ,req.body.Email  ,req.body.Phone ,req.body.Guardian_Phone  ,req.body.Address , req.body.Domicile  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board ,req.body.ADP_Roll  ,req.body.ADP_Total_Marks  ,req.body.ADP_Obtained_Marks  ,req.body.ADP_Year  ,req.body.ADP_Board , merit , "WhiteList" , new Date() , new Date().getFullYear()], function (error, results, fields) {
+        con.query("INSERT INTO admission_form(Fresh_ADP,Full_Name, image ,Father_Name, Gender, CNIC , DOB , Email , Phone, Guardian_Phone , Address , Domicile , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board  , ADP_Roll  , ADP_Total_Marks  , ADP_Obtained_Marks  , ADP_Year  , ADP_Board, merit, Status , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Fresh_ADP ,Full_Name ,req.body.image ,req.body.Father_Name ,req.body.Gender ,CNIC  ,DOB  ,req.body.Email  ,req.body.Phone ,req.body.Guardian_Phone  ,req.body.Address , req.body.Domicile  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board ,req.body.ADP_Roll  ,req.body.ADP_Total_Marks  ,req.body.ADP_Obtained_Marks  ,req.body.ADP_Year  ,req.body.ADP_Board , merit , "WhiteList" , new Date() , new Date().getFullYear()], function (error, results, fields) {
             if (error) throw error;
 
-            // var mailOptions = {
-            //     from: 'hurairah564@gmail.com',
-            //     to: req.body.Email,
-            //     subject: `Successfully Applied in ${req.body.Department}`,
-            //     text: `Your Provided Information is :\n\n\n${mail}`
-            // };
+            var mailOptions = {
+                from: 'hurairah564@gmail.com',
+                to: req.body.Email,
+                subject: `Successfully Applied in ${req.body.Department}`,
+                text: `Your Provided Information is :\n\n\n${mail}`
+            };
             
-            // transporter.sendMail(mailOptions, function(error, info){
-            //     if (error) {
-            //     console.log(error);
-            //     } else {
-            //     console.log('Email sent: ' + info.response);
-            //     }
-            // });
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                console.log(error);
+                } else {
+                console.log('Email sent: ' + info.response);
+                }
+            });
 
             return res.send({ error: false, data: results, message: 'Form Submitted Successfully!' });
         });
@@ -478,7 +491,7 @@ app.get('/api/hod/admission_form', function (req, res) {
 app.get('/api/ro/admission_control', function (req, res) {
     con.query('SELECT * FROM admission_control', function (error, results, fields) {
         if (error) {
-            console.log("Error")
+            console.log(error)
         };
         return res.send({ error: false, data: results, message: 'Complete Data.' });
     });
@@ -624,8 +637,6 @@ app.post('/api/hod/admissions', function (req, res) {
 // Year Wise Admissions ADP
 app.post('/api/hod/admissions/adp', function (req, res) {
 
-
-
     id=""
     if(req.body.Roll){
         id = ` and id='${req.body.Roll}'`
@@ -656,7 +667,7 @@ app.put('/api/students/status/:id', function (req, res) {
 // Student Merit List Morning
 app.post('/student/meritlist', function (req, res) {
     
-    con.query(`SELECT * FROM admission_form WHERE Shift=? and Department = ? and Status=? and Year = ?  ORDER BY merit DESC`,[req.body.Shift,req.body.Department,"WhiteList", new Date().getFullYear()], function (error, results, fields) {
+    con.query(`SELECT * FROM admission_form WHERE Shift=? and Fresh_ADP='Fresh' and Department = ? and Status=? and Year = ?  ORDER BY merit DESC`,[req.body.Shift,req.body.Department,"WhiteList", new Date().getFullYear()], function (error, results, fields) {
         if (error) {
             console.log(error)
         };
@@ -666,6 +677,7 @@ app.post('/student/meritlist', function (req, res) {
 
 // HOD Merit List Morning
 app.post('/hod/meritlist', function (req, res) {
+
 
     var Status = ""
     var Years = ""
@@ -691,8 +703,9 @@ app.post('/hod/meritlist', function (req, res) {
         Years = ` and Year = '${new Date().getFullYear()}'`
     }
 
-    update = `SELECT * FROM admission_form WHERE Shift=? and Department = '${req.body.Department}'${Status}${Years} ORDER BY merit DESC`
+    update = `SELECT * FROM admission_form WHERE Shift=? and Fresh_ADP='Fresh' and Department = '${req.body.Department}'${Status}${Years} ORDER BY merit DESC`
     
+
     con.query(update,["Morning","WhiteList"], function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -777,7 +790,7 @@ app.post('/hod/meritlist2', function (req, res) {
         Years = ` and Year = '${new Date().getFullYear()}'`
     }
 
-    update = `SELECT * FROM admission_form WHERE Shift=? and Department = '${req.body.Department}'${Status}${Years} ORDER BY merit DESC`
+    update = `SELECT * FROM admission_form WHERE Shift=? and Fresh_ADP='Fresh' and Department = '${req.body.Department}'${Status}${Years} ORDER BY merit DESC`
 
 
     con.query(update,["Evening","WhiteList"], function (error, results, fields) {
@@ -1310,6 +1323,64 @@ app.post('/api/hod/timetablegenerate', function (req, res) {
         return res.send({ error: false, data: results, message: 'Time Table Generated Successfully' });
     });
 }
+});
+
+
+// Add Employee
+app.get('/api/ao/employee', function (req, res) {
+
+    con.query("SELECT * FROM employee", function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Added Successfully' });
+    });
+});
+
+
+// Get Salary Record
+app.get('/api/ao/employeebill', function (req, res) {
+
+    con.query("SELECT * FROM employeebill", function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Added Successfully' });
+    });
+});
+
+// Get Visiting Record
+app.get('/api/ao/visiting', function (req, res) {
+
+    con.query("SELECT * FROM visiting_bill", function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Added Successfully' });
+    });
+});
+
+// Generate Employee Bill
+app.post('/api/ao/employeebill', function (req, res) {
+
+    con.query("INSERT INTO employeebill(Name,Designation,Amount,Time) value(?,?,?,?)" ,[req.body.Name,req.body.Designation,req.body.Amount,String(new Date()).slice(1,15)], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Bill Generated Successfully' });
+    });
+});
+
+
+// Add Employee
+app.post('/api/ao/employee', function (req, res) {
+
+    con.query("INSERT INTO employee(Name,Designation) value(?,?)" ,[req.body.Name,req.body.Designation], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Added Successfully' });
+    });
+});
+
+
+// Generate Visiting Bill
+app.post('/api/ao/visiting', function (req, res) {
+
+    con.query("INSERT INTO visiting_bill(Instructor,Designation,Periods,Amount_per_lecture,Total_Amount,Time) value(?,?,?,?,?,?)" ,[req.body.Instructor,req.body.Designation,req.body.Periods,req.body.Amount,parseInt(req.body.Periods)*parseInt(req.body.Amount),String(new Date()).slice(1,15)], function (error, results, fields) {
+        if (error) throw error;
+        return res.send({ error: false, data: results, message: 'Bill Generated Successfully' });
+    });
 });
 
 
