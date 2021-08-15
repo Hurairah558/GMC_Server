@@ -1585,17 +1585,10 @@ app.post('/api/ao/students2', function (req, res) {
 // Create AO Record
 app.post('/api/ao/students/record', function (req, res) {
 
-
-    const schema = Joi.object({
-        Fall_Spring : Joi.string().required()
-    });
-    
-    result = schema.validate(req.body);
-    
-    if (result.error){
-        res.send(result.error.details[0].message)
+    if(req.body.Fall_Spring===""){
+        return res.send({ message: 'Please Select Fall / Spring'})
     }
-    else{
+
     con.query(`SELECT * FROM students WHERE Degree_Status='Continue' and Status='Active'`, function (error, results, fields) {
         if (error) {
             console.log(error)
@@ -1620,7 +1613,6 @@ app.post('/api/ao/students/record', function (req, res) {
         });
 
     });
-}
 
 });
 
