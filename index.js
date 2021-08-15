@@ -23,30 +23,29 @@ const storage = multer.diskStorage({
     }
   });
 
-
-
   const upload = multer({
     storage: storage
   });
 
-// var transporter = nodemailer.createTransport({
-//     host:"gmcsialkot.cf",
-//     service: 'mail.privateemail.com',
-//     port:465,
-//     secure:true,
-//     auth: {
-//       user: "admin@gmcsialkot.cf",
-//       pass: "rUtrFJ@7kspf"
-//     }
-//   });
 
-  const transporter = nodemailer.createTransport({
-    service:'gmail',
+var transporter = nodemailer.createTransport({
+    host:"gmcsialkot.cf",
+    service: 'mail.privateemail.com',
+    port:465,
+    secure:true,
     auth: {
-       user: "hurairah564@gmail.com",
-       pass: '5156558gg'
+      user: "hurairah@gmcsialkot.cf",
+      pass: "hurairah"
     }
-});
+  });
+
+//   const transporter = nodemailer.createTransport({
+//     service:'gmail',
+//     auth: {
+//        user: "hurairah564@gmail.com",
+//        pass: '5156558gg'
+//     }
+// });
 
 // var transporter = nodemailer.createTransport({
 //     host: 'smtp.zoho.com',
@@ -425,24 +424,24 @@ app.post('/api/student/addmissonform', function (req, res) {
 
         
         merit = ((parseInt(req.body.Matric_Obtained_Marks)/parseInt(req.body.Matric_Total_Marks))*parseInt(matric_percentage))+((parseInt(req.body.Inter_Obtained_Marks)/parseInt(req.body.Inter_Total_Marks))*parseInt(inter_percentage))
-
+        
         con.query("INSERT INTO admission_form(Fresh_ADP,Full_Name, image ,Father_Name, Gender, CNIC , DOB , Email , Phone, Guardian_Phone , Address , Domicile , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board  , ADP_Roll  , ADP_Total_Marks  , ADP_Obtained_Marks  , ADP_Year  , ADP_Board, merit, Status , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Fresh_ADP ,Full_Name ,req.body.image ,req.body.Father_Name ,req.body.Gender ,CNIC  ,DOB  ,req.body.Email  ,req.body.Phone ,req.body.Guardian_Phone  ,req.body.Address , req.body.Domicile  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board ,req.body.ADP_Roll  ,req.body.ADP_Total_Marks  ,req.body.ADP_Obtained_Marks  ,req.body.ADP_Year  ,req.body.ADP_Board , merit , "WhiteList" , new Date() , new Date().getFullYear()], function (error, results, fields) {
             if (error) throw error;
 
-            var mailOptions = {
-                from: 'hurairah564@gmail.com',
-                to: req.body.Email,
-                subject: `Successfully Applied in ${req.body.Department}`,
-                text: `Your Provided Information is :\n\n\n${mail}`
-            };
+            // var mailOptions = {
+            //     from: 'hurairah@gmcsialkot.cf',
+            //     to: req.body.Email,
+            //     subject: `Successfully Applied in ${req.body.Department}`,
+            //     text: `Your Provided Information is :\n\n\n${mail}`
+            // };
             
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                console.log(error);
-                } else {
-                console.log('Email sent: ' + info.response);
-                }
-            });
+            // transporter.sendMail(mailOptions, function(error, info){
+            //     if (error) {
+            //     console.log(error);
+            //     } else {
+            //     console.log('Email sent: ' + info.response);
+            //     }
+            // });
 
             return res.send({ error: false, data: results, message: 'Form Submitted Successfully!' });
         });
@@ -1996,6 +1995,23 @@ app.delete('/api/hod/datesheet/:id', function (req, res) {
             console.log("Error")
         };
         return res.send({ error: false,data: results, message: 'SuccesFully Applied' });
+    });
+});
+
+//Reset Student Password
+app.post('/api/ro/student/reset', function (req, res) {
+    con.query("SELECT * FROM students WHERE id = ?", [req.body.id], function (error, results, fields) {
+        if (error) {
+            console.log("Error")
+        };
+
+            con.query("UPDATE students SET Password = ? WHERE id = ?", [results[0].Email,req.body.id], function (error, resultss, fields) {
+                if (error) {
+                    console.log("Error")
+                };
+        
+                return res.send({ error: false,data: results, message: 'Password Reset SuccesFull' });
+            });
     });
 });
 
