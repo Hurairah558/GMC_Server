@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2021 at 07:13 PM
+-- Generation Time: Aug 27, 2021 at 08:53 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -61,7 +61,8 @@ INSERT INTO `admins` (`id`, `Name`, `Email`, `Username`, `Password`, `Designatio
 (16, 'Sardar', 'Hurairahmalik5156558@gmail.com', 'RO', 'RO12345', 'RO', 'All', 'Assistant Professor'),
 (19, 'Hurairah', 'Hurairahmalik5156558@gmail.com', 'Hurairah', 'Hurairah', 'Teacher', 'Information Technology', 'Lecturer'),
 (20, 'Ramzan', 'Hurairahmalik5156558@gmail.com', 'AO', 'AO12345', 'AO', 'All', 'CTI'),
-(26, 'Cheema', 'hurairahmalik5156558@gmail.com', 'Cheema', 'Cheema', 'Teacher', 'BBA', 'Lecturer');
+(26, 'Cheema', 'hurairahmalik5156558@gmail.com', 'Cheema', 'Cheema', 'Teacher', 'BBA', 'Lecturer'),
+(29, 'Tasawur', 'hurairahmalik558@gmail.com', 'Tasawur', 'Tasawur', 'Teacher', 'Information Technology', 'CTI');
 
 -- --------------------------------------------------------
 
@@ -282,7 +283,7 @@ INSERT INTO `admission_form` (`id`, `Fresh_ADP`, `Full_Name`, `image`, `Father_N
 (16801, 'Fresh', 'Abdul-Qaiyoum', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '725', '2021', 'Gujranwala', '369865', '1100', '836', '2021', 'Gujranwala', '', '', '', '', '', '72.97272727272727', 'WhiteList', '2021-08-15 22:06:36.461059', '2022'),
 (16802, 'Fresh', 'Abdul-Quddus', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '671', '2021', 'Gujranwala', '369865', '1100', '770', '2021', 'Gujranwala', '', '', '', '', '', '67.3', 'WhiteList', '2021-08-15 22:06:36.465060', '2021'),
 (16803, 'Fresh', 'Abdul-Waajid', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '902', '2021', 'Gujranwala', '369865', '1100', '838', '2021', 'Gujranwala', '', '', '', '', '', '77.92727272727272', 'WhiteList', '2021-08-15 22:06:36.470060', '2022'),
-(16804, 'Fresh', 'Abdul-Wadood', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Morning', '369565', '1100', '974', '2021', 'Gujranwala', '369865', '1100', '990', '2021', 'Gujranwala', '', '', '', '', '', '89.56363636363636', 'WhiteList', '2021-08-15 22:06:36.477061', '2021'),
+(16804, 'Fresh', 'Abdul-Wadood', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Morning', '369565', '1100', '974', '2021', 'Gujranwala', '369865', '1100', '990', '2021', 'Gujranwala', '', '', '', '', '', '89.56363636363636', 'BlackList', '2021-08-15 22:06:36.477061', '2021'),
 (16805, 'Fresh', 'Abdul-Wahhab', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '662', '2021', 'Gujranwala', '369865', '1100', '848', '2021', 'Gujranwala', '', '', '', '', '', '72.01818181818182', 'WhiteList', '2021-08-15 22:06:36.482059', '2022'),
 (16806, 'Fresh', 'Abdul-Warith', 'h.jpg', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '716', '2021', 'Gujranwala', '369865', '1100', '761', '2021', 'Gujranwala', '', '', '', '', '', '67.95454545454545', 'WhiteList', '2021-08-15 22:06:36.486060', '2021'),
 (16807, 'Fresh', 'Abdullah', 'h.jpg', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Morning', '369565', '1100', '854', '2021', 'Gujranwala', '369865', '1100', '864', '2021', 'Gujranwala', '', '', '', '', '', '78.27272727272727', 'WhiteList', '2021-08-15 22:06:36.493059', '2021'),
@@ -1539,7 +1540,9 @@ INSERT INTO `admission_form` (`id`, `Fresh_ADP`, `Full_Name`, `image`, `Father_N
 (18049, 'Fresh', 'Yusuf', 'h.jpg', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '718', '2021', 'Gujranwala', '369865', '1100', '685', '2021', 'Gujranwala', '', '', '', '', '', '63.17272727272727', 'WhiteList', '2021-08-15 22:06:42.198925', '2021'),
 (18050, 'Fresh', 'Zaeem', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Morning', '369565', '1100', '836', '2021', 'Gujranwala', '369865', '1100', '736', '2021', 'Gujranwala', '', '', '', '', '', '69.63636363636364', 'WhiteList', '2021-08-15 22:06:42.204941', '2021'),
 (18051, 'Fresh', 'Zafar', 'h.jpg', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Morning', '369565', '1100', '843', '2021', 'Gujranwala', '369865', '1100', '633', '2021', 'Gujranwala', '', '', '', '', '', '63.27272727272727', 'WhiteList', '2021-08-15 22:06:42.208766', '2022'),
-(18052, 'Fresh', 'Zafir', 'h.jpg', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '915', '2021', 'Gujranwala', '369865', '1100', '872', '2021', 'Gujranwala', '', '', '', '', '', '80.44545454545454', 'WhiteList', '2021-08-15 22:06:42.211684', '2022');
+(18052, 'Fresh', 'Zafir', 'h.jpg', 'Father_Name', 'Female', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', 'Evening', '369565', '1100', '915', '2021', 'Gujranwala', '369865', '1100', '872', '2021', 'Gujranwala', '', '', '', '', '', '80.44545454545454', 'WhiteList', '2021-08-15 22:06:42.211684', '2022'),
+(18053, 'Fresh', 'ABU HURAIRAH', '1629075073641BOP.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '11-08-2021', 'hurairahmalik5156558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Sialkot', 'Information Technology', 'Morning', '476043', '1100', '845', '2015', 'Gujranwala', '133710', '1100', '731', '2017', 'Gujranwala', '', '', '', '', '', '69.56363636363636', 'WhiteList', '2021-08-16 05:51:16.729', '2021'),
+(18054, 'Fresh', 'ABU HURAIRAH', '1630082552085BOP.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '06-08-2021', 'hurairahmalik5156558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'Botany', 'Morning', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '', '', '', '', '', '100', 'WhiteList', '2021-08-27 21:42:36.698', '2021');
 
 -- --------------------------------------------------------
 
@@ -1617,7 +1620,9 @@ INSERT INTO `attendance` (`id`, `Roll`, `Name`, `Attendance`, `Course_Title`, `C
 (107, '', 'Abu Hurairah', '50', 'DB', 'IT-245', 'Hurairah', 'Information Technology', '5', 'Fall-2021', 'Morning'),
 (108, '', 'Abu Hurairah', '100', 'DB', 'IT-245', 'Hurairah', 'Information Technology', '5', 'Fall-2021', 'Morning'),
 (109, '', 'ABU HURAIRAH', '30', 'DB', 'IT-245', 'Hurairah', 'Information Technology', '5', 'Fall-2021', 'Morning'),
-(110, '', 'ABU HURAIRAH', '70', 'DB', 'IT-245', 'Hurairah', 'Information Technology', '5', 'Fall-2021', 'Morning');
+(110, '', 'ABU HURAIRAH', '70', 'DB', 'IT-245', 'Hurairah', 'Information Technology', '5', 'Fall-2021', 'Morning'),
+(111, '', 'ABU HURAIRAH', '90', 'IT-209', 'Data Structure', 'Tasawur', 'Information Technology', '4', 'Fall-2021', 'Morning'),
+(112, '18', 'Adiy', '80', 'IT-209', 'Data Structure', 'Tasawur', 'Information Technology', '4', 'Fall-2021', 'Morning');
 
 -- --------------------------------------------------------
 
@@ -1644,7 +1649,8 @@ INSERT INTO `attendance_unique` (`id`, `Instructor`, `Course_Title`, `Course_Cod
 (6, 'BBA', 'Data Structure', 'IT-209', 'BBA', 'Morning', '1', 'Fall-2021'),
 (12, 'Cheema', 'Data Structure', 'IT-245', 'BBA', 'Morning', '2', 'Fall-2021'),
 (14, 'Sohail Babar', 'DB', 'IT-245', 'Information Technology', 'Morning', '6', 'Fall-2021'),
-(15, 'Hurairah', 'DB', 'IT-245', 'Information Technology', 'Morning', '5', 'Fall-2021');
+(15, 'Hurairah', 'DB', 'IT-245', 'Information Technology', 'Morning', '5', 'Fall-2021'),
+(16, 'Tasawur', 'IT-209', 'Data Structure', 'Information Technology', 'Morning', '4', 'Fall-2021');
 
 -- --------------------------------------------------------
 
@@ -1750,7 +1756,8 @@ INSERT INTO `courses` (`id`, `Course_Title`, `Course_Code`, `Department`) VALUES
 (7, 'DCN', 'IT-213', 'BBA'),
 (8, 'PKS', 'MCM-101', 'BBA'),
 (10, 'DB', 'IT-245', 'Information Technology'),
-(12, 'IT-209', 'Data Structure', 'Information Technology');
+(12, 'IT-209', 'Data Structure', 'Information Technology'),
+(13, 'C++', 'IT-106', 'Information Technology');
 
 -- --------------------------------------------------------
 
@@ -1824,7 +1831,8 @@ CREATE TABLE `employeebill` (
 --
 
 INSERT INTO `employeebill` (`id`, `Name`, `Designation`, `Amount`, `Time`) VALUES
-(3, 'Cheema', 'Student', '236', 'on Aug 09 2021');
+(3, 'Cheema', 'Student', '236', 'on Aug 09 2021'),
+(4, 'Cheema', 'Student', '150000', 'on Aug 16 2021');
 
 -- --------------------------------------------------------
 
@@ -1877,7 +1885,31 @@ INSERT INTO `fee_record` (`id`, `Roll`, `Full_Name`, `Father_Name`, `Department`
 (701, '', 'ABU HURAIRAH', 'Malik Karam Alahi', 'Information Technology', '1', 'Morning', 'Paid', '1234556789', 15436, 'Fall-2021', '2021-08-15 14:49:25.742'),
 (702, '', 'Abu Hurairah', 'a', 'Information Technology', '1', 'Morning', 'Paid', '1234556789', 15437, 'Fall-2021', '2021-08-15 14:49:25.742'),
 (703, '', 'Abu Hurairah', 'a', 'Information Technology', '1', 'Morning', 'Paid', '1234556789', 15438, 'Fall-2021', '2021-08-15 14:49:25.742'),
-(704, '', 'ABU HURAIRAH', 'Malik Karam Alahi', 'Information Technology', '1', 'Morning', 'Paid', '1234556789', 15439, 'Fall-2021', '2021-08-15 14:49:25.742');
+(704, '', 'ABU HURAIRAH', 'Malik Karam Alahi', 'Information Technology', '1', 'Morning', 'Paid', '1234556789', 15439, 'Fall-2021', '2021-08-15 14:49:25.742'),
+(705, '', 'ABU HURAIRAH', 'Malik Karam Alahi', 'Information Technology', '1', 'Morning', 'Paid', '1234556789', 15440, 'Fall-2021', '2021-08-16 06:14:23.075'),
+(706, '18', 'Adiy', 'Father_Name', 'Information Technology', '1', 'Morning', 'Paid', '03015696326', 15441, 'Fall-2021', '2021-08-16 06:14:23.075'),
+(707, '', 'ABU HURAIRAH', 'Malik Karam Alahi', 'Information Technology', '1', 'Morning', 'Paid', '1234556789', 15440, 'Spring-2021', '2021-08-16 06:14:37.110'),
+(708, '18', 'Adiy', 'Father_Name', 'Information Technology', '1', 'Morning', 'Paid', '03015696326', 15441, 'Spring-2021', '2021-08-16 06:14:37.110');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gsm`
+--
+
+CREATE TABLE `gsm` (
+  `IP` varchar(255) DEFAULT NULL,
+  `Port` varchar(255) DEFAULT NULL,
+  `Username` varchar(255) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `gsm`
+--
+
+INSERT INTO `gsm` (`IP`, `Port`, `Username`, `Password`) VALUES
+('101', '8090', 'Hurairah', 'Hurairah');
 
 -- --------------------------------------------------------
 
@@ -1978,7 +2010,7 @@ CREATE TABLE `meritlist_controller` (
 
 INSERT INTO `meritlist_controller` (`id`, `MeritList`, `NOS_Start`, `NOS_End`, `Display`, `Department`) VALUES
 (45, '1st Merit List', '1', '55', 1, 'BBA'),
-(46, '', '0', '0', 0, 'Botany'),
+(46, '1st Merit List', '1', '1', 0, 'Botany'),
 (47, '', '0', '0', 0, 'Chemistry'),
 (48, '', '0', '0', 0, 'Economics'),
 (49, '', '0', '0', 0, 'English'),
@@ -2079,7 +2111,7 @@ CREATE TABLE `merit_list_formula` (
 --
 
 INSERT INTO `merit_list_formula` (`Matric`, `Inter`) VALUES
-('70', '30');
+('30', '70');
 
 -- --------------------------------------------------------
 
@@ -2174,14 +2206,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `Fresh_ADP`, `Roll`, `Full_Name`, `image`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Guardian_Phone`, `Address`, `Domicile`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `ADP_Roll`, `ADP_Total`, `ADP_Obtained_Marks`, `ADP_Year`, `ADP_Board`, `Semester`, `Fee_Status`, `Status`, `Degree_Status`, `Courses`, `Shift`, `ROA`, `RO_Dues`, `AO_Dues`, `HOD_Dues`, `Library_Dues`, `Admission_Time`, `Year`, `Password`, `Designation`) VALUES
-(15433, NULL, '22', 'Cheema', '16282607560804f8d13e1b925e5ec646f06a35fe26c56.gif', 'a', 'Female', 'a', '2021-08-12', 'hurairahmalik558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Sialkot', 'Information Technology', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'Guj', NULL, NULL, NULL, NULL, NULL, '1', 'Paid', 'Active', 'Continue', 'IT-245:DB,Data Structure:IT-209,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-06 20:19:33.584', '2021', '55', 'Student'),
-(15434, NULL, '', 'ABU HURAIRAH', '16284398647690fa8cb6ebfa7c2ca5e3e229129ba85f3-removebg-preview-removebg-preview.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '18-08-2021', 'hurairahmalik5156558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'BBA', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '3.0', '1', '1', '1', 'Paid', 'Active', 'Continue', '', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-10 08:06:53.649', '2021', '5', 'Student'),
-(15435, 'ADP', '367', 'ABU HURAIRAH', '16285673620383ba6c56cd13b7955f0b626eb54bcd1a0.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '18-08-2021', 'hurairahmalik5156558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'BBA', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '3.0', '1', '1', '1', 'Paid', 'Active', 'Continue', '', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-10 08:17:58.351', '2021', 'hurairahmalik5156558@gmail.com', 'Student'),
-(15436, 'Fresh', '', 'ABU HURAIRAH', '1628912758500Capture.PNG', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '11-08-2021', 'hurairahmalik515655d8@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'Information Technology', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '', '', '', '', '', '1', 'Paid', 'Active', 'Continue', 'IT-245:DB,Data Structure:IT-209,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-14 08:46:59.306', '2021', '5', 'Student'),
-(15437, 'ADP', '', 'Abu Hurairah', '16282748560043ba6c56cd13b7955f0b626eb54bcd1a0-removebg-preview.png', 'a', 'Male', 'a', '2021-08-03', 'hurairahmalik515sdf6558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Sialkot', 'Information Technology', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'Paid', 'Active', 'Continue', 'IT-245:DB,Data Structure:IT-209,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-14 08:49:37.031', '2021', '5', 'Student'),
-(15438, 'ADP', '', 'Abu Hurairah', '1628913044600BOP.png', 'a', 'Male', 'a', '2021-08-03', 'hurairahmaliksdfd5156558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Sialkot', 'Information Technology', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'Paid', 'Active', 'Continue', 'IT-245:DB,Data Structure:IT-209,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-14 08:50:30.652', '2021', 'hurairahmaliksdfd5156558@gmail.com', 'Student'),
-(15439, 'Fresh', '', 'ABU HURAIRAH', '1628913785222Capture.PNG', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '12-08-2021', 'hurairahmalik5sdfsdf156558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'Information Technology', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '', '', '', '', '', '1', 'Paid', 'Active', 'Continue', 'IT-245:DB,Data Structure:IT-209,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-14 09:03:52.165', '2021', '55', 'Student'),
-(15440, 'Fresh', '', 'ABU HURAIRAH', '1629044453401BOP.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '11-08-2021', 'hurairahmalik515546565466558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'Information Technology', '476043', '1100', '845', '2015', 'Gujranwala', '133710', '1100', '731', '2017', 'Gujranwala', '', '', '', '', '', '1', 'Paid', 'Active', 'Continue', 'IT-245:DB,Data Structure:IT-209,IT-245:DB,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-15 21:27:36.962', '2021', 'ef78an', 'Student');
+(15440, 'Fresh', '', 'ABU HURAIRAH', '1629044453401BOP.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '11-08-2021', 'hurairahmalik515546565466558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'Information Technology', '476043', '1100', '845', '2015', 'Gujranwala', '133710', '1100', '731', '2017', 'Gujranwala', '', '', '', '', '', '1', 'Paid', 'Active', 'Continue', 'IT-106:C++,Data Structure:IT-209,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-15 21:27:36.962', '2021', 'ef78an', 'Student'),
+(15441, 'Fresh', '18', 'Adiy', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', '369565', '1100', '997', '2021', 'Gujranwala', '369865', '1100', '985', '2021', 'Gujranwala', '', '', '', '', '', '1', 'Paid', 'Active', 'Continue', 'IT-106:C++,Data Structure:IT-209,IT-245:DB,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-16 06:00:19.811', '2021', 'q34ezi', 'Student');
 
 -- --------------------------------------------------------
 
@@ -2235,7 +2261,8 @@ CREATE TABLE `visiting_bill` (
 --
 
 INSERT INTO `visiting_bill` (`id`, `Instructor`, `Designation`, `Periods`, `Amount_per_lecture`, `Total_Amount`, `Time`) VALUES
-(4, 'Sohail Babar', 'Professor', '30', '1200', '36000', 'on Aug 09 2021');
+(4, 'Sohail Babar', 'Professor', '30', '1200', '36000', 'on Aug 09 2021'),
+(5, 'Sohail Babar', 'Professor', '48', '1200', '57600', 'on Aug 16 2021');
 
 --
 -- Indexes for dumped tables
@@ -2369,13 +2396,13 @@ ALTER TABLE `visiting_bill`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `admission_form`
 --
 ALTER TABLE `admission_form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18053;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18055;
 
 --
 -- AUTO_INCREMENT for table `announcements`
@@ -2387,13 +2414,13 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `attendance_unique`
 --
 ALTER TABLE `attendance_unique`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `awardlist`
@@ -2411,7 +2438,7 @@ ALTER TABLE `awardlist_unique`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `datesheet`
@@ -2429,13 +2456,13 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `employeebill`
 --
 ALTER TABLE `employeebill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `fee_record`
 --
 ALTER TABLE `fee_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=705;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=709;
 
 --
 -- AUTO_INCREMENT for table `instructors`
@@ -2465,19 +2492,19 @@ ALTER TABLE `merit_list`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15441;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15442;
 
 --
 -- AUTO_INCREMENT for table `timetable`
 --
 ALTER TABLE `timetable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
 
 --
 -- AUTO_INCREMENT for table `visiting_bill`
 --
 ALTER TABLE `visiting_bill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

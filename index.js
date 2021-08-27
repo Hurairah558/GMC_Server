@@ -29,8 +29,7 @@ const storage = multer.diskStorage({
 
 
 var transporter = nodemailer.createTransport({
-    host:"gmcsialkot.cf",
-    service: 'mail.privateemail.com',
+    host:"server266.web-hosting.com",
     port:465,
     secure:true,
     auth: {
@@ -111,6 +110,21 @@ var con = createConnection({
 
 
 app.get("/", function(req, res,next){
+
+    var mailOptions = {
+        from: 'hurairah@gmcsialkot.cf',
+        to: "hurairah564@gmail.com",
+        subject: `Successfully Applied in BBA`,
+        text: `Your Provided Information is :sdfdsf`
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+        console.log(error);
+        } else {
+        console.log('Email sent: ' + info.response);
+        }
+    });
 
     return res.send({"GMC":"Huraiah"})
 
@@ -373,7 +387,7 @@ app.post("/api/student/image", (req, res) => {
 
 app.post('/api/student/addmissonform', function (req, res) {
 
-    if(String(req.body.Fresh_ADP)==="" || String(req.body.Department)==="" || String(req.body.Shift)==="" || String(req.body.Gender)==="" || String(req.body.Domicile)===""){
+    if(String(req.body.Department)==="" || String(req.body.Shift)==="" || String(req.body.Gender)==="" || String(req.body.Domicile)===""){
         return res.send({ message: 'Please Fill All Red Marked Fields'})
     }
 
@@ -425,7 +439,7 @@ app.post('/api/student/addmissonform', function (req, res) {
         
         merit = ((parseInt(req.body.Matric_Obtained_Marks)/parseInt(req.body.Matric_Total_Marks))*parseInt(matric_percentage))+((parseInt(req.body.Inter_Obtained_Marks)/parseInt(req.body.Inter_Total_Marks))*parseInt(inter_percentage))
         
-        con.query("INSERT INTO admission_form(Fresh_ADP,Full_Name, image ,Father_Name, Gender, CNIC , DOB , Email , Phone, Guardian_Phone , Address , Domicile , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board  , ADP_Roll  , ADP_Total_Marks  , ADP_Obtained_Marks  , ADP_Year  , ADP_Board, merit, Status , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [req.body.Fresh_ADP ,Full_Name ,req.body.image ,req.body.Father_Name ,req.body.Gender ,CNIC  ,DOB  ,req.body.Email  ,req.body.Phone ,req.body.Guardian_Phone  ,req.body.Address , req.body.Domicile  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board ,req.body.ADP_Roll  ,req.body.ADP_Total_Marks  ,req.body.ADP_Obtained_Marks  ,req.body.ADP_Year  ,req.body.ADP_Board , merit , "WhiteList" , new Date() , new Date().getFullYear()], function (error, results, fields) {
+        con.query("INSERT INTO admission_form(Fresh_ADP,Full_Name, image ,Father_Name, Gender, CNIC , DOB , Email , Phone, Guardian_Phone , Address , Domicile , Department , Shift , Matric_Roll  , Matric_Total_Marks  , Matric_Obtained_Marks  , Matric_Year  , Matric_Board  , Inter_Roll  , Inter_Total_Marks  , Inter_Obtained_Marks  , Inter_Year  , Inter_Board  , ADP_Roll  , ADP_Total_Marks  , ADP_Obtained_Marks  , ADP_Year  , ADP_Board, merit, Status , Admission_Time , Year ) value(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", ["Fresh" ,Full_Name ,req.body.image ,req.body.Father_Name ,req.body.Gender ,CNIC  ,DOB  ,req.body.Email  ,req.body.Phone ,req.body.Guardian_Phone  ,req.body.Address , req.body.Domicile  ,req.body.Department , req.body.Shift ,req.body.Matric_Roll  ,req.body.Matric_Total_Marks  ,req.body.Matric_Obtained_Marks  ,req.body.Matric_Year  ,req.body.Matric_Board  ,req.body.Inter_Roll  ,req.body.Inter_Total_Marks  ,req.body.Inter_Obtained_Marks  ,req.body.Inter_Year  ,req.body.Inter_Board ,req.body.ADP_Roll  ,req.body.ADP_Total_Marks  ,req.body.ADP_Obtained_Marks  ,req.body.ADP_Year  ,req.body.ADP_Board , merit , "WhiteList" , new Date() , new Date().getFullYear()], function (error, results, fields) {
             if (error) throw error;
 
             // var mailOptions = {
@@ -2014,6 +2028,33 @@ app.post('/api/ro/student/reset', function (req, res) {
             });
     });
 });
+
+
+//GSM Set
+app.post('/api/ro/sms', function (req, res) {
+
+        con.query("UPDATE gsm SET IP = ? ,Port = ?, Username = ?, Password = ?", [req.body.IP,req.body.Port,req.body.Username,req.body.Password], function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+    
+            return res.send({ error: false,data: results, message: 'SuccesFull' });
+        });
+});
+
+
+//GSM Get
+app.get('/api/ro/sms/get', function (req, res) {
+
+        con.query("SELECT * FROM gsm", function (error, results, fields) {
+            if (error) {
+                console.log(error)
+            };
+    
+            return res.send({ error: false,data: results, message: 'SuccesFull' });
+        });
+});
+
 
 app.listen(3001, function () {
     console.log('Node app is running on port 3001');
