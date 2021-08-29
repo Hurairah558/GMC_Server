@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2021 at 08:53 PM
+-- Generation Time: Aug 29, 2021 at 03:39 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -1562,9 +1562,6 @@ CREATE TABLE `announcements` (
 --
 
 INSERT INTO `announcements` (`id`, `Subject`, `Announcement`, `Timing`) VALUES
-(14, 'Admissions', 'Admissions will open in August', '2021-07-09T00:03:31.336Z'),
-(15, 'Dummy', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one ', '2021-07-09T00:04:09.924Z'),
-(17, 'Admissions', 'Admissions will open in August', '2021-07-09T00:14:39.408Z'),
 (19, 'Result', 'Result Will Upload in August', '2021-07-30T16:37:15.339Z');
 
 -- --------------------------------------------------------
@@ -1909,7 +1906,7 @@ CREATE TABLE `gsm` (
 --
 
 INSERT INTO `gsm` (`IP`, `Port`, `Username`, `Password`) VALUES
-('101', '8090', 'Hurairah', 'Hurairah');
+('103', '8090', 'Hurairah', 'Hurairah');
 
 -- --------------------------------------------------------
 
@@ -2206,8 +2203,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `Fresh_ADP`, `Roll`, `Full_Name`, `image`, `Father_Name`, `Gender`, `CNIC`, `DOB`, `Email`, `Phone`, `Guardian_Phone`, `Address`, `Domicile`, `Department`, `Matric_Roll`, `Matric_Total`, `Matric_Obtained_Marks`, `Matric_Year`, `Matric_Board`, `Inter_Roll`, `Inter_Total`, `Inter_Obtained_Marks`, `Inter_Year`, `Inter_Board`, `ADP_Roll`, `ADP_Total`, `ADP_Obtained_Marks`, `ADP_Year`, `ADP_Board`, `Semester`, `Fee_Status`, `Status`, `Degree_Status`, `Courses`, `Shift`, `ROA`, `RO_Dues`, `AO_Dues`, `HOD_Dues`, `Library_Dues`, `Admission_Time`, `Year`, `Password`, `Designation`) VALUES
-(15440, 'Fresh', '', 'ABU HURAIRAH', '1629044453401BOP.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '11-08-2021', 'hurairahmalik515546565466558@gmail.com', '1234556789', '1234556789', 'Karachi', 'Abbottabad', 'Information Technology', '476043', '1100', '845', '2015', 'Gujranwala', '133710', '1100', '731', '2017', 'Gujranwala', '', '', '', '', '', '1', 'Paid', 'Active', 'Continue', 'IT-106:C++,Data Structure:IT-209,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-15 21:27:36.962', '2021', 'ef78an', 'Student'),
-(15441, 'Fresh', '18', 'Adiy', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03015696326', '03015696326', 'Daska', 'Sialkot', 'Information Technology', '369565', '1100', '997', '2021', 'Gujranwala', '369865', '1100', '985', '2021', 'Gujranwala', '', '', '', '', '', '1', 'Paid', 'Active', 'Continue', 'IT-106:C++,Data Structure:IT-209,IT-245:DB,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-16 06:00:19.811', '2021', 'q34ezi', 'Student');
+(15440, 'Fresh', '20', 'ABU HURAIRAH', '1629044453401BOP.png', 'Malik Karam Alahi', 'Male', '34601-1898438-7', '11-08-2021', 'hurairahmalik515546565466558@gmail.com', '03075156558', '1234556789', 'Karachi', 'Abbottabad', 'Information Technology', '476043', '1100', '845', '2015', 'Gujranwala', '133710', '1100', '731', '2017', 'Gujranwala', '', '', '', '', '', '2', 'Paid', 'Active', 'Continue', 'IT-106:C++,Data Structure:IT-209,', 'Morning', 'Cricket:1st,Hockey:2nd,', NULL, 'Fee Not Paid in Fall-2020', '', NULL, '2021-08-15 21:27:36.962', '2021', 'ef78an', 'Student'),
+(15441, 'Fresh', '18', 'Adiy', 'h.jpg', 'Father_Name', 'Male', '3460163598769', '05-29-2022', 'hurairah@558', '03075156558', '03015696326', 'Daska', 'Sialkot', 'Information Technology', '369565', '1100', '997', '2021', 'Gujranwala', '369865', '1100', '985', '2021', 'Gujranwala', '', '', '', '', '', '2', 'Paid', 'Active', 'Continue', 'IT-106:C++,Data Structure:IT-209,IT-245:DB,', 'Morning', NULL, NULL, NULL, NULL, NULL, '2021-08-16 06:00:19.811', '2021', 'q34ezi', 'Student');
 
 -- --------------------------------------------------------
 
@@ -2408,7 +2405,7 @@ ALTER TABLE `admission_form`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `attendance`
